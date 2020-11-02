@@ -3,6 +3,14 @@ Title: Global Economy Equilibrium Scenario Builder
 
 # Global Economy Equilibrium Scenario Builder
 
+#### OGResearch, November 2020
+
+#### jaromir.benes@ogresearch.com
+
+---
+
+## Table of Contents
+
 <!--TOC max2-->
 
 $$

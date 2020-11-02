@@ -1,6 +1,10 @@
+%% Create Closed Economy Model
 
 close all
 clear
+
+
+%% Create Model Object
 
 sourceFiles = [
     "source/real.model"
@@ -15,6 +19,9 @@ m = Model( ...
     , "growth", true ...
     , "assign", struct("open", ~true) ...
 );
+
+
+%% Calibrate Parameters
 
 m.gg_ss_roc_a = 1.02;
 m.gg_rho_a = 0.5;
@@ -36,16 +43,16 @@ m.beta = 0.95;
 m.beta_k = 0.90;
 m.delta = 0.15;
 m.eta = 0;
-m.rho_w = 0.40; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+m.rho_w = 0.40;
 m.kappa_1 = 0.1;
 m.kappa_2 = 0.50;
 
-m.chi = 1; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+m.chi = 1;
 m.chi_curr = 0.2;
-m.chi_ch = 0; 0.2;
+m.chi_ch = 0;
 
 m.nu_0 = 0;
-m.nu_1 = 0.01; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+m.nu_1 = 0.01;
 
 m.mu_y2 = 1; 1.4;
 
@@ -71,11 +78,11 @@ m.rho_a = 0.5;
 % Price Setting
 m.mu_py = 1.1;
 m.xi_py = 25;
-m.zeta_py = 0.5; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%k
+m.zeta_py = 0.5;
 
 % Monetary Policy
 m.rho_r = 0.50;
-m.psi_pch = 3; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+m.psi_pch = 3;
 
 % Fiscal Policy
 m.ss_ncg_to_ngdp = 0.20;
@@ -85,6 +92,9 @@ m.rho_txl1 = 0.5;
 m.tau_txl1 = 2.5;
 m.tau_cg = 0;
 m.rho_txl2 = 0.5;
+
+
+%% Calculate Steady State
 
 % Starting Values for Steady State
 m.dg_to_ngdp = m.ss_dg_to_ngdp;
@@ -105,12 +115,20 @@ s = postprocess(m, s, "steady");
 
 checkSteady(m);
 
+
+%% Report Steady State
 table( ...
     m, ["steadyLevel", "steadyChange", "form", "description"] ...
-    , "writeTable", "tables/createAutonomousBaseline.xlsx" ...
+    , "writeTable", "tables/createClosed.xlsx" ...
 );
 
+
+%% First Order Solution
+
 m = solve(m)
+
+
+%% Save Model Object to MAT File
 
 save mat/createClosed.mat m
 

@@ -15,12 +15,12 @@
     "Price of Private Consumption" pch
     "Price of Private Investment" pih
     "Roundabout Production" z
-    y2
-    y1
-    y
-    py0
-    py1
-    py2
+    "Stage T-2 Output" y2
+    "Stage T-1 Output" y1
+    "Stage T-0 Output" y
+    "Price of Stage T-0 Output" py0
+    "Price of State T-1 Output" py1
+    "price of Stage T-2 Output" py2
     "Nominal GDP" ngdp
 
     "Price of Domestic Production" py
@@ -33,15 +33,17 @@
     
     "Price of Final Domestic Output, Rate of Change" roc_py
     "Price of Final Domestic Output, Rate of Change, Point of Reference" ref_roc_py
-    roc_w, roc_pch, roc_ih
+    "Nominal Wage Rate, Rate of Change" roc_w
+    "Price of Consumer Goods, Rate of Change" roc_pch
+    "Household Investment, Rate of Change" roc_ih
     "Capital Utilization Rate" u
-    roc_k
+    "Household Capital, Rate of Change" roc_k
 
     "Domestic Technology Choice: Intermediate Imports" am
     "Domestic Technology Choice: Intermediate Imports, Rate of Change" roc_am
-    ych
-    ycg
-    yih
+    "Domestic Component of Private Consumption" ych
+    "Domestic Component of Government Consumption" ycg
+    "Domestic Component of Private Investment" yih
 
 
 !log-variables
@@ -50,15 +52,15 @@
 
 !substitutions
 
-    trn := (pch * ch + pih * ih + kappa_1 * pk * k);
-    curr := (w*nh*nf);
-    netw := nu_1*nn/(pk*k + dg_to_ngdp*ngdp !if open; + 1.00*nfa_to_ngdp*ngdp !end ); %%%%%%%%%%%%%%%%%%%
-    shf_curr := normpdf((log(pch*ch/($curr$*exp(shk_curr))) - log(xi_ch1))/xi_ch2)/xi_ch2;
+    trn = (pch * ch + pih * ih + kappa_1 * pk * k);
+    curr = (w*nh*nf - txl2*pch*ch);
+    netw = nu_1*nn/(pk*k + dg_to_ngdp*ngdp !if open; + nfa_to_ngdp*ngdp !end );
+    shf_curr = normpdf((log(pch*ch/($curr$*exp(shk_curr))) - log(xi_ch1))/xi_ch2)/xi_ch2;
 
-    adj_y2 := log(roc_am/&roc_am)-log(roc_an/&roc_an) - &rdf*(log(roc_am{+1}/&roc_am)-log(roc_an{+1}/&roc_an)); 
-    adj_y1 := log(roc_ak/&roc_ak)-log(roc_ay2/&roc_ay2) - &rdf*(log(roc_ak{+1}/&roc_ak)-log(roc_ay2{+1}/&roc_ay2)); 
-    adj_ih := log(ih/ih{-1}/&roc_ih) - beta*log(ih{+1}/ih/&roc_ih);
-    adj_py := log(roc_py/ref_roc_py) - beta*log(roc_py{+1}/ref_roc_py{+1});
+    adj_y2 = log(roc_am/&roc_am)-log(roc_an/&roc_an) - &rdf*(log(roc_am{+1}/&roc_am)-log(roc_an{+1}/&roc_an)); 
+    adj_y1 = log(roc_ak/&roc_ak)-log(roc_ay2/&roc_ay2) - &rdf*(log(roc_ak{+1}/&roc_ak)-log(roc_ay2{+1}/&roc_ay2)); 
+    adj_ih = log(ih/ih{-1}/&roc_ih) - beta*log(ih{+1}/ih/&roc_ih);
+    adj_py = log(roc_py/ref_roc_py) - beta*log(roc_py{+1}/ref_roc_py{+1});
 
 
 !parameters
@@ -104,9 +106,6 @@
 
     rdf = beta*vh{+1}*pch{+1}/(vh*pch);
     
-    % vh*(w0 + 0*pch*ch/nh*xi_ch0*$shf_curr$) = nh^eta;
-    % vh*(w0 + 0*pch*ch/nh*xi_ch0*log(pch*ch*&w*&nh*&nf/(w*nh*nf*&pch*&ch))) = nh^eta;
-
 
 %% Labor Supply
 
@@ -212,9 +211,11 @@
     ch = ych;
     cg = ycg;
     ih = yih;
-
+    
 %
 
+
+%% Monetary Policy
 
     "Monetary Policy Reaction Function"
     log(r) ...
@@ -222,10 +223,6 @@
         + (1-rho_r) * [ log(&r) + psi_pch * (log(roc_pch{+1}) - log(ss_roc_pch)) ] ...
         + shk_r ...
     !! pch = pch{-1} * ss_roc_pch;
-    % log(rr) ...
-        % = rho_r * log(rr{-1}) ...
-        % + (1-rho_r) * [ log(&rr) + psi_pch * (log(roc_pch{+1}) - log(ss_roc_pch)) ] ...
-        % + shk_r ...
 
 %
 
@@ -249,5 +246,7 @@
 
     nch_to_ngdp = pch * ch / ngdp;
     nih_to_ngdp = pih * ih / ngdp;
+    nkh_to_ngdp = pk * k / ngdp;
+    curr_to_ngdp = ($curr$) / ngdp;
 
 

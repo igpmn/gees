@@ -32,6 +32,10 @@ $$
 
 ---
 
+<<[monetary.md]
+
+---
+
 <<[fiscal.md]
 
 ---

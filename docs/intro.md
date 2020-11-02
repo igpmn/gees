@@ -2,7 +2,7 @@
 
 # What Are We Developing?
 
-* A framework rather than a single model
+* A modular framework rather than a single model
 
 * Scenario builder based on a DSGE core
 
@@ -13,7 +13,7 @@
 
 * Balanced growth path
 
-* Room for judgmental assumptions
+* Ease of operation and judgmental adjustments
 
 ---
 
@@ -43,6 +43,11 @@
 
 * Commodities
 
-* Fiscal
+* Monetary Policy
+
+* Fiscal Policy
+
+
+
 
 

@@ -1,0 +1,59 @@
+% Fiscal Policy Module
+
+!variables
+    "Government Debt Interest Rate" rg
+    "Price of Government Consumption" pcg
+    "Government Consumption" cg
+    "Government Debt to GDP Ratio" dg_to_ngdp
+    "Net Lump-Sum Tax Rate on Wealthy Consumers" txl1
+    "Net Lump-Sum Tax Rate on Poor Consumers" txl2
+    "Government Consumption, Rate of Change" roc_cg
+
+
+!log-variables
+    !all-but
+    txl1, txl2, dg_to_ngdp
+    
+
+
+!parameters
+    ss_dg_to_ngdp
+    ss_ncg_to_ngdp
+    tau_cg
+    tau_txl1
+    rho_cg
+    rho_txl2
+    rho_txl1
+
+!shocks
+    shk_cg
+    shk_txl1
+    shk_txl2
+
+
+!equations
+
+    pcg = py;
+    rg = r;
+
+    dg_to_ngdp*ngdp ...
+        = rg{-1}*dg_to_ngdp{-1}*ngdp{-1} ...
+        + pcg*cg - (txl1 + txl2)*pch*ch;
+
+    log(cg) ...
+        = rho_cg*log(cg{-1}*&roc_cg) ...
+        + (1-rho_cg)*log(ss_ncg_to_ngdp*ngdp/pcg) ...
+        - tau_cg*(dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
+        + shk_cg ...
+    !! pcg*cg = ss_ncg_to_ngdp*ngdp;
+
+    txl1 ...
+        = rho_txl1*txl1{-1} ...
+        + (1-rho_txl1)*&txl1 ...
+        + tau_txl1*(dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
+        + shk_txl1 ...
+    !! dg_to_ngdp = ss_dg_to_ngdp;
+
+    txl2 = rho_txl2*txl2{-1} + shk_txl2 !! txl2 = 0;
+
+

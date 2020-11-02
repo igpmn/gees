@@ -1,0 +1,56 @@
+
+!variables
+    y, n, k, m, x, c, i, uk, z
+    r, vh, w
+    py0, py, px, pc, pi, pm, puk, pk
+    a
+    y2, y1
+    py2, py1
+
+!log-variables
+    !allbut
+
+!parameters
+    beta = 0.98
+    gamma_uk = 0.30
+    delta = 0.15
+    gamma_n = 0.80;
+    gamma_z = 0.60;
+    ss_roc_a = 1.03; %^0.80;
+
+!equations
+    vh * pc * c = 1;
+    vh = beta*vh{+1}*r;
+    vh*w = 1;
+
+    vh*pk = beta*vh{+1}*(puk{+1} + (1-delta)*pk{+1});
+    pi = pk;
+    uk = k;
+    k = (1-delta)*k{-1} + i;
+
+    a = a{-1} * ss_roc_a;
+
+    y2 = (a * n)^gamma_n * m^(1-gamma_n);
+    gamma_n * py2 * y2 = w * n;
+    (1-gamma_n) * py2 * y2 = pm * m;
+
+    y1 = uk^gamma_uk * y2^(1-gamma_uk);
+    gamma_uk * py1 * y1 = puk * uk;
+    (1-gamma_uk) * py1 * y1 = py2 * y2;
+
+    y = (&y1/&z*z)^gamma_z * y1^(1-gamma_z);
+    gamma_z * py0 * y = py * z;
+    (1-gamma_z) * py0 * y = py1 * y1;
+
+    py = py0;
+
+    y = c + i  + x;
+
+    pc = 1;
+    pi = py;
+    pc = py;
+
+    px = py;
+    px = pm;
+    px*x = pm*m;
+

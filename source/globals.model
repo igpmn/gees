@@ -1,0 +1,36 @@
+!variables
+    gg_a
+    gg_nn
+
+
+!log-variables
+    !all-but
+
+
+!shocks
+    gg_shk_a
+    gg_shk_nn
+
+
+!parameters
+    gg_rho_a
+    gg_ss_roc_a
+    gg_rho_nn
+    gg_ss_roc_nn
+
+
+!equations
+    "Global Productivity Component"
+    difflog(gg_a) ...
+        = gg_rho_a*difflog(gg_a{-1}) ...
+        + (1-gg_rho_a)*(log(gg_ss_roc_a) + gg_shk_a) ...
+    !! gg_a = gg_a{-1}*gg_ss_roc_a;
+
+
+    "Global Population Component"
+    difflog(gg_nn) ...
+        = gg_rho_a*difflog(gg_nn{-1}) ...
+        + (1-gg_rho_a)*(log(gg_ss_roc_nn) + gg_shk_a) ...
+    !! gg_nn = gg_nn{-1}*gg_ss_roc_nn;
+
+

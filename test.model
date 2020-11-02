@@ -1,0 +1,77 @@
+!variables
+    ch, py, py0, roc_py, r, vh
+    w, k, puk, y
+    pk, ih, pch
+    roc_pch, roc_w
+    uk, zy, pih
+    nw_to_nn
+    nf_to_nw
+    nn, nw, nf, nh
+
+!parameters
+    delta = 0.15;
+    beta = 0.98
+    xi_py = 2
+    gamma_nh = 0.6;
+    rho_r = 0.1
+    psi_pch = 5
+    mu_py = 1.2
+    eta = 0.25;
+    rho_w = 0.3;
+    ss_nw_to_nn = 0.70
+    ss_nf_to_nw = 0.70
+    ss_roc_pch = 1
+
+!log-variables
+    !all-but
+
+!equations
+
+    pch * (ch/nf) * vh = 1;
+    vh = beta*vh{+1}*r;
+    % vh * pch * (ch/nf) = 1;
+    % vh = vh{+1} * beta * r;
+
+    log(w/pch) ...
+        = rho_w * log(w{-1}/pch{-1} * &roc_w * &roc_pch) ...
+        + (1-rho_w)*log(nh^eta / (pch * vh)) ...
+        !! vh*w = nh^eta;
+
+    vh*pk = beta*vh{+1}*puk{+1} + beta*vh{+1}*(1-delta)*pk{+1};
+    k = (1-delta)*k{-1} + ih;
+    pk = pih;
+
+    pch = py;
+    pih = py;
+
+    log(roc_py/roc_py{-1}) ...
+        = beta*log(roc_py{+1}/roc_py) ...
+        + xi_py * log(mu_py*py0/py) ...
+        !! py = mu_py * py0;
+
+    uk = k{-1};
+
+    y = zy * uk^(1-gamma_nh) * (nf*nh)^gamma_nh;
+    (1-gamma_nh)*py0*y = puk * uk;
+    gamma_nh*py0*y = w * nf * nh;
+
+    y = ch + ih;
+
+    log(r) ...
+        = rho_r * log(r{-1}) ...
+        + (1-rho_r) * [ log(&r) + psi_pch * (0.5*(log(roc_pch) + log(roc_pch{+1})) - log(ss_roc_pch)) ] ...
+        !! pch = pch{-1} * 1;
+
+    zy = zy{-1} !!: zy = 1;
+
+    nw_to_nn = ss_nw_to_nn;
+    nf_to_nw = ss_nf_to_nw;
+    nn = 1;
+    nw = nw_to_nn * nn;
+    nf = nf_to_nw * nw;
+
+    roc_py = roc(py);
+    roc_pch = roc(pch);
+    roc_w = roc(w);
+
+

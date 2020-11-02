@@ -1,0 +1,43 @@
+
+!variables
+
+
+!log-variables
+    !all-but
+
+
+!equations
+
+    % 0 = !for us, ea !do + ?_nfa_to_ngdp*?_ngdp/?_e !end;
+    % 0 = !for us, ea !do + ?_nfa_to_ngdp*?_ngdp/?_e !end;
+    ea_bfa = us_bfl;
+    ea_bfl = us_bfa;
+
+    ea_bfa = ea_pm * ea_m;
+
+    us_pm * ea_e = ea_pxx;
+    ea_pm = us_pxx * ea_e;
+
+    ea_m = us_xx;
+    us_m = ea_xx;
+
+    ea_r = us_r * ea_exp_e / ea_e;
+
+    ea_rnfa = us_r{-1} * ea_e / ea_e{-1};
+
+    % ea_rbfa ...
+        % = ea_zeta_rbfa_us * us_r{-1} * ea_roc_e / us_roc_e ...
+        % + ea_zeta_rbfa_ea * ea_r{-1} * ea_roc_e / ea_roc_e;
+% 
+    % ea_rbfl ...
+        % = ea_zeta_rbfl_us * us_r{-1} * ea_roc_e / us_roc_e ...
+        % + ea_zeta_rbfl_ea * ea_r{-1} * ea_roc_e / ea_roc_e;
+
+    us_e = 1;
+    us_rnfa = us_r{-1};
+
+    ea_nfa_to_ngdp_checksum = 0;
+
+
+
+

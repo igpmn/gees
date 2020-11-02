@@ -1,0 +1,52 @@
+
+!variables
+    n1, n2, pn1, pn2
+    an1, an2, roc_an1, roc_an2
+    a, y, py
+
+
+!log-variables
+    !all-but
+
+!shocks
+    shk_a
+    shk_y
+    shk_pn1
+    shk_pn2
+
+
+!parameters
+    gamma_n1
+    xi
+    rho_a
+    rdf
+    ss_a
+    ss_y
+    ss_pn1
+    ss_pn2
+
+
+!substitutions
+    tcadj_y ...
+        := log(roc_an1/&roc_an1)-log(roc_an2/&roc_an2) ...
+        - rdf*(log(roc_an1{+1}/&roc_an1)-log(roc_an2{+1}/&roc_an2)); 
+
+
+!equations
+    y = an1 * n1;
+    y = an2 * n2;
+    py = pn1/an1 + pn2/an2;
+
+    (1-gamma_n1)*pn1/an1 - gamma_n1*pn2/an2 = py*xi*($tcadj_y$);
+
+    an1^gamma_n1 * an2^(1-gamma_n1) = a;
+
+    log(a) = rho_a*log(a{-1}) + (1-rho_a)*log(ss_a) + shk_a !! a = ss_a;
+    y = y{-1}*exp(shk_y) !! y = ss_y;
+
+    roc_an1 = an1/an1{-1};
+    roc_an2 = an2/an2{-1};
+
+    pn1 = pn1{-1} * exp(shk_pn1) !! pn1 = ss_pn1;
+    pn2 = pn2{-2} * exp(shk_pn2) !! pn2 = ss_pn2;
+

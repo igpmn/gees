@@ -1,0 +1,344 @@
+
+
+!variables
+    ea_rr
+    "Real Discount Factor" ea_rdf
+    "Private Consumption" ea_ch
+    "Private Consumption, Point of Reference" ea_ref_ch
+    "Per-Capita Labor Supply" ea_nh
+    "Private Investment" ea_ih
+    "Production Capital" ea_k
+    "Production Capital, Point of Reference" ea_ref_k
+    "Production Capital Services" ea_uk
+    "Domestic Technology Level" ea_a
+    "Domestic Technology Choice: Labor" ea_an, ea_roc_an
+    "Domestic Technology Choice: Capital" ea_ak, ea_roc_ak
+    "Domestic Technology Choice: Stage T-2 Output" ea_ay2, ea_roc_ay2
+    "Shadow Value of Household Budget Constraing" ea_vh
+    "Price of Private Consumption" ea_pch
+    "Price of Private Investment" ea_pih
+    "Roundabout Productionb" ea_z
+    ea_y2
+    ea_y1
+    ea_y
+    ea_py0
+    ea_py1
+    ea_py2
+    "Nominal GDP" ea_ngdp
+
+    "Price of Domestic Production" ea_py
+    "Price of Production Capital" ea_pk
+    "Price of Production Capital Services" ea_puk
+    "Nominal Wage Rate" ea_w, ea_w0
+    "Nominal Rate" ea_r
+    "Bank Deposits" ea_bd
+    
+    "Price of Final Domestic Output, Rate of Change" ea_roc_py
+    "Price of Final Domestic Output, Rate of Change, Point of Reference" ea_ref_roc_py
+    ea_roc_w, ea_roc_pch, ea_roc_ih
+    "Capital Utilization Rate" ea_u
+    ea_roc_k
+
+    "Domestic Technology Choice: Intermediate Imports" ea_am
+    "Domestic Technology Choice: Intermediate Imports, Rate of Change" ea_roc_am
+
+
+!log-variables
+    !all-but
+
+
+!substitutions
+
+    ea_trn := (ea_pch * ea_ch + ea_pih * ea_ih + ea_kappa_1 * ea_pk * ea_k);
+    ea_curr := (ea_w*ea_nh*ea_nf);
+    ea_netw := 0*ea_nu_1*ea_nn/(ea_pk*ea_k + 0*ea_dg_to_ngdp*ea_ngdp); 
+    ea_shf_curr := normpdf((log(ea_pch*ea_ch/($ea_curr$*exp(ea_shk_curr))) - log(ea_xi_ch1))/ea_xi_ch2)/ea_xi_ch2;
+
+    ea_adj_y2 := log(ea_roc_am/&ea_roc_am)-log(ea_roc_an/&ea_roc_an) - &ea_rdf*(log(ea_roc_am{+1}/&ea_roc_am)-log(ea_roc_an{+1}/&ea_roc_an)); 
+    ea_adj_y1 := log(ea_roc_ak/&ea_roc_ak)-log(ea_roc_ay2/&ea_roc_ay2) - &ea_rdf*(log(ea_roc_ak{+1}/&ea_roc_ak)-log(ea_roc_ay2{+1}/&ea_roc_ay2)); 
+    ea_adj_ih := log(ea_ih/ea_ih{-1}/&ea_roc_ih) - ea_beta*log(ea_ih{+1}/ea_ih/&ea_roc_ih);
+    ea_adj_py := log(ea_roc_py/ea_ref_roc_py) - ea_beta*log(ea_roc_py{+1}/ea_ref_roc_py{+1});
+
+
+!parameters
+    ea_rho_a
+
+    ea_chi_curr, ea_chi_ch, ea_chi
+    ea_nu_0, ea_nu_1
+    ea_xi_k, ea_xi_ih
+    ea_upsilon_0, ea_upsilon_1
+    ea_beta, ea_beta_k, ea_delta, ea_gamma_n0, ea_gamma_n, ea_gamma_uk, ea_gamma_z
+    ea_eta, ea_rho_w
+    ea_kappa_1, ea_kappa_2
+    ea_ss_roc_a
+    ea_ss_roc_pch
+    ea_xi_py, ea_mu_py, ea_mu_y2
+    ea_rho_r, ea_psi_pch
+
+    ea_zeta_py
+    ea_xi_ch0, ea_xi_ch1, ea_xi_ch2
+
+    ea_phi_u
+
+    ea_xi_y1, ea_xi_y2
+
+!shocks
+    
+    ea_shk_a
+    ea_shk_r
+    ea_shk_w
+    ea_shk_curr
+
+
+!equations
+
+
+
+    ea_vh*ea_pch*[ ea_ch - ea_chi*ea_ref_ch ] = ea_nn*(1 - ea_chi*&ea_ref_ch/&ea_ch)     !! ea_vh*ea_pch*ea_ch = ea_nn;
+
+    ea_ref_ch = ea_chi_curr*(ea_w*ea_nh*ea_nf/ea_pch) + ea_chi_ch*ea_ch{-1};
+    
+    ea_vh = ea_beta*ea_vh{+1}*ea_r + $ea_netw$;
+
+    ea_rdf = ea_beta*ea_vh{+1}*ea_pch{+1}/(ea_vh*ea_pch);
+    ea_rr = ea_r * ea_pch / ea_pch{+1};
+    
+    
+    
+
+
+
+
+
+
+    ea_vh * ea_w0 = 1;
+
+    log(ea_w/ea_pch)         = ea_rho_w * log(ea_w{-1}*&ea_roc_w/ea_pch{-1}/&ea_roc_pch)         + (1-ea_rho_w) * log(ea_w0/ea_pch)         + ea_shk_w         !! ea_w = ea_w0;
+
+    ea_bd = ea_kappa_2 * $ea_trn$;
+
+
+
+
+
+
+    ea_roc_k = ea_k/ea_k{-1};
+
+    ea_vh*ea_pk*(1 + ea_xi_k*log(ea_k/ea_ref_k))         = ea_vh*ea_puk + ea_beta_k*ea_beta*ea_vh{+1}*(1-ea_delta)*ea_pk{+1}         + $ea_netw$*ea_pk;
+
+    ea_ref_k = ea_k{+1}; 
+
+    ea_pk = ea_pih*[ 1 + ea_xi_ih*($ea_adj_ih$) ]     !! ea_pk = ea_pih;
+
+    ea_roc_ih = ea_ih/ea_ih{-1};
+
+    ea_k = (1-ea_delta)*ea_k{-1} + ea_ih;
+
+    ea_uk = ea_u * ea_k !! ea_uk = ea_k;
+    ea_u = (&ea_py / &ea_puk * ea_puk / ea_py)^ea_upsilon_1 !! ea_u = 1;
+
+
+
+
+
+
+    !if open
+        ea_y2 = ea_an * (ea_nh - ea_gamma_n0*&ea_nh) * ea_nf;
+        ea_y2 = ea_am * ea_m;
+        ea_py2 = ea_mu_y2 * ea_w/ea_an + ea_pm/ea_am;
+
+        ea_gamma_n*ea_pm/ea_am - ea_mu_y2*(1-ea_gamma_n)*ea_w/ea_an = ea_py2*ea_xi_y2*($ea_adj_y2$)         !! ea_gamma_n*ea_pm/ea_am - ea_mu_y2*(1-ea_gamma_n)*ea_w/ea_an = 0;
+
+        ea_am^(1-ea_gamma_n) * ea_an^ea_gamma_n = ea_a^ea_gamma_n;
+    !else
+        ea_y2 = ea_an * (ea_nh - ea_gamma_n0*&ea_nh) * ea_nf;
+        ea_py2 = ea_mu_y2 * ea_w / ea_an;
+        ea_an = ea_a;
+        ea_am = 1;
+    !end
+    
+    difflog(ea_a) = ea_rho_a*difflog(ea_a{-1}) + (1-ea_rho_a)*(log(ea_ss_roc_a) + ea_shk_a)     !! ea_a = ea_a{-1}*ea_ss_roc_a;
+
+
+
+
+
+
+    ea_y1 = ea_ak * ea_uk;
+    ea_y1 = ea_ay2 * ea_y2;
+    ea_py1 = ea_puk/ea_ak + ea_py2/ea_ay2;
+
+    (1-ea_gamma_uk)*ea_puk/ea_ak - ea_gamma_uk*ea_py2/ea_ay2 = ea_py1*ea_xi_y1*($ea_adj_y1$)     !! (1-ea_gamma_uk)*ea_puk/ea_ak - ea_gamma_uk*ea_py2/ea_ay2;
+
+    ea_ak^ea_gamma_uk * ea_ay2^(1-ea_gamma_uk) = 1;
+
+    ea_roc_am = ea_am/ea_am{-1};
+    ea_roc_an = ea_an/ea_an{-1};
+
+    ea_roc_ak = ea_ak/ea_ak{-1};
+    ea_roc_ay2 = ea_ay2/ea_ay2{-1};
+
+
+
+
+
+
+    ea_y + ea_z = ea_y1^(1-ea_gamma_z) * (&ea_y1/&ea_z*ea_z)^ea_gamma_z;
+    (1-ea_gamma_z) * ea_py0 * (ea_y + ea_z) = ea_py1 * ea_y1;
+    ea_gamma_z * ea_py0 * (ea_y + ea_z) = ea_py * ea_z;
+
+
+
+
+
+
+    ea_mu_py*ea_py0 = ea_py*[1 + (ea_mu_py-1)*ea_xi_py*($ea_adj_py$)]     !! ea_py = ea_mu_py * ea_py0;
+
+    ea_ref_roc_py = ea_roc_py{-1}^ea_zeta_py * &ea_roc_py^(1-ea_zeta_py);
+    
+    ea_y = ea_ch + ea_cg + ea_ih !if open; + ea_x !end;
+
+    ea_pch = ea_py;
+    ea_pih = ea_py;
+
+
+
+
+    "Monetary Policy Reaction Function"
+    log(ea_r)         = ea_rho_r * log(ea_r{-1})         + (1-ea_rho_r) * [ log(&ea_r) + ea_psi_pch * (log(ea_roc_pch{+1}) - log(ea_ss_roc_pch)) ]         + ea_shk_r     !! ea_pch = ea_pch{-1} * ea_ss_roc_pch;
+    
+        
+        
+        
+
+
+
+
+
+
+    "Nominal GDP"
+    ea_ngdp = ea_pch*ea_ch + ea_pih*ea_ih + ea_pcg*ea_cg !if open; + ea_px*ea_x - ea_pm*ea_m !end;
+
+    ea_roc_cg = ea_cg / ea_cg{-1};
+    ea_roc_w = ea_w / ea_w{-1};
+    ea_roc_pch = ea_pch / ea_pch{-1};
+    ea_roc_py = ea_py / ea_py{-1};
+
+
+
+
+!postprocessor
+
+    ea_nch_to_ngdp = ea_pch * ea_ch / ea_ngdp;
+    ea_nih_to_ngdp = ea_pih * ea_ih / ea_ngdp;
+
+
+
+
+
+
+!variables
+    "Government Debt Interest Rate" ea_rg
+    "Price of Government Consumption" ea_pcg
+    "Government Consumption" ea_cg
+    "Government Debt to GDP Ratio" ea_dg_to_ngdp
+    "Net Lump-Sum Tax Rate on Wealthy Consumers" ea_txl1
+    "Net Lump-Sum Tax Rate on Poor Consumers" ea_txl2
+    "Government Consumption, Rate of Change" ea_roc_cg
+
+
+!log-variables
+    !all-but
+    ea_txl1, ea_txl2, ea_dg_to_ngdp
+    
+
+
+!parameters
+    ea_ss_dg_to_ngdp
+    ea_ss_ncg_to_ngdp
+    ea_tau_cg
+    ea_tau_txl1
+    ea_rho_cg
+    ea_rho_txl2
+    ea_rho_txl1
+
+!shocks
+    ea_shk_cg
+    ea_shk_txl1
+    ea_shk_txl2
+
+
+!equations
+
+    ea_pcg = ea_py;
+    ea_rg = ea_r;
+
+    ea_dg_to_ngdp*ea_ngdp         = ea_rg{-1}*ea_dg_to_ngdp{-1}*ea_ngdp{-1}         + ea_pcg*ea_cg - (ea_txl1 + ea_txl2)*ea_pch*ea_ch;
+
+    log(ea_cg)         = ea_rho_cg*log(ea_cg{-1}*&ea_roc_cg)         + (1-ea_rho_cg)*log(ea_ss_ncg_to_ngdp*ea_ngdp/ea_pcg)         - ea_tau_cg*(ea_dg_to_ngdp{+1} - ea_ss_dg_to_ngdp)         + ea_shk_cg     !! ea_pcg*ea_cg = ea_ss_ncg_to_ngdp*ea_ngdp;
+
+    ea_txl1         = ea_rho_txl1*ea_txl1{-1}         + (1-ea_rho_txl1)*&ea_txl1         + ea_tau_txl1*(ea_dg_to_ngdp{+1} - ea_ss_dg_to_ngdp)         + ea_shk_txl1     !! ea_dg_to_ngdp = ea_ss_dg_to_ngdp;
+
+    ea_txl2 = ea_rho_txl2*ea_txl2{-1} + ea_shk_txl2 !! ea_txl2 = 0;
+
+
+
+
+
+
+!variables
+    "Total Population" ea_nn
+    "Working Age Population" ea_nw
+    "Labor Force" ea_nf
+
+
+!parameters
+    "S/S Population, Rate of Change" ea_ss_roc_nn
+    "S/S Share of Working Age Population in Total Population" ea_ss_nw_to_nn
+    "S/S Labor Participation Rate" ea_ss_nf_to_nw
+
+    ea_rho_nn
+    ea_rho_nw
+    ea_rho_nf
+    
+
+!shocks
+    ea_shk_nn
+
+
+!equations
+
+    "Total Population"
+    log(ea_nn/ea_nn{-1})         = ea_rho_nn * log(ea_nn{-1}/ea_nn{-2})         + (1-ea_rho_nn) * log(ea_ss_roc_nn)         + (1-ea_rho_nn) * ea_shk_nn     !! ea_nn = ea_nn{-1}*ea_ss_roc_nn;
+
+
+    "Share of Working Age Population in Total Population"
+    ea_nw/ea_nn         = ea_rho_nw * ea_nw{-1}/ea_nn{-1}         + (1-ea_rho_nw) * ea_ss_nw_to_nn     !! ea_nw = ea_ss_nw_to_nn * ea_nn;
+
+
+    "Labor Participation Rate"
+    ea_nf/ea_nw         = ea_rho_nf * ea_nf{-1}/ea_nw{-1}         + (1-ea_rho_nf) * ea_ss_nf_to_nw     !! ea_nf = ea_ss_nf_to_nw * ea_nw;
+
+
+
+
+!variables
+    "Net Foreign Assets to GDP Ratio" ea_nfa_to_ngdp
+    "Total Imports" ea_m
+    "Price of Imports" ea_pm
+    "Exports" ea_x
+    "Price of Exports" ea_px
+
+
+!log-variables
+    !all-but
+    ea_nfa_to_ngdp
+
+
+!equations
+
+    ea_px = ea_py;
+
+    ea_nfa_to_ngdp*ea_ngdp         = ea_r{-1}*ea_nfa_to_ngdp{-1}*ea_ngdp{-1}         + ea_px*ea_x         - ea_pm*ea_m;
+
+

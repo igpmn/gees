@@ -1,0 +1,28 @@
+!variables
+    "Long-Run Level of Global Commodity Production" qq
+    "Global Commodity Demand" gg_q
+
+
+!log-variables
+    !all-but
+
+
+!parameters
+    rho_aqq
+    ss_aqq
+
+
+!shocks
+
+
+!equations
+
+    qq = aqq * gg_a;
+
+    log(aqq) ...
+        = rho_aqq*log(aqq{-1}) ...
+        + (1-rho_aqq)*log(ss_aqq) ...
+        + shk_aqq;
+
+
+

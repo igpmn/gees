@@ -5,12 +5,12 @@
     "Non-Commodity Imports" mm
     "Commodity Imports" mq
     "Price of Non-Commodity Imports" pmm
-    "Price of Commodity Imports" pmq
     "Import Content of Non-Commodity Exports" mxx
     "Intermediate Import Inputs into Domestic Production" my
 
     "Domestic Content of Non-Commodity Exports" yxx
     "Non-Commodity Exports" xx
+    "Commodity Exports" xq
     "Price of Non-Commodity Exports" pxx
 
     "Net Foreign Assets to GDP Ratio" nfa_to_ngdp
@@ -74,7 +74,7 @@
 
     pq = py2;
     mq = q;
-    pmq = pq;
+    xq = q;
 
 %
 
@@ -100,8 +100,9 @@
     "Balance of Payments Transactions"
     nfa_to_ngdp * ngdp ...
         = rnfa * nfa_to_ngdp{-1}*ngdp{-1} ...
-        + pxx * xx ...
-        - pmm * mm ...
+        + pxx * xx ... Non-commodity exports
+        - pmm * mm ... Non-commodity imports
+        + pq * (xq - mq) ... Net commodity exports
         + nfa_to_ngdp_checksum * ngdp;
 
     "Household Lending Rate"
@@ -133,6 +134,7 @@
     nmm_to_ngdp = pmm * mm / ngdp;
     nxx_to_ngdp = pxx * xx / ngdp;
     nmxx_to_ngdp = pmm * mxx / ngdp;
+    netxq_to_ngdp = pq*(xq - mq) / ngdp;
 
 %
 

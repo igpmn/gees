@@ -104,7 +104,7 @@ autarkyModel.rho_txl2 = 0.5;
 
 %% Calculate Steady State
 
-% Determine level of three independent stochastic trends
+% Pin down the level of three independent stochastic trends
 autarkyModel.gg_nn = 1;
 autarkyModel.pch = 1;
 autarkyModel.y = 1;
@@ -117,12 +117,14 @@ autarkyModel = steady(autarkyModel ...
 
 % Run postprocessor on steady state values
 
-s = access(autarkyModel, "steady");
+s = get(autarkyModel, "steady");
 s = postprocess(autarkyModel, s, "steady");
+
 
 % Check steady state on dynamic equations
 
 checkSteady(autarkyModel);
+
 
 % Report steady state
 

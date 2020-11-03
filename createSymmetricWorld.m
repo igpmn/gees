@@ -6,8 +6,6 @@ clear
 
 %% Clone Model Files from Autarky
 
-load mat/createAutarky.mat autarkyModel
-
 sourceFiles = [
     "source/demography.model"
     "source/local.model"
@@ -38,6 +36,8 @@ multiModel = Model(modelFiles, "assign", struct("areas", areas));
 
 %% Reassign Parameters from Autarky
 
+load mat/createAutarky.mat autarkyModel
+
 % Area-specific parameters
 for n = areas
     multiModel = assign(multiModel, autarkyModel, @all, [n + "_", ""]);
@@ -66,6 +66,20 @@ multiModel = steady( ...
 );
 
 checkSteady(multiModel);
+
+
+% Run postprocessor on steady state values
+
+s = get(multiModel, "steady");
+s = postprocess(multiModel, s, "steady");
+
+
+% Report steady state
+
+table( ...
+    multiModel, ["steadyLevel", "steadyChange", "form", "description"] ...
+    , "writeTable", "tables/createSymmetricWorld.xlsx" ...
+);
 
 multiModel = solve(multiModel)
 

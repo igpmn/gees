@@ -14,12 +14,12 @@
     "Price of Private Consumption" pch
     "Price of Private Investment" pih
     "Roundabout Production" z
-    "Stage T-2 Output" y2
+    "Stage T-2 Output" y3
     "Stage T-1 Output" y1
     "Stage T-0 Output" y
     "Price of Stage T-0 Output" py0
     "Price of State T-1 Output" py1
-    "price of Stage T-2 Output" py2
+    "price of Stage T-2 Output" py3
     "Nominal GDP" ngdp
 
     "Price of Domestic Production" py
@@ -54,7 +54,7 @@
     shf_curr = normpdf((log(pch*ch/($curr$*exp(shk_curr))) - log(xi_ch1))/xi_ch2)/xi_ch2;
 
     adj_uk = (log(uk/y1)-log(uk{-1}/y1{-1}))-&rdf*(log(uk{+1}/y1{+1})-log(uk/y1));
-    adj_y2 = (log(y2/y1)-log(y2{-1}/y1{-1}))-&rdf*(log(y2{+1}/y1{+1})-log(y2/y1));
+    adj_y3 = (log(y3/y1)-log(y3{-1}/y1{-1}))-&rdf*(log(y3{+1}/y1{+1})-log(y3/y1));
 
     adj_ih = log(ih/ih{-1}/&roc_ih) - beta*log(ih{+1}/ih/&roc_ih);
     adj_py = log(roc_py/ref_roc_py) - beta*log(roc_py{+1}/ref_roc_py{+1});
@@ -72,13 +72,13 @@
     kappa_1, kappa_2
     ss_ar
     ss_roc_pch
-    xi_py, mu_py, mu_y2
+    xi_py, mu_py, mu_y3
     rho_r, psi_pch
 
     zeta_py
     xi_ch0, xi_ch1, xi_ch2
 
-    xi_y1, xi_y2
+    xi_y1, xi_y3
 
 !shocks
     
@@ -123,7 +123,7 @@
         = vh*puk + beta_k*beta*vh{+1}*(1-delta)*pk{+1} ...
         + nu_1*netw*pk;
 
-    ref_k = k{+1}/&roc_k; %k{+1}^0.2 * ref_k{+1}^(1-0.2) / &roc_k !! ref_k = k;
+    ref_k = k{+1}/&roc_k;
 
     pk = pih*[ 1 + xi_ih*($adj_ih$) ] ...
     !! pk = pih;
@@ -147,26 +147,25 @@
 %
 
 
-%% Stage T-2 Production: Labor and Intermediate Imports
+%% Stage T-3 Production: Labor and Intermediate Imports
 
-    % nv = (nh - gamma_n0*&nh) * nf;
-    nv = nh * nf;
+    nv = (nh - gamma_n0*&nh) * nf;
 
-    % Stage T-2 production is open/closed specific
-    % y2 = ...
+    % Stage T-3 production is open/closed specific
+    % y3 = ...
 
 %
 
 
-%% Stage T-1 Production: Variable Inputs and Capital
+%% Stage T-2 Production: Variable Inputs and Capital
 
-    y1 = uk^gamma_uk * y2^(1-gamma_uk);
+    y1 = uk^gamma_uk * y3^(1-gamma_uk);
 
     gamma_uk * py1 * y1 = puk * uk * [1 + xi_y1*($adj_uk$)] ...
     !! gamma_uk * py1 * y1 = puk * uk;
 
-    (1-gamma_uk) * py1 * y1 = py2 * y2 * [1 + xi_y2*($adj_y2$)] ...
-    !! (1-gamma_uk) * py1 * y1 = py2 * y2;
+    (1-gamma_uk) * py1 * y1 = py3 * y3 * [1 + xi_y3*($adj_y3$)] ...
+    !! (1-gamma_uk) * py1 * y1 = py3 * y3;
 
 %
 

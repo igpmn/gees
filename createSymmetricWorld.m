@@ -51,7 +51,8 @@ m = solve(m);
 
 m0 = m;
 
-m.us_beta = 0.93;
+% m.us_beta = 0.93;
+m.ea_pch = 1.10;
 
 m = steady( ...
     m ...

@@ -38,8 +38,8 @@
 
 !substitutions
     
-    adj_nv = (log(nv/y2)-log(nv{-1}/y2{-1}))-&rdf*(log(nv{+1}/y2{+1})-log(nv/y2));
-    adj_mm = (log(my/y2)-log(my{-1}/y2{-1}))-&rdf*(log(my{+1}/y2{+1})-log(my/y2));
+    adj_nv = (log(nv/y3)-log(nv{-1}/y3{-1}))-&rdf*(log(nv{+1}/y3{+1})-log(nv/y3));
+    adj_mm = (log(my/y3)-log(my{-1}/y3{-1}))-&rdf*(log(my{+1}/y3{+1})-log(my/y3));
 
 %
 
@@ -55,15 +55,15 @@
 %
 
 
-%% Stage T-2 Production: Labor and Intermediate Imports
+%% Stage T-3 Production: Labor and Intermediate Imports
 
-    y2 = my^(1-gamma_n) * [ar * gg_a * nv]^gamma_n;
+    y3 = my^(1-gamma_n) * [ar * gg_a * nv]^gamma_n;
 
-    (1-gamma_n) * py2 * y2 = pmm * my * [1 + xi_y2*($adj_mm$)] ...
-    !! (1-gamma_n) * py2 * y2 = pmm * my;
+    (1-gamma_n) * py3 * y3 = pmm * my * [1 + xi_y3*($adj_mm$)] ...
+    !! (1-gamma_n) * py3 * y3 = pmm * my;
 
-    gamma_n * py2 * y2 = mu_y2 * w * nv * [1 + xi_y2*($adj_nv$)] ...
-    !! gamma_n * py2 * y2 = mu_y2 * w * nv;
+    gamma_n * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
+    !! gamma_n * py3 * y3 = mu_y3 * w * nv;
 
 %
 
@@ -77,7 +77,7 @@
 
 %% Export Production
 
-    xx = ar^gamma_xx * yxx^(1-alpha) * mxx^alpha;
+    xx = ar^gamma_xx * (yxx/(1-alpha))^(1-alpha) * (mxx/alpha)^alpha;
     (1-alpha) * pxx * xx = py * yxx;
     alpha * pxx * xx = pmm * mxx;
 

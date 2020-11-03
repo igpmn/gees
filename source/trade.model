@@ -1,3 +1,6 @@
+%% Trade Linkages
+
+
 !variables
     !for ?M=<areas> !do
         !for ?X=<setdiff(areas, "?M")> !do
@@ -5,6 +8,14 @@
             ?M_mm_?X
         !end
     !end
+
+    !for ?X=<areas> !do 
+        "Price of ?:X Non-Commodity Exports for International Comparison" ?X_pxx_int
+        "Value of ?:X Non-Commodity Exports for International Comparison" ?X_nxx_int
+    !end
+
+    "Global Index of Non-Commodity Export Prices" gg_pxx
+    "Value of Global Non-Commodity Exports" gg_nxx
 
 
 !parameters
@@ -26,7 +37,7 @@
     !end
 
 
-    !for ?M = <areas> !do
+    !for ?M=<areas> !do
         "Assembly of Total ?:M Non-Commodity Imports"
         ?M_mm = 1 !for ?X=<setdiff(areas, "?M")> !do * (?M_mm_?X/?M_omega_?X)^?M_omega_?X !end;
 
@@ -36,4 +47,17 @@
             !! ?M_omega_?X * ?M_pmm * ?M_mm = (?M_e / ?X_e) * ?X_pxx * ?M_mm_?X;
         !end
     !end
+
+    !for ?X=<areas> !do
+        ?X_pxx_int = ?X_pxx * <areas(1)>_e / ?X_e;
+        ?X_nxx_int = ?X_pxx_int * ?X_xx;
+    !end
+
+    "Value of Global Non-Commodity Exports"
+    gg_nxx ...
+        = !for ?X=<areas> !do + ?X_nxx_int !end;
+
+    "Global Index of Non-Commodity Export Prices"
+    gg_pxx ...
+        = !for ?X=<areas> !do + ?X_pxx_int * ?X_nxx_int/gg_nxx !end;
 

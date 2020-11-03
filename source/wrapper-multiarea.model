@@ -12,5 +12,5 @@
     <areas(1)>_rnfa = <areas(1)>_r{-1};
     <areas(1)>_e = 1;
 
-
+    % gg_q = !for !M=<areas> !M_mq !end;
 

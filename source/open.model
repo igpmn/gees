@@ -2,9 +2,10 @@
 
 
 !variables
-
-    "Total Non-Commodity Imports" mm
-    "Price of Imports" pmm
+    "Non-Commodity Imports" mm
+    "Commodity Imports" mq
+    "Price of Non-Commodity Imports" pmm
+    "Price of Commodity Imports" pmq
     "Import Content of Non-Commodity Exports" mxx
     "Intermediate Import Inputs into Domestic Production" my
 
@@ -35,6 +36,7 @@
     "Elasticity of Household Lending Rate to Risk" theta
     "Weight on Model-Consistent Expectations in Exchange Rate" zeta_e
     
+    xi_y3
 
 !substitutions
     
@@ -64,6 +66,15 @@
 
     gamma_n * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
     !! gamma_n * py3 * y3 = mu_y3 * w * nv;
+
+%
+
+
+%% Placeholders for Commodity Inputs
+
+    pq = py2;
+    mq = q;
+    pmq = pq;
 
 %
 

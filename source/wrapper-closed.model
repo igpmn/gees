@@ -9,13 +9,15 @@
 %
 
 
-%% Stage T-2 Production: Labor and Intermediate Imports
+%% Stage T-3 Production: Labor and Intermediate Imports
 
-    "Stage T-2 Production Function"
-    y2 = ar * gg_a * nv;
+    "Stage T-3 Production Function"
+    y3 = ar * gg_a * nv;
 
-    "Stage T-2 Demeand for Labor"
-    py2 * y2 = mu_y2 * w * nv;
+    "Stage T-3 Demeand for Labor"
+    py3 * y3 = mu_y3 * w * nv;
+
+    pq = py2;
 
 %
 

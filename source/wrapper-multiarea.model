@@ -1,16 +1,30 @@
+%% Multiarea Model Wrapper
+
+%
+
 
 !equations
 
+%% Multi-Area Equilibrium and Clearing
+
+    "Net Asset Clearing"
     0 = !for ?a=<areas> !do + ?a_nfa_to_ngdp * ?a_ngdp / ?a_e !end;
 
     !for ?a=<areas(2:end)> !do
+        "Interest Parity"
         ?a_r = <areas(1)>_r * ?a_exp_e / ?a_e;
+
+        "Effective NFA Rate"
         ?a_rnfa = <areas(1)>_r{-1} * ?a_e / ?a_e{-1};
+
+        "NFA Checksum"
         ?a_nfa_to_ngdp_checksum = 0;
     !end
 
+    "Reference Currency Effective NFA Rate"
     <areas(1)>_rnfa = <areas(1)>_r{-1};
+
+    "Reference Currency Exchange Rate"
     <areas(1)>_e = 1;
 
-    % gg_q = !for !M=<areas> !M_mq !end;
 

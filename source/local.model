@@ -13,13 +13,18 @@
     "Shadow Value of Household Budget Constraing" vh
     "Price of Private Consumption" pch
     "Price of Private Investment" pih
-    "Roundabout Production" z
-    "Stage T-2 Output" y3
+    "Domestic Intermediate Inputs" z
+    "Stage T-3 Output" y3
+    "Stage T-2 Output" y2
     "Stage T-1 Output" y1
     "Stage T-0 Output" y
-    "Price of Stage T-0 Output" py0
+    "Price of Stage T-3 Output" py3
+    "Price of State T-2 Output" py2
     "Price of State T-1 Output" py1
-    "price of Stage T-2 Output" py3
+    "Price of Stage T-0 Output" py0
+    "Commodity Input into Production" q
+    "Price of Commodity Input into Production" pq
+
     "Nominal GDP" ngdp
 
     "Price of Domestic Production" py
@@ -53,8 +58,11 @@
     curr = (w*nh*nf - txl2*pch*ch);
     shf_curr = normpdf((log(pch*ch/($curr$*exp(shk_curr))) - log(xi_ch1))/xi_ch2)/xi_ch2;
 
-    adj_uk = (log(uk/y1)-log(uk{-1}/y1{-1}))-&rdf*(log(uk{+1}/y1{+1})-log(uk/y1));
-    adj_y3 = (log(y3/y1)-log(y3{-1}/y1{-1}))-&rdf*(log(y3{+1}/y1{+1})-log(y3/y1));
+    adj_uk = (log(uk/y2)-log(uk{-1}/y2{-1}))-&rdf*(log(uk{+1}/y2{+1})-log(uk/y2));
+    adj_y3 = (log(y3/y2)-log(y3{-1}/y2{-1}))-&rdf*(log(y3{+1}/y2{+1})-log(y3/y2));
+
+    adj_y2 = (log(y3/y2)-log(y3{-1}/y2{-1}))-&rdf*(log(y3{+1}/y2{+1})-log(y3/y2));
+    adj_q = (log(q/y2)-log(q{-1}/y2{-1}))-&rdf*(log(q{+1}/y2{+1})-log(q/y2));
 
     adj_ih = log(ih/ih{-1}/&roc_ih) - beta*log(ih{+1}/ih/&roc_ih);
     adj_py = log(roc_py/ref_roc_py) - beta*log(roc_py{+1}/ref_roc_py{+1});
@@ -67,18 +75,25 @@
     nu_0, nu_1
     xi_k, xi_ih
     upsilon_0, upsilon_1
-    beta, beta_k, delta, gamma_n0, gamma_n, gamma_uk, gamma_z
+    beta, beta_k, delta
+    gamma_n0
+    gamma_n
+    gamma_uk
+    gamma_q
+    gamma_z
     eta, rho_w
     kappa_1, kappa_2
     ss_ar
     ss_roc_pch
-    xi_py, mu_py, mu_y3
+    xi_py, mu_py
     rho_r, psi_pch
+    "Markup to Cover Overhead Labor" mu_y3
 
     zeta_py
     xi_ch0, xi_ch1, xi_ch2
 
-    xi_y1, xi_y3
+    xi_y2
+    xi_y1
 
 !shocks
     
@@ -97,7 +112,7 @@
 
     ref_ch = chi_curr*(w*nh*nf/pch) + chi_ch*ch{-1};
     
-    vh = beta*vh{+1}*rbl + nu_1*netw;
+    vh = beta*vh{+1}*rbl + (nu_1*netw - nu_0);
 
     rdf = beta*vh{+1}*pch{+1}/(vh*pch);
     
@@ -159,15 +174,26 @@
 
 %% Stage T-2 Production: Variable Inputs and Capital
 
-    y1 = uk^gamma_uk * y3^(1-gamma_uk);
+    y2 = uk^gamma_uk * y3^(1-gamma_uk);
 
-    gamma_uk * py1 * y1 = puk * uk * [1 + xi_y1*($adj_uk$)] ...
-    !! gamma_uk * py1 * y1 = puk * uk;
+    gamma_uk * py2 * y2 = puk * uk * [1 + xi_y2*($adj_uk$)] ...
+    !! gamma_uk * py2 * y2 = puk * uk;
 
-    (1-gamma_uk) * py1 * y1 = py3 * y3 * [1 + xi_y3*($adj_y3$)] ...
-    !! (1-gamma_uk) * py1 * y1 = py3 * y3;
+    (1-gamma_uk) * py2 * y2 = py3 * y3 * [1 + xi_y2*($adj_y3$)] ...
+    !! (1-gamma_uk) * py2 * y2 = py3 * y3;
 
 %
+
+
+%% Stage T-1 Production: Add Commodity
+
+    y1 = y2^(1-gamma_q) * q^gamma_q;
+
+    (1-gamma_q) * py1 * y1 = py2 * y2 * [1 + xi_y1*($adj_y2$)] ...
+    !! (1-gamma_q) * py1 * y1 = py2 * y2;
+
+    gamma_q * py1 * y1 = pq * q * [1 + xi_y1*($adj_q$)] ...
+    !! gamma_q * py1 * y1 = pq * q;
 
 
 %% Final Stage Production: Flatter Marginal Cost

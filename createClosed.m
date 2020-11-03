@@ -54,11 +54,12 @@ m.chi_ch = 0;
 m.nu_0 = 0;
 m.nu_1 = 0.01;
 
-m.mu_y2 = 1; 1.4;
+m.mu_y3 = 1.3;
 
 m.gamma_n0 = 1/3;
 m.gamma_n = 0.7;
 m.gamma_uk = 0.4;
+m.gamma_q = 0.05;
 m.gamma_z = 0.60;
 
 m.xi_ch0 = 4;

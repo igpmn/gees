@@ -1,8 +1,12 @@
+%% Create Multi-Area Model
 
 close all
 clear
 
-ma = loadFrom("mat/createAutarky.mat", "m");
+
+%% Clone Model Files from Autarky
+
+load mat/createAutarky.mat autarkyModel
 
 sourceFiles = [
     "source/demography.model"
@@ -16,51 +20,57 @@ areas = ["us", "ea", "rw"];
 template = model.File(sourceFiles);
 
 gg = collectAllNames(template, @(x) startsWith(x, "gg_"));
-keep = ["open", gg];
 
-mf = model.File.empty(1, 0);
+modelFiles = model.File.empty(1, 0);
 for n = areas
-    mf(end+1) = clone(template, [n + "_", ""], "namesToKeep", keep); %#ok<SAGROW>
+    modelFiles(end+1) = clone(template, [n + "_", ""], "namesToKeep", gg); %#ok<SAGROW>
 end
 
-%
-% Add the wrapper module
-%
-mf(end+1) = model.File("source/globals.model");
-mf(end+1) = model.File("source/wrapper-multiarea.model");
-mf(end+1) = model.File("source/trade.model");
 
-m = Model(mf, "assign", struct("open", true, "areas", areas));
+%% Add Multi-Area Global Equations and Create Model Object
 
+modelFiles(end+1) = model.File("source/globals.model");
+modelFiles(end+1) = model.File("source/wrapper-multiarea.model");
+modelFiles(end+1) = model.File("source/trade.model");
+
+multiModel = Model(modelFiles, "assign", struct("areas", areas));
+
+
+%% Reassign Parameters from Autarky
+
+% Area-specific parameters
 for n = areas
-    m = assign(m, ma, @all, [n + "_", ""]);
+    multiModel = assign(multiModel, autarkyModel, @all, [n + "_", ""]);
 end
 
-m = assign(m, ma, gg);
+% Global parameters
+multiModel = assign(multiModel, autarkyModel, gg);
+
+
+%% Calibrate Multi-Area Parameters
+
 for n = areas
     for x = setdiff(areas, n)
-        m.(n+"_omega_"+x) = 1/(numel(areas)-1);
-        m.(n+"_xi_mm") = 0.5;
-        % m.(n+"_mm_"+x) = m.(n+"_omega_"+x) * real(m.(n+"_mm"));
+        multiModel.(n+"_omega_"+x) = 1/(numel(areas)-1);
+        multiModel.(n+"_xi_mm") = 0.5;
     end
 end
 
-m = steady(m, "fixLevel", ["gg_nn", "gg_a", areas+"_pch"]);
-checkSteady(m);
-m = solve(m);
 
-m0 = m;
+%% Calculate Steady State and First Order Solution
 
-% m.us_beta = 0.93;
-m.ea_pch = 1.10;
-
-m = steady( ...
-    m ...
-    , "fixLevel", ["gg_a", "gg_nn", "us_pch", "ea_pch"] ...
+multiModel = steady( ...
+    multiModel ...
+    , "fixLevel", ["gg_nn", "gg_a", areas+"_y", areas+"_pch"] ...
     , "blocks", false ...
 );
 
-checkSteady(m);
+checkSteady(multiModel);
 
-m = solve(m);
+multiModel = solve(multiModel)
+
+
+%% Save Model Object to MAT File
+
+save mat/createSymmetricWorld.mat multiModel
 

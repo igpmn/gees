@@ -1,0 +1,16 @@
+
+!equations
+
+    0 = !for ?a=<areas> !do + ?a_nfa_to_ngdp * ?a_ngdp / ?a_e !end;
+
+    !for ?a=<areas(2:end)> !do
+        ?a_r = <areas(1)>_r * ?a_exp_e / ?a_e;
+        ?a_rnfa = <areas(1)>_r{-1} * ?a_e / ?a_e{-1};
+        ?a_nfa_to_ngdp_checksum = 0;
+    !end
+
+    <areas(1)>_rnfa = <areas(1)>_r{-1};
+    <areas(1)>_e = 1;
+
+
+

@@ -1,10 +1,6 @@
+function [smc, s] = disinflation(m)
 
-close all
-clear
-
-load mat/createModel.mat m
-
-T = 10;
+T = 20;
 
 d = steadydb(m, 1:T);
 
@@ -25,16 +21,6 @@ s = simulate( ...
     , "method", "stacked" ...
 );
 
-tiledlayout flow
-nexttile
-plot(cumsum(100*(s.ch/d.ch-1)));
+smc = databank.minusControl(m, s, d);
 
-nexttile
-plot(cumsum(100*(s.ih/d.ih-1)));
-
-nexttile
-plot(100*(s.roc_pch-1));
-
-nexttile
-plot(100*(s.r-1), "marker", "s");
-
+end%

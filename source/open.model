@@ -1,0 +1,128 @@
+%% Open Economy Sectors
+
+
+!variables
+
+    "Total Non-Commodity Imports" mm
+    "Price of Imports" pmm
+    "Import Content of Non-Commodity Exports" mxx
+    "Intermediate Import Inputs into Domestic Production" my
+
+    "Domestic Content of Non-Commodity Exports" yxx
+    "Non-Commodity Exports" xx
+    "Price of Non-Commodity Exports" pxx
+
+    "Net Foreign Assets to GDP Ratio" nfa_to_ngdp
+    "Effective Interest Rate and Valuation on NFA" rnfa
+    "Checksum for Net Foreign Assets to GDP Ratio" nfa_to_ngdp_checksum
+    "Nominal Exchange Rate" e
+    "Expectations of Nominal Exchange Rate" exp_e
+    "Nominal Exchange Rate, Rate of Change" roc_e
+
+
+
+!log-variables
+
+    !all-but
+    nfa_to_ngdp
+    nfa_to_ngdp_checksum
+
+
+!parameters
+
+    "Import Intensity of Non-Commodity Exports" alpha
+    "Acceleration in Exportable Productivity" gamma_xx
+    "Elasticity of Household Lending Rate to Risk" theta
+    "Weight on Model-Consistent Expectations in Exchange Rate" zeta_e
+    
+
+!substitutions
+    
+    adj_nv = (log(nv/y2)-log(nv{-1}/y2{-1}))-&rdf*(log(nv{+1}/y2{+1})-log(nv/y2));
+    adj_mm = (log(my/y2)-log(my{-1}/y2{-1}))-&rdf*(log(my{+1}/y2{+1})-log(my/y2));
+
+%
+
+
+
+!equations
+
+
+%% Distribution of Non-Commodity Imports
+
+    mm = my + mxx;
+
+%
+
+
+%% Stage T-2 Production: Labor and Intermediate Imports
+
+    y2 = my^(1-gamma_n) * [ar * gg_a * nv]^gamma_n;
+
+    (1-gamma_n) * py2 * y2 = pmm * my * [1 + xi_y2*($adj_mm$)] ...
+    !! (1-gamma_n) * py2 * y2 = pmm * my;
+
+    gamma_n * py2 * y2 = mu_y2 * w * nv * [1 + xi_y2*($adj_nv$)] ...
+    !! gamma_n * py2 * y2 = mu_y2 * w * nv;
+
+%
+
+
+%% Distribution of Domestic Production
+
+    y = ych + ycg + yih + yxx;
+
+%
+
+
+%% Export Production
+
+    xx = ar^gamma_xx * yxx^(1-alpha) * mxx^alpha;
+    (1-alpha) * pxx * xx = py * yxx;
+    alpha * pxx * xx = pmm * mxx;
+
+%
+
+
+%% Balance of Payments and Exchange Rate
+
+    "Balance of Payments Transactions"
+    nfa_to_ngdp * ngdp ...
+        = rnfa * nfa_to_ngdp{-1}*ngdp{-1} ...
+        + pxx * xx ...
+        - pmm * mm ...
+        + nfa_to_ngdp_checksum * ngdp;
+
+    "Household Lending Rate"
+    rbl = r - theta * nfa_to_ngdp;
+
+    "Nominal Exchange Rate Expectations"
+    exp_e = e{+1}^zeta_e * (e*&roc_e)^(1-zeta_e);
+
+%
+
+
+%% Definitions
+
+    "Nominal GDP"
+    ngdp = pch*ch + pih*ih + pcg*cg + pxx*xx - pmm*my;
+
+    "Net Worth of Households"
+    netw = nu_1*nn/(pk*k + dg_to_ngdp*ngdp + nfa_to_ngdp*ngdp);
+
+    roc_e = e / e{-1};
+
+%
+
+
+%% Definitions outside Model
+
+!postprocessor
+
+    nmm_to_ngdp = pmm * mm / ngdp;
+    nxx_to_ngdp = pxx * xx / ngdp;
+    nmxx_to_ngdp = pmm * mxx / ngdp;
+
+%
+
+

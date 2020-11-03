@@ -1,0 +1,39 @@
+!variables
+    !for ?M=<areas> !do
+        !for ?X=<setdiff(areas, "?M")> !do
+            "?:M Imports from ?:X"
+            ?M_mm_?X
+        !end
+    !end
+
+
+!parameters
+    !for ?M=<areas> !do
+        "Point of Origination Import Adjustment Costs"
+        ?M_xi_mm
+
+        !for ?X=<setdiff(areas, "?M")> !do
+            "Share of Imports from ?:X in Total ?:M Imports"
+            ?M_omega_?X
+        !end
+    !end
+        
+
+!equations
+
+    !for ?X=<areas> !do
+        ?X_xx = !for ?M=<setdiff(areas, "?X")> !do + ?M_mm_?X !end ;
+    !end
+
+
+    !for ?M = <areas> !do
+        "Assembly of Total ?:M Non-Commodity Imports"
+        ?M_mm = 1 !for ?X=<setdiff(areas, "?M")> !do * (?M_mm_?X/?M_omega_?X)^?M_omega_?X !end;
+
+        !for ?X=<setdiff(areas, "?M")> !do
+            "Share of Imports from ?:X in Total ?:M Non-Commodity Imports"
+            ?M_omega_?X * ?M_pmm * ?M_mm = (?M_e / ?X_e) * ?X_pxx * ?M_mm_?X * [1 + ?M_xi_mm*(log(?M_mm_?X/?M_mm)-log(?M_mm_?X{-1}/?M_mm{-1})) - ?M_rdf*(log(?M_mm_?X{+1}/?M_mm{+1})-log(?M_mm_?X/?M_mm))] ...
+            !! ?M_omega_?X * ?M_pmm * ?M_mm = (?M_e / ?X_e) * ?X_pxx * ?M_mm_?X;
+        !end
+    !end
+

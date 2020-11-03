@@ -7,17 +7,17 @@ clear
 %% Create Model Object
 
 sourceFiles = [
-    "source/real.model"
+    "source/local.model"
     "source/fiscal.model"
     "source/demography.model"
     "source/globals.model"
-    "source/closed.model"
+    "source/wrapper-closed.model"
 ];
 
 m = Model( ...
     sourceFiles ...
     , "growth", true ...
-    , "assign", struct("open", ~true) ...
+    , "assign", struct("open", false) ...
 );
 
 
@@ -30,7 +30,7 @@ m.gg_ss_roc_nn = 1.01;
 m.gg_rho_nn = 0.9;
 
 m.ss_roc_pch = 1.01;
-m.ss_a = 1;
+m.ss_ar = 1;
 m.ss_nr = 1;
 
 m.ss_nw_to_nn = 0.70;
@@ -73,7 +73,7 @@ m.xi_y2 = 0.5;
 m.xi_k = 0.5;
 m.xi_ih = 0.5; 0.2;
 
-m.rho_a = 0.5;
+m.rho_ar = 0.5;
 
 % Price Setting
 m.mu_py = 1.1;
@@ -99,14 +99,14 @@ m.rho_txl2 = 0.5;
 % Starting Values for Steady State
 m.dg_to_ngdp = m.ss_dg_to_ngdp;
 m.y = 1;
-m.a = m.ss_a;
+m.ar = m.ss_ar;
 m.gg_nn = 1;
 m.nr = m.ss_nr;
 m.nn = m.gg_nn * m.ss_nr;
 m.pch = 1;
 
 m = steady(m ...
-    , "fixLevel", ["a", "y", "gg_nn", "nr", "pch", "dg_to_ngdp"] ...
+    , "fixLevel", ["ar", "y", "gg_nn", "nr", "pch", "dg_to_ngdp"] ...
     , "blocks", false ...
 );
 
@@ -117,10 +117,11 @@ checkSteady(m);
 
 
 %% Report Steady State
+
 table( ...
     m, ["steadyLevel", "steadyChange", "form", "description"] ...
     , "writeTable", "tables/createClosed.xlsx" ...
-);
+)
 
 
 %% First Order Solution

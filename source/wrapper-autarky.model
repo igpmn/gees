@@ -1,14 +1,3 @@
-!variables
-
-
-!log-variables
-    !all-but
-
-
-!shocks
-
-
-!parameters
 
 
 !equations
@@ -17,13 +6,13 @@
 
     nfa_to_ngdp_checksum = 0;
 
-    pm = pxx;
+    pmm = pxx;
 
     e = 1;
 
     rnfa = r{-1};
 
-    bfa = pm * m;
+    % bfa = pm * m;
     % rbfa = r{-1};
     % rbfl = r{-1};
 

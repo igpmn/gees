@@ -1,0 +1,36 @@
+%% Closed Economy Wrapper
+
+!equations
+
+%% Households
+
+    rbl = r;
+
+%
+
+
+%% Stage T-2 Production: Labor and Intermediate Imports
+
+    "Stage T-2 Production Function"
+    y2 = ar * gg_a * nv;
+
+    "Stage T-2 Demeand for Labor"
+    py2 * y2 = mu_y2 * w * nv;
+
+%
+
+
+%% Definitions and Sectoral Distribution
+    
+    "Household Net Worth"
+    netw = nu_1*nn/(pk*k + dg_to_ngdp*ngdp);
+
+    "Distribution of Doemstic Production"
+    y = ych + ycg + yih;
+
+    "Nominal GDP"
+    ngdp = pch*ch + pih*ih + pcg*cg;
+
+%
+
+

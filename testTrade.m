@@ -1,0 +1,13 @@
+
+close all
+clear
+
+% areas = ["ea", "us", "rw"];
+areas = ["ea", "us"];
+
+code = parser.Preparser.parse( ...
+    "source/trade.model", [ ] ...
+    , 'assigned=', struct("areas", areas) ...
+    , 'SaveAs=', "source/trade.preparsed" ...
+)
+

@@ -3,14 +3,13 @@
     "Private Consumption" ch
     "Private Consumption, Point of Reference" ref_ch
     "Per-Capita Labor Supply" nh
+    "Variable Labor" nv
     "Private Investment" ih
     "Production Capital" k
     "Production Capital, Point of Reference" ref_k
     "Production Capital Services" uk
-    "Domestic Technology Level" a
-    "Domestic Technology Choice: Labor" an, roc_an
-    "Domestic Technology Choice: Capital" ak, roc_ak
-    "Domestic Technology Choice: Stage T-2 Output" ay2, roc_ay2
+    "Household Net Worth" netw
+    "Domestic Technology Level" ar
     "Shadow Value of Household Budget Constraing" vh
     "Price of Private Consumption" pch
     "Price of Private Investment" pih
@@ -28,7 +27,7 @@
     "Price of Production Capital Services" puk
     "Nominal Wage Rate" w, w0
     "Nominal Local Currency Money Market Rate" r
-    "Nominal Local Currency Household Rate" rh
+    "Nominal Local Currency Household Lending Rate" rbl
     "Bank Deposits" bd
     
     "Price of Final Domestic Output, Rate of Change" roc_py
@@ -39,8 +38,6 @@
     "Capital Utilization Rate" u
     "Household Capital, Rate of Change" roc_k
 
-    "Domestic Technology Choice: Intermediate Imports" am
-    "Domestic Technology Choice: Intermediate Imports, Rate of Change" roc_am
     "Domestic Component of Private Consumption" ych
     "Domestic Component of Government Consumption" ycg
     "Domestic Component of Private Investment" yih
@@ -54,17 +51,17 @@
 
     trn = (pch * ch + pih * ih + kappa_1 * pk * k);
     curr = (w*nh*nf - txl2*pch*ch);
-    netw = nu_1*nn/(pk*k + dg_to_ngdp*ngdp !if open; + nfa_to_ngdp*ngdp !end );
     shf_curr = normpdf((log(pch*ch/($curr$*exp(shk_curr))) - log(xi_ch1))/xi_ch2)/xi_ch2;
 
-    adj_y2 = log(roc_am/&roc_am)-log(roc_an/&roc_an) - &rdf*(log(roc_am{+1}/&roc_am)-log(roc_an{+1}/&roc_an)); 
-    adj_y1 = log(roc_ak/&roc_ak)-log(roc_ay2/&roc_ay2) - &rdf*(log(roc_ak{+1}/&roc_ak)-log(roc_ay2{+1}/&roc_ay2)); 
+    adj_uk = (log(uk/y1)-log(uk{-1}/y1{-1}))-&rdf*(log(uk{+1}/y1{+1})-log(uk/y1));
+    adj_y2 = (log(y2/y1)-log(y2{-1}/y1{-1}))-&rdf*(log(y2{+1}/y1{+1})-log(y2/y1));
+
     adj_ih = log(ih/ih{-1}/&roc_ih) - beta*log(ih{+1}/ih/&roc_ih);
     adj_py = log(roc_py/ref_roc_py) - beta*log(roc_py{+1}/ref_roc_py{+1});
 
 
 !parameters
-    rho_a
+    rho_ar
 
     chi_curr, chi_ch, chi
     nu_0, nu_1
@@ -73,7 +70,7 @@
     beta, beta_k, delta, gamma_n0, gamma_n, gamma_uk, gamma_z
     eta, rho_w
     kappa_1, kappa_2
-    ss_a
+    ss_ar
     ss_roc_pch
     xi_py, mu_py, mu_y2
     rho_r, psi_pch
@@ -81,13 +78,11 @@
     zeta_py
     xi_ch0, xi_ch1, xi_ch2
 
-    phi_u
-
     xi_y1, xi_y2
 
 !shocks
     
-    shk_a
+    shk_ar
     shk_r
     shk_w
     shk_curr
@@ -102,7 +97,7 @@
 
     ref_ch = chi_curr*(w*nh*nf/pch) + chi_ch*ch{-1};
     
-    vh = beta*vh{+1}*rh + $netw$;
+    vh = beta*vh{+1}*rbl + nu_1*netw;
 
     rdf = beta*vh{+1}*pch{+1}/(vh*pch);
     
@@ -126,7 +121,7 @@
 
     vh*pk*(1 + xi_k*log(k/ref_k)) ...
         = vh*puk + beta_k*beta*vh{+1}*(1-delta)*pk{+1} ...
-        + $netw$*pk;
+        + nu_1*netw*pk;
 
     ref_k = k{+1}/&roc_k; %k{+1}^0.2 * ref_k{+1}^(1-0.2) / &roc_k !! ref_k = k;
 
@@ -143,46 +138,35 @@
 %
 
 
+%% Productivity
+
+    % Area Specific Productivity
+    log(ar) = rho_ar*log(ar{-1}) + (1-rho_ar)*log(ss_ar) + shk_ar ...
+    !! ar = ss_ar;
+
+%
+
+
 %% Stage T-2 Production: Labor and Intermediate Imports
 
-    !if open
-        y2 = an * (nh - gamma_n0*&nh) * nf;
-        y2 = am * m;
-        py2 = mu_y2 * w/an + pm/am;
+    % nv = (nh - gamma_n0*&nh) * nf;
+    nv = nh * nf;
 
-        gamma_n*pm/am - mu_y2*(1-gamma_n)*w/an = py2*xi_y2*($adj_y2$) ...
-        !! gamma_n*pm/am - mu_y2*(1-gamma_n)*w/an = 0;
-
-        am^(1-gamma_n) * an^gamma_n = (a * gg_a)^gamma_n;
-    !else
-        y2 = an * (nh - gamma_n0*&nh) * nf;
-        py2 = mu_y2 * w / an;
-        an = a * gg_a;
-        am = 1;
-    !end
-    
-    log(a) = rho_a*log(a{-1}) + (1-rho_a)*log(ss_a) + shk_a ...
-    !! a = ss_a;
+    % Stage T-2 production is open/closed specific
+    % y2 = ...
 
 %
 
 
 %% Stage T-1 Production: Variable Inputs and Capital
 
-    y1 = ak * uk;
-    y1 = ay2 * y2;
-    py1 = puk/ak + py2/ay2;
+    y1 = uk^gamma_uk * y2^(1-gamma_uk);
 
-    (1-gamma_uk)*puk/ak - gamma_uk*py2/ay2 = py1*xi_y1*($adj_y1$) ...
-    !! (1-gamma_uk)*puk/ak - gamma_uk*py2/ay2;
+    gamma_uk * py1 * y1 = puk * uk * [1 + xi_y1*($adj_uk$)] ...
+    !! gamma_uk * py1 * y1 = puk * uk;
 
-    ak^gamma_uk * ay2^(1-gamma_uk) = 1;
-
-    roc_am = am/am{-1};
-    roc_an = an/an{-1};
-
-    roc_ak = ak/ak{-1};
-    roc_ay2 = ay2/ay2{-1};
+    (1-gamma_uk) * py1 * y1 = py2 * y2 * [1 + xi_y2*($adj_y2$)] ...
+    !! (1-gamma_uk) * py1 * y1 = py2 * y2;
 
 %
 
@@ -203,7 +187,8 @@
 
     ref_roc_py = roc_py{-1}^zeta_py * &roc_py^(1-zeta_py);
     
-    y = ych + ycg + yih !if open; + yxx !end;
+    % Disaggregation of y is open/closed specific
+    % y = ...
 
     pch = py;
     pih = py;
@@ -228,11 +213,6 @@
 
 
 %% Definitions
-
-    "Nominal GDP"
-    ngdp = pch*ch + pih*ih + pcg*cg !if open; + pxx*xx - pm*m !end;
-
-
     roc_cg = cg / cg{-1};
     roc_w = w / w{-1};
     roc_pch = pch / pch{-1};
@@ -242,6 +222,8 @@
 %
 
 
+%% Definitions outside Model
+
 !postprocessor
 
     nch_to_ngdp = pch * ch / ngdp;
@@ -249,4 +231,5 @@
     nkh_to_ngdp = pk * k / ngdp;
     curr_to_ngdp = ($curr$) / ngdp;
 
+%
 

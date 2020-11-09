@@ -34,7 +34,7 @@
 
 
     "Total Population"
-    nn = nr * gg_nn;
+    nn = nr * gg_nt;
 
 
     "Share of Working Age Population in Total Population"

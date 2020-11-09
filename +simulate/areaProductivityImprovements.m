@@ -1,17 +1,22 @@
-function [s, smc] = areaProductivityImprovements(m)
+function [s, smc] = areaProductivityImprovements(m, area)
 
 T = 20;
 
 d = steadydb(m, 1:T);
 
-m.us_ss_a = m.us_ss_a * 1.10;
-m.us_a = m.us_a;
-m = steady(m);
+m.(area+"_ss_ar") = m.(area+"_ss_ar") * 1.10;
+
+m = steady( ...
+    m ...
+    , "fixLevel", ["gg_a", "gg_nt", "us_pch", "ea_pch", "rw_pch"] ...
+    , "blocks", false ...
+);
+
 checkSteady(m);
 m = solve(m);
 
 p = Plan.forModel(m, 1:T);
-p = swap(p, 1:2, ["us_a", "us_shk_a"]);
+p = swap(p, 1:3, [area+"_ar", area+"_shk_ar"]);
 
 s = simulate( ...
     m, d, 1:T ...
@@ -22,23 +27,6 @@ s = simulate( ...
 );
 
 smc = databank.minusControl(m, s, d);
-
-return
-
-figure();
-tiledlayout("flow");
-nexttile; plot(0:T, smc.ch); title ch;
-nexttile; plot(0:T, smc.ih); title ih;
-nexttile; plot(0:T, smc.cg); title cg;
-nexttile; plot(0:T, smc.w*smc.nh/smc.pch); title curr;
-
-return
-
-dbplot( ...
-    smc, 0:T, access(m, "transitionVariables") ...
-    , "marker", "s" ...
-    , "round", 7 ...
-);
 
 end%
 

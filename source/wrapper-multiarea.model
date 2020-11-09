@@ -8,17 +8,17 @@
 %% Multi-Area Equilibrium and Clearing
 
     "Net Asset Clearing"
-    0 = !for ?a=<areas> !do + ?a_nfa_to_ngdp * ?a_ngdp / ?a_e !end;
+    0 = !for ?A=<areas> !do + ?A_nfa_to_ngdp * ?A_ngdp / ?A_e !end;
 
-    !for ?a=<areas(2:end)> !do
+    !for ?A=<areas(2:end)> !do
         "Interest Parity"
-        ?a_r = <areas(1)>_r * ?a_exp_e / ?a_e;
+        ?A_r = <areas(1)>_r * ?A_exp_e / ?A_e * exp(?A_shk_e);
 
         "Effective NFA Rate"
-        ?a_rnfa = <areas(1)>_r{-1} * ?a_e / ?a_e{-1};
+        ?A_rnfa = <areas(1)>_r{-1} * ?A_e / ?A_e{-1};
 
         "NFA Checksum"
-        ?a_nfa_to_ngdp_checksum = 0;
+        ?A_nfa_to_ngdp_checksum = 0;
     !end
 
     "Reference Currency Effective NFA Rate"
@@ -27,4 +27,34 @@
     "Reference Currency Exchange Rate"
     <areas(1)>_e = 1;
 
+    "Total Population"
+    gg_nn = !for <areas> !do + ?_nn !end;
+
+%
+
+
+%% International Comparison
+
+    !for ?A=<areas> !do
+        !variables
+            "?:A Per-Worker GDP for International Comparison" ?A_ngdp_pw_int
+            "?:A Per-Capita GDP for International Comparison" ?A_ngdp_pc_int
+
+        !equations
+            "?:A Per-Worker GDP for International Comparison"
+            ?A_ngdp_pw_int = ?A_ngdp / ?A_e / ?A_nf;
+
+            "?:A Per-Worker GDP for International Comparison"
+            ?A_ngdp_pc_int = ?A_ngdp / ?A_e / (?A_nn);
+    !end
+
+
+
+    !variables
+        calib_y_pw_rw_us
+        calib_y_pw_ea_us
+
+    !equations
+        calib_y_pw_rw_us = (rw_y/rw_nf) / (us_y/us_nf);
+        calib_y_pw_ea_us = (ea_y/ea_nf) / (us_y/us_nf);
 

@@ -3,14 +3,13 @@
 
 !variables
     "Non-Commodity Imports" mm
-    "Commodity Imports" mq
     "Price of Non-Commodity Imports" pmm
+    "Price of Non-Commodity Imports, Free on Board at Destinatin Point" fob_pmm
     "Import Content of Non-Commodity Exports" mxx
     "Intermediate Import Inputs into Domestic Production" my
 
     "Domestic Content of Non-Commodity Exports" yxx
     "Non-Commodity Exports" xx
-    "Commodity Exports" xq
     "Price of Non-Commodity Exports" pxx
 
     "Net Foreign Assets to GDP Ratio" nfa_to_ngdp
@@ -19,28 +18,32 @@
     "Nominal Exchange Rate" e
     "Expectations of Nominal Exchange Rate" exp_e
     "Nominal Exchange Rate, Rate of Change" roc_e
+    "Net Commdity Export to GDP Ratio" netxq_to_ngdp
 
 
 
 !log-variables
-
     !all-but
     nfa_to_ngdp
     nfa_to_ngdp_checksum
+    netxq_to_ngdp
 
 
 !parameters
-
     "Import Intensity of Non-Commodity Exports" alpha
     "Acceleration in Exportable Productivity" gamma_xx
     "Elasticity of Household Lending Rate to Risk" theta
     "Weight on Model-Consistent Expectations in Exchange Rate" zeta_e
-    
-    xi_y3
+    "Share of Local Commodity Production in World Commodity Production" lambda
+    "Adjustment Cost Parameter in Stage T-3 Production" xi_y3
+
+
+!shocks
+    "Interest Parity Shock" shk_e
+
 
 !substitutions
-    
-    adj_nv = (log(nv/y3)-log(nv{-1}/y3{-1}))-&rdf*(log(nv{+1}/y3{+1})-log(nv/y3));
+    adj_nv = (log(nv/y3)-log(nv{-1}/y3{-1})-log(&roc_nv/&roc_y3))-&rdf*(log(nv{+1}/y3{+1})-log(nv/y3)-log(&roc_nv/&roc_y3));
     adj_mm = (log(my/y3)-log(my{-1}/y3{-1}))-&rdf*(log(my{+1}/y3{+1})-log(my/y3));
 
 %
@@ -57,24 +60,22 @@
 %
 
 
+%% Commodity Prices
+
+    pq = gg_pq * e;
+
+%
+
+
 %% Stage T-3 Production: Labor and Intermediate Imports
 
-    y3 = my^(1-gamma_n) * [ar * gg_a * nv]^gamma_n;
+    y3 = (my/(1-gamma_n))^(1-gamma_n) * ([ar * gg_a * nv]/(gamma_n))^gamma_n;
 
     (1-gamma_n) * py3 * y3 = pmm * my * [1 + xi_y3*($adj_mm$)] ...
     !! (1-gamma_n) * py3 * y3 = pmm * my;
 
     gamma_n * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
     !! gamma_n * py3 * y3 = mu_y3 * w * nv;
-
-%
-
-
-%% Placeholders for Commodity Inputs
-
-    pq = py2;
-    mq = q;
-    xq = q;
 
 %
 
@@ -101,15 +102,20 @@
     nfa_to_ngdp * ngdp ...
         = rnfa * nfa_to_ngdp{-1}*ngdp{-1} ...
         + pxx * xx ... Non-commodity exports
-        - pmm * mm ... Non-commodity imports
-        + pq * (xq - mq) ... Net commodity exports
+        - fob_pmm * mm ... Non-commodity imports, priced FOB destination
+        + pq * (lambda*gg_q - q) ... Net commodity exports
         + nfa_to_ngdp_checksum * ngdp;
 
-    "Household Lending Rate"
-    rbl = r - theta * nfa_to_ngdp;
+    "Household Credit Risk"
+    hh = - theta * nfa_to_ngdp;
+    roc_bl = bl / bl{-1};
 
     "Nominal Exchange Rate Expectations"
     exp_e = e{+1}^zeta_e * (e*&roc_e)^(1-zeta_e);
+
+    "Financial Sector"
+    bl + (dg_to_ngdp + nfa_to_ngdp)*ngdp = bdh + bdg + beq;
+    beq = ss_beq_to_bass * (bdh + bdg + beq);
 
 %
 
@@ -120,9 +126,11 @@
     ngdp = pch*ch + pih*ih + pcg*cg + pxx*xx - pmm*my;
 
     "Net Worth of Households"
-    netw = nu_1*nn/(pk*k + dg_to_ngdp*ngdp + nfa_to_ngdp*ngdp);
+    netw = pk*k + bdh - bl + beq; % dg_to_ngdp*ngdp + nfa_to_ngdp*ngdp;
 
     roc_e = e / e{-1};
+    
+    netxq_to_ngdp * ngdp = pq*(lambda*gg_q - q);
 
 %
 
@@ -134,7 +142,13 @@
     nmm_to_ngdp = pmm * mm / ngdp;
     nxx_to_ngdp = pxx * xx / ngdp;
     nmxx_to_ngdp = pmm * mxx / ngdp;
-    netxq_to_ngdp = pq*(xq - mq) / ngdp;
+
+
+!log-variables
+    !all-but
+    nmm_to_ngdp
+    nxx_to_ngdp
+    nmxx_to_ngdp
 
 %
 

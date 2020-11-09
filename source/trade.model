@@ -3,7 +3,7 @@
 
 !variables
     !for ?M=<areas> !do
-        !for ?X=<setdiff(areas, "?M")> !do
+        !for ?X=<areas> !do
             "?:M Imports from ?:X"
             ?M_mm_?X
         !end
@@ -18,12 +18,22 @@
     "Value of Global Non-Commodity Exports" gg_nxx
 
 
+!log-variables
+    !all-but
+    !for ?M=<areas> !do
+        !for ?X=<areas> !do 
+            ?M_trm_?X
+        !end
+    !end
+
+
 !parameters
     !for ?M=<areas> !do
         "Point of Origination Import Adjustment Costs"
         ?M_xi_mm
 
-        !for ?X=<setdiff(areas, "?M")> !do
+        % !for ?X=<setdiff(areas, "?M")> !do
+        !for ?X=<areas> !do
             "Share of Imports from ?:X in Total ?:M Imports"
             ?M_omega_?X
         !end
@@ -33,23 +43,31 @@
 !equations
 
     !for ?X=<areas> !do
-        ?X_xx = !for ?M=<setdiff(areas, "?X")> !do + ?M_mm_?X !end ;
+        "Distribution of ?:X Exports across Areas"
+        % ?X_xx = !for ?M=<setdiff(areas, "?X")> !do + ?M_mm_?X !end ;
+        ?X_xx = !for ?M=<areas> !do + ?M_mm_?X !end ;
     !end
 
 
     !for ?M=<areas> !do
         "Assembly of Total ?:M Non-Commodity Imports"
-        ?M_mm = 1 !for ?X=<setdiff(areas, "?M")> !do * (?M_mm_?X/?M_omega_?X)^?M_omega_?X !end;
+        % ?M_mm = 1 !for ?X=<setdiff(areas, "?M")> !do * (?M_mm_?X/?M_omega_?X)^?M_omega_?X !end;
+        ?M_mm = 1 !for ?X=<areas> !do * (?M_mm_?X/?M_omega_?X)^?M_omega_?X !end;
 
-        !for ?X=<setdiff(areas, "?M")> !do
+        % !for ?X=<setdiff(areas, "?M")> !do
+        !for ?X=<areas> !do
             "Share of Imports from ?:X in Total ?:M Non-Commodity Imports"
-            ?M_omega_?X * ?M_pmm * ?M_mm = (?M_e / ?X_e) * ?X_pxx * ?M_mm_?X * [1 + ?M_xi_mm*(log(?M_mm_?X/?M_mm)-log(?M_mm_?X{-1}/?M_mm{-1})) - ?M_rdf*(log(?M_mm_?X{+1}/?M_mm{+1})-log(?M_mm_?X/?M_mm))] ...
-            !! ?M_omega_?X * ?M_pmm * ?M_mm = (?M_e / ?X_e) * ?X_pxx * ?M_mm_?X;
+            ?M_omega_?X * ?M_pmm * ?M_mm = (?M_e / ?X_e) * ?X_pxx * (1 + ?M_trm + ?M_trm_?X) * ?M_mm_?X * [1 + ?M_xi_mm*(log(?M_mm_?X/?M_mm)-log(?M_mm_?X{-1}/?M_mm{-1})) - ?M_rdf*(log(?M_mm_?X{+1}/?M_mm{+1})-log(?M_mm_?X/?M_mm))] ...
+            !! ?M_omega_?X * ?M_pmm * ?M_mm = (?M_e / ?X_e) * ?X_pxx * (1 + ?M_trm + ?M_trm_?X) * ?M_mm_?X;
         !end
+        ?M_fob_pmm * ?M_mm = !for ?X=<areas> !do + (?M_e / ?X_e) * ?X_pxx * ?M_mm_?X !end; 
     !end
 
     !for ?X=<areas> !do
+        "?:X Price of Non-Commodity Exports for International Comparison"
         ?X_pxx_int = ?X_pxx * <areas(1)>_e / ?X_e;
+        
+        "?:X Value of Non-Commodity Exports for International Comparison"
         ?X_nxx_int = ?X_pxx_int * ?X_xx;
     !end
 
@@ -60,4 +78,30 @@
     "Global Index of Non-Commodity Export Prices"
     gg_pxx ...
         = !for ?X=<areas> !do + ?X_pxx_int * ?X_nxx_int/gg_nxx !end;
+
+    gg_q ...
+        = !for ?M=<areas> !do + ?M_q !end;
+
+%% Tariffs
+
+!for ?M=<areas> !do
+    !for ?X=<areas> !do
+        !variables
+            ?M_trm_?X
+
+        !shocks
+            ?M_shk_trm_?X
+
+        !parameters
+            ?M_ss_trm_?X
+            ?M_rho_trm_?X
+
+        !equations
+            ?M_trm_?X ...
+                = ?M_rho_trm_?X * ?M_trm_?X{-1} ...
+                + (1 - ?M_rho_trm_?X) * ?M_ss_trm_?X ...
+                + ?M_shk_trm_?X ...
+            !! ?M_trm_?X = ?M_ss_trm_?X;
+    !end
+!end
 

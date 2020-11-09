@@ -51,7 +51,7 @@ ch_t^\ref = \chi \cdot \frac{curr_t}{pch_t}
 $$
 
 $$
-curr_t = w_t \cdot nh_t \cdot \xnf_t - txl1_t
+curr_t = w_t \cdot nh_t \cdot \xnf_t - trl1_t
 $$
 
 <br />
@@ -64,7 +64,7 @@ $\xnf_t$ | Labor force
 $nh_t$ | Per-worker labor supply (e.g. per-worker hours worked)
 $netw_t$ | Nominal net worth of households
 $curr_t$ | Nominal current income of households
-$txl1_t$ | Net lump-sum taxes (transfers) of type 1
+$trl1_t$ | Net lump-sum taxes (transfers) of type 1
 
 
 --- 
@@ -76,7 +76,7 @@ $$
 bd_t - bl_t = rbd_{t-1} \cdot bd_{t-1} - rbl_{t-1} \cdot bl_{t-1} \\[5pt]
 + \ w_t \cdot nh_t \cdot \xnf_t + puk_t \cdot u_t \cdot k_t + zy_t + zb_t \\[5pt]
 - \ pch_t \cdot ch_t - pih_t \cdot ih_t \\[5pt]
--\ txl1_t - txl2_t - adj_t
+-\ trl1_t - trl2_t - adj_t
 \end{gathered}
 $$
 
@@ -93,8 +93,8 @@ $w_t$ | Nominal wage rate
 $zy_t$ | Profits from producers
 $zb_t$ | Profits from financial sector
 $jh_t$ | Adjustment costs faced by households
-$txl1_t$ | Type 1 net lump-sum taxes (transfers)
-$txl2_t$ | Type 2 net lump-sum taxes (transfers) 
+$trl1_t$ | Type 1 net lump-sum taxes (transfers)
+$trl2_t$ | Type 2 net lump-sum taxes (transfers) 
 
 ---
 

@@ -1,3 +1,5 @@
+%% Local Economy Module
+
 !variables
     "Real Discount Factor" rdf
     "Private Consumption" ch
@@ -31,9 +33,12 @@
     "Price of Production Capital" pk
     "Price of Production Capital Services" puk
     "Nominal Wage Rate" w, w0
-    "Nominal Local Currency Money Market Rate" r
+    "Nominal Local Currency Money Market Rate" r, unc_r
     "Nominal Local Currency Household Lending Rate" rbl
-    "Bank Deposits" bd
+    "Bank Deposits Held by Households" bdh
+    "Bank Loans to Households" bl
+    "Bank Capital" beq
+    "Household Credit Risk" hh
     
     "Price of Final Domestic Output, Rate of Change" roc_py
     "Price of Final Domestic Output, Rate of Change, Point of Reference" ref_roc_py
@@ -42,6 +47,9 @@
     "Household Investment, Rate of Change" roc_ih
     "Capital Utilization Rate" u
     "Household Capital, Rate of Change" roc_k
+    "Stage T-3 Output, Rate of Change" roc_y3
+    "Variable Labor, Rate of Change" roc_nv
+    roc_bl
 
     "Domestic Component of Private Consumption" ych
     "Domestic Component of Government Consumption" ycg
@@ -50,12 +58,13 @@
 
 !log-variables
     !all-but
-
+    hh
 
 !substitutions
 
-    trn = (pch * ch + pih * ih + kappa_1 * pk * k);
-    curr = (w*nh*nf - txl2*pch*ch);
+    ng = nf;
+    trn = pch * ch + pih * ih + kappa_1 * pk * k;
+    curr = (w*nh*nf - trl2*pch*ch);
     shf_curr = normpdf((log(pch*ch/($curr$*exp(shk_curr))) - log(xi_ch1))/xi_ch2)/xi_ch2;
 
     adj_uk = (log(uk/y2)-log(uk{-1}/y2{-1}))-&rdf*(log(uk{+1}/y2{+1})-log(uk/y2));
@@ -69,6 +78,7 @@
 
 
 !parameters
+    floor
     rho_ar
 
     chi_curr, chi_ch, chi
@@ -86,7 +96,7 @@
     ss_ar
     ss_roc_pch
     xi_py, mu_py
-    rho_r, psi_pch
+    rho_r, psi_pch, psi_r
     "Markup to Cover Overhead Labor" mu_y3
 
     zeta_py
@@ -94,6 +104,9 @@
 
     xi_y2
     xi_y1
+    ss_beq_to_bass
+    theta_3
+
 
 !shocks
     
@@ -107,19 +120,25 @@
 
 %% Household Consumption
 
-    vh*pch*[ ch - chi*ref_ch ] = nn*(1 - chi*&ref_ch/&ch) ...
-    !! vh*pch*ch = nn;
+    % vh*pch*[ ch - chi*ref_ch ] = nn*(1 - chi*&ref_ch/&ch) ...
+    % !! vh*pch*ch = nn;
+
+    vh*pch*[ ch - chi*ref_ch ] = $ng$*(1 - chi*&ref_ch/&ch) ...
+    !! vh*pch*ch = $ng$;
 
     ref_ch = chi_curr*(w*nh*nf/pch) + chi_ch*ch{-1};
     
-    vh = beta*vh{+1}*rbl + (nu_1*netw - nu_0);
+    %vh = beta*vh{+1}*rbl + (nu_1*nn/netw - nu_0*vh);
+    vh = beta*vh{+1}*rbl + (nu_1*$ng$/netw - nu_0*vh);
 
     rdf = beta*vh{+1}*pch{+1}/(vh*pch);
+    
+    rbl * (1 - hh) = r + theta_3*(unc_r - r);
     
 
 %% Labor Supply
 
-    vh * w0 = 1;
+    vh * w0 = nh^eta;
 
     log(w/pch) ...
         = rho_w * log(w{-1}*&roc_w/pch{-1}/&roc_pch) ... * &roc_w * &roc_pch) ...
@@ -127,16 +146,20 @@
         + shk_w ...
         !! w = w0;
 
-    bd = kappa_2 * $trn$;
+    bdh = kappa_2 * ($trn$);
 
 %
 
 
 %% Production Capital Supply
 
+    % vh*pk*(1 + xi_k*log(k/ref_k)) ...
+        % = vh*puk + beta_k*beta*vh{+1}*(1-delta)*pk{+1} ...
+        % + (nu_1*nn/netw - nu_0*vh)*pk;
+
     vh*pk*(1 + xi_k*log(k/ref_k)) ...
         = vh*puk + beta_k*beta*vh{+1}*(1-delta)*pk{+1} ...
-        + nu_1*netw*pk;
+        + (nu_1*$ng$/netw - nu_0*vh)*pk;
 
     ref_k = k{+1}/&roc_k;
 
@@ -174,7 +197,7 @@
 
 %% Stage T-2 Production: Variable Inputs and Capital
 
-    y2 = uk^gamma_uk * y3^(1-gamma_uk);
+    y2 = (uk/gamma_uk)^gamma_uk * (y3/(1-gamma_uk))^(1-gamma_uk);
 
     gamma_uk * py2 * y2 = puk * uk * [1 + xi_y2*($adj_uk$)] ...
     !! gamma_uk * py2 * y2 = puk * uk;
@@ -187,7 +210,7 @@
 
 %% Stage T-1 Production: Add Commodity
 
-    y1 = y2^(1-gamma_q) * q^gamma_q;
+    y1 = (y2/(1-gamma_q))^(1-gamma_q) * (q/gamma_q)^gamma_q;
 
     (1-gamma_q) * py1 * y1 = py2 * y2 * [1 + xi_y1*($adj_y2$)] ...
     !! (1-gamma_q) * py1 * y1 = py2 * y2;
@@ -198,7 +221,7 @@
 
 %% Final Stage Production: Flatter Marginal Cost
 
-    y + z = y1^(1-gamma_z) * (&y1/&z*z)^gamma_z;
+    y + z = (y1/(1-gamma_z))^(1-gamma_z) * (z/gamma_z)^gamma_z;
     (1-gamma_z) * py0 * (y + z) = py1 * y1;
     gamma_z * py0 * (y + z) = py * z;
 
@@ -228,21 +251,22 @@
 %% Monetary Policy
 
     "Monetary Policy Reaction Function"
-    log(r) ...
-        = rho_r * log(r{-1}) ...
-        + (1-rho_r) * [ log(&r) + psi_pch * (log(roc_pch{+1}) - log(ss_roc_pch)) ] ...
+    log(unc_r) ...
+        = rho_r * log(unc_r{-1}) ...
+        + (1-rho_r) * [ log(&unc_r) + psi_pch * (log(roc_pch{+1}) - log(ss_roc_pch)) ] ...
         + shk_r ...
     !! pch = pch{-1} * ss_roc_pch;
+
+    r = floor*max(1, unc_r) + (1-floor)*unc_r;
 
 %
 
 
-%% Definitions
-    roc_cg = cg / cg{-1};
-    roc_w = w / w{-1};
-    roc_pch = pch / pch{-1};
-    roc_py = py / py{-1};
-    roc_k = k/k{-1};
+%% Rates of Change
+
+    !for cg, w, pch, py, k, y3, nv !do
+        roc_? = ? / ?{-1};
+    !end
 
 %
 
@@ -255,6 +279,14 @@
     nih_to_ngdp = pih * ih / ngdp;
     nkh_to_ngdp = pk * k / ngdp;
     curr_to_ngdp = ($curr$) / ngdp;
+
+
+!log-variables
+    !allbut
+    nch_to_ngdp
+    nih_to_ngdp
+    nkh_to_ngdp
+    curr_to_ngdp
 
 %
 

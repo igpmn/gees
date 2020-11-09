@@ -16,6 +16,8 @@
 
 #wrapper h1, #wrapper h2 {
     color: var(--primary-heading-color);
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 @media screen {

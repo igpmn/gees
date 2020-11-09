@@ -1,28 +1,58 @@
-!variables
-    "Long-Run Level of Global Commodity Production" qq
-    "Global Commodity Demand" gg_q
+%% Commodity Extraction
 
+
+!variables
+    "Long-Run Level of Global Commodity Production" gg_qq
+    "Long-Run Productivity in Commodity Extraction" gg_aq
+    "Global Commodity Demand" gg_q
+    "Log Excess Demand in Commodity Market" gg_qexc
+    "Nominal Commodity Prices" gg_pq
+    
 
 !log-variables
     !all-but
+    gg_qexc
 
 
 !parameters
-    rho_aqq
-    ss_aqq
+
+    "S/S Long-Run Level of Global Commodity Production" gg_ss_aq
+    "Autoregression in Long-Run Level of Global Commodity Production" gg_rho_aqq
+    "Excess Demand Elasticity of Commodity Prices" iota_1
+    "Commodity Supply Curvature" iota_2
 
 
 !shocks
+    gg_shk_aqq
+    gg_shk_pq
 
 
 !equations
 
-    qq = aqq * gg_a;
+    "Long-Run Level of Global Commodity Production"
+    gg_qq = gg_aq * gg_a * (&gg_q / (&gg_aq * &gg_a)) ...
+        !! gg_qq = gg_q;
 
-    log(aqq) ...
-        = rho_aqq*log(aqq{-1}) ...
-        + (1-rho_aqq)*log(ss_aqq) ...
-        + shk_aqq;
+    
+    "Long-Run Productivity in Commodity Extraction"
+    log(gg_aq) ...
+        = gg_rho_aqq*log(gg_aq{-1}) ...
+        + (1-gg_rho_aqq)*log(gg_ss_aq) ...
+        + gg_shk_aqq ...
+    !! gg_aq = gg_ss_aq;
+
+
+    "Log Excess Demand in Commodity Market" 
+    gg_qexc = log(gg_q) - log(gg_qq) ...
+    !! gg_qexc = 0;
+
+
+    "Commodity Supply Curve"
+    log(gg_pq) - log(gg_pxx) ...
+        = iota_1 * (1/iota_2)*(exp(iota_2*gg_qexc)-1) + gg_shk_pq ...
+    !! gg_pq = gg_pxx;
+
+%
 
 
 

@@ -14,22 +14,5 @@ s = simulate( ...
 
 smc = databank.minusControl(m, s, d);
 
-return
-
-figure();
-tiledlayout("flow");
-nexttile; plot(0:T, smc.ch); title ch;
-nexttile; plot(0:T, smc.ih); title ih;
-nexttile; plot(0:T, smc.cg); title cg;
-nexttile; plot(0:T, smc.w*smc.nh/smc.pch); title curr;
-
-return
-
-dbplot( ...
-    smc, 0:T, access(m, "transitionVariables") ...
-    , "marker", "s" ...
-    , "round", 7 ...
-);
-
 end%
 

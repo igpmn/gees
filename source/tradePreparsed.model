@@ -1,0 +1,153 @@
+!variables
+    
+        
+            "US Imports from EA"
+            us_mm_ea
+        
+            "US Imports from RW"
+            us_mm_rw
+        
+    
+        
+            "EA Imports from RW"
+            ea_mm_rw
+        
+            "EA Imports from US"
+            ea_mm_us
+        
+    
+        
+            "RW Imports from EA"
+            rw_mm_ea
+        
+            "RW Imports from US"
+            rw_mm_us
+        
+    
+
+     
+        "Price of US Non-Commodity Exports for International Comparison" us_pxx_int
+        "Value of US Non-Commodity Exports for International Comparison" us_nxx_int
+     
+        "Price of EA Non-Commodity Exports for International Comparison" ea_pxx_int
+        "Value of EA Non-Commodity Exports for International Comparison" ea_nxx_int
+     
+        "Price of RW Non-Commodity Exports for International Comparison" rw_pxx_int
+        "Value of RW Non-Commodity Exports for International Comparison" rw_nxx_int
+    
+
+    "Global Index of Non-Commodity Export Prices" gg_pxx
+    "Value of Global Non-Commodity Exports" gg_nxx
+
+
+!parameters
+    
+        "Point of Origination Import Adjustment Costs"
+        us_xi_mm
+
+        
+            "Share of Imports from EA in Total US Imports"
+            us_omega_ea
+        
+            "Share of Imports from RW in Total US Imports"
+            us_omega_rw
+        
+    
+        "Point of Origination Import Adjustment Costs"
+        ea_xi_mm
+
+        
+            "Share of Imports from RW in Total EA Imports"
+            ea_omega_rw
+        
+            "Share of Imports from US in Total EA Imports"
+            ea_omega_us
+        
+    
+        "Point of Origination Import Adjustment Costs"
+        rw_xi_mm
+
+        
+            "Share of Imports from EA in Total RW Imports"
+            rw_omega_ea
+        
+            "Share of Imports from US in Total RW Imports"
+            rw_omega_us
+        
+    
+        
+
+!equations
+
+    
+        "Distribution of US Exports across Areas"
+        us_xx =  + ea_mm_us  + rw_mm_us  ;
+    
+        "Distribution of EA Exports across Areas"
+        ea_xx =  + rw_mm_ea  + us_mm_ea  ;
+    
+        "Distribution of RW Exports across Areas"
+        rw_xx =  + ea_mm_rw  + us_mm_rw  ;
+    
+
+
+    
+        "Assembly of Total US Non-Commodity Imports"
+        us_mm = 1  * (us_mm_ea/us_omega_ea)^us_omega_ea  * (us_mm_rw/us_omega_rw)^us_omega_rw ;
+
+        
+            "Share of Imports from EA in Total US Non-Commodity Imports"
+            us_omega_ea * us_pmm * us_mm = (us_e / ea_e) * ea_pxx * us_mm_ea * [1 + us_xi_mm*(log(us_mm_ea/us_mm)-log(us_mm_ea{-1}/us_mm{-1})) - us_rdf*(log(us_mm_ea{+1}/us_mm{+1})-log(us_mm_ea/us_mm))]             !! us_omega_ea * us_pmm * us_mm = (us_e / ea_e) * ea_pxx * us_mm_ea;
+        
+            "Share of Imports from RW in Total US Non-Commodity Imports"
+            us_omega_rw * us_pmm * us_mm = (us_e / rw_e) * rw_pxx * us_mm_rw * [1 + us_xi_mm*(log(us_mm_rw/us_mm)-log(us_mm_rw{-1}/us_mm{-1})) - us_rdf*(log(us_mm_rw{+1}/us_mm{+1})-log(us_mm_rw/us_mm))]             !! us_omega_rw * us_pmm * us_mm = (us_e / rw_e) * rw_pxx * us_mm_rw;
+        
+    
+        "Assembly of Total EA Non-Commodity Imports"
+        ea_mm = 1  * (ea_mm_rw/ea_omega_rw)^ea_omega_rw  * (ea_mm_us/ea_omega_us)^ea_omega_us ;
+
+        
+            "Share of Imports from RW in Total EA Non-Commodity Imports"
+            ea_omega_rw * ea_pmm * ea_mm = (ea_e / rw_e) * rw_pxx * ea_mm_rw * [1 + ea_xi_mm*(log(ea_mm_rw/ea_mm)-log(ea_mm_rw{-1}/ea_mm{-1})) - ea_rdf*(log(ea_mm_rw{+1}/ea_mm{+1})-log(ea_mm_rw/ea_mm))]             !! ea_omega_rw * ea_pmm * ea_mm = (ea_e / rw_e) * rw_pxx * ea_mm_rw;
+        
+            "Share of Imports from US in Total EA Non-Commodity Imports"
+            ea_omega_us * ea_pmm * ea_mm = (ea_e / us_e) * us_pxx * ea_mm_us * [1 + ea_xi_mm*(log(ea_mm_us/ea_mm)-log(ea_mm_us{-1}/ea_mm{-1})) - ea_rdf*(log(ea_mm_us{+1}/ea_mm{+1})-log(ea_mm_us/ea_mm))]             !! ea_omega_us * ea_pmm * ea_mm = (ea_e / us_e) * us_pxx * ea_mm_us;
+        
+    
+        "Assembly of Total RW Non-Commodity Imports"
+        rw_mm = 1  * (rw_mm_ea/rw_omega_ea)^rw_omega_ea  * (rw_mm_us/rw_omega_us)^rw_omega_us ;
+
+        
+            "Share of Imports from EA in Total RW Non-Commodity Imports"
+            rw_omega_ea * rw_pmm * rw_mm = (rw_e / ea_e) * ea_pxx * rw_mm_ea * [1 + rw_xi_mm*(log(rw_mm_ea/rw_mm)-log(rw_mm_ea{-1}/rw_mm{-1})) - rw_rdf*(log(rw_mm_ea{+1}/rw_mm{+1})-log(rw_mm_ea/rw_mm))]             !! rw_omega_ea * rw_pmm * rw_mm = (rw_e / ea_e) * ea_pxx * rw_mm_ea;
+        
+            "Share of Imports from US in Total RW Non-Commodity Imports"
+            rw_omega_us * rw_pmm * rw_mm = (rw_e / us_e) * us_pxx * rw_mm_us * [1 + rw_xi_mm*(log(rw_mm_us/rw_mm)-log(rw_mm_us{-1}/rw_mm{-1})) - rw_rdf*(log(rw_mm_us{+1}/rw_mm{+1})-log(rw_mm_us/rw_mm))]             !! rw_omega_us * rw_pmm * rw_mm = (rw_e / us_e) * us_pxx * rw_mm_us;
+        
+    
+
+    
+        "US Price of Non-Commodity Exports for International Comparison"
+        us_pxx_int = us_pxx * us_e / us_e;
+        
+        "US Value of Non-Commodity Exports for International Comparison"
+        us_nxx_int = us_pxx_int * us_xx;
+    
+        "EA Price of Non-Commodity Exports for International Comparison"
+        ea_pxx_int = ea_pxx * us_e / ea_e;
+        
+        "EA Value of Non-Commodity Exports for International Comparison"
+        ea_nxx_int = ea_pxx_int * ea_xx;
+    
+        "RW Price of Non-Commodity Exports for International Comparison"
+        rw_pxx_int = rw_pxx * us_e / rw_e;
+        
+        "RW Value of Non-Commodity Exports for International Comparison"
+        rw_nxx_int = rw_pxx_int * rw_xx;
+    
+
+    "Value of Global Non-Commodity Exports"
+    gg_nxx         =  + us_nxx_int  + ea_nxx_int  + rw_nxx_int ;
+
+    "Global Index of Non-Commodity Export Prices"
+    gg_pxx         =  + us_pxx_int * us_nxx_int/gg_nxx  + ea_pxx_int * ea_nxx_int/gg_nxx  + rw_pxx_int * rw_nxx_int/gg_nxx ;

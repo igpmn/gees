@@ -17,7 +17,6 @@ sourceFiles = [
 m = Model( ...
     sourceFiles ...
     , "growth", true ...
-    , "assign", struct("open", false) ...
 );
 
 
@@ -89,25 +88,21 @@ m.psi_pch = 3;
 m.ss_ncg_to_ngdp = 0.20;
 m.ss_dg_to_ngdp = 0.40;
 m.rho_cg = 0.5;
-m.rho_txl1 = 0.5;
-m.tau_txl1 = 2.5;
+m.rho_trl1 = 0.5;
+m.tau_trl1 = 2.5;
 m.tau_cg = 0;
-m.rho_txl2 = 0.5;
+m.rho_trl2 = 0.5;
 
 
 %% Calculate Steady State
 
-% Starting Values for Steady State
-m.dg_to_ngdp = m.ss_dg_to_ngdp;
+% Pin down the steady state levels to fix the three degrees of freedom
 m.y = 1;
-m.ar = m.ss_ar;
-m.gg_nn = 1;
-m.nr = m.ss_nr;
-m.nn = m.gg_nn * m.ss_nr;
+m.gg_nt = 1;
 m.pch = 1;
 
 m = steady(m ...
-    , "fixLevel", ["ar", "y", "gg_nn", "nr", "pch", "dg_to_ngdp"] ...
+    , "fixLevel", ["y", "gg_nt", "pch"] ...
     , "blocks", false ...
 );
 
@@ -129,8 +124,10 @@ table( ...
 
 m = solve(m)
 
+mc = m;
 
 %% Save Model Object to MAT File
 
-save mat/createClosed.mat m
+save mat/createClosed.mat mc
+
 

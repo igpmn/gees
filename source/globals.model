@@ -1,6 +1,7 @@
 !variables
-    gg_a
-    gg_nn
+    "Global Productivity Trend Component" gg_a
+    "Global Population Trend Component" gg_nt
+    "Global Population" gg_nn
 
 
 !log-variables
@@ -28,9 +29,9 @@
 
 
     "Global Population Component"
-    difflog(gg_nn) ...
-        = gg_rho_a*difflog(gg_nn{-1}) ...
-        + (1-gg_rho_a)*(log(gg_ss_roc_nn) + gg_shk_a) ...
-    !! gg_nn = gg_nn{-1}*gg_ss_roc_nn;
+    difflog(gg_nt) ...
+        = gg_rho_a*difflog(gg_nt{-1}) ...
+        + (1-gg_rho_a)*(log(gg_ss_roc_nn) + gg_shk_nn) ...
+    !! gg_nt = gg_nt{-1}*gg_ss_roc_nn;
 
 

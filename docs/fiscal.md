@@ -18,7 +18,7 @@
 $$
 dg_t = rg_{t-1} \cdot dg_{t-1}
 + pcg_t \cdot cg_t + pig_t \cdot ig_t
-- txl1_t - txl2_t
+- trl1_t - trl2_t
 $$
 
 ---

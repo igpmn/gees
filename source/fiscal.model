@@ -5,30 +5,36 @@
     "Price of Government Consumption" pcg
     "Government Consumption" cg
     "Government Debt to GDP Ratio" dg_to_ngdp
-    "Net Lump-Sum Tax Rate on Wealthy Consumers" txl1
-    "Net Lump-Sum Tax Rate on Poor Consumers" txl2
+    "Net Lump-Sum Tax Rate on Wealthy Consumers" trl1
+    "Net Lump-Sum Tax Rate on Poor Consumers" trl2
     "Government Consumption, Rate of Change" roc_cg
+    "Bank Deposits Held by Government" bdg
+    "Import Tariff Rate" trm
 
 
 !log-variables
     !all-but
-    txl1, txl2, dg_to_ngdp
+    trl1, trl2, dg_to_ngdp, trm
     
 
 
 !parameters
     ss_dg_to_ngdp
     ss_ncg_to_ngdp
+    ss_trm
     tau_cg
-    tau_txl1
+    tau_trl1
     rho_cg
-    rho_txl2
-    rho_txl1
+    rho_trl2
+    rho_trl1
+    rho_trm
+
 
 !shocks
     shk_cg
-    shk_txl1
-    shk_txl2
+    shk_trl1
+    shk_trl2
+    shk_trm
 
 
 !equations
@@ -36,9 +42,14 @@
     pcg = py;
     rg = r;
 
+    bdg = kappa_2 * (pcg * cg);
+
     dg_to_ngdp*ngdp ...
         = rg{-1}*dg_to_ngdp{-1}*ngdp{-1} ...
-        + pcg*cg - (txl1 + txl2)*pch*ch;
+        + pcg*cg ...
+        - (trl1 + trl2)*pch*ch ...
+        - (pmm - fob_pmm)*mm ...
+    ;
 
     log(cg) ...
         = rho_cg*log(cg{-1}*&roc_cg) ...
@@ -47,13 +58,19 @@
         + shk_cg ...
     !! pcg*cg = ss_ncg_to_ngdp*ngdp;
 
-    txl1 ...
-        = rho_txl1*txl1{-1} ...
-        + (1-rho_txl1)*&txl1 ...
-        + tau_txl1*(dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
-        + shk_txl1 ...
+    trl1 ...
+        = rho_trl1*trl1{-1} ...
+        + (1-rho_trl1)*&trl1 ...
+        + tau_trl1*(dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
+        + shk_trl1 ...
     !! dg_to_ngdp = ss_dg_to_ngdp;
 
-    txl2 = rho_txl2*txl2{-1} + shk_txl2 !! txl2 = 0;
+    trl2 = rho_trl2*trl2{-1} + shk_trl2 !! trl2 = 0;
 
+    % Import tariffs
+    trm ...
+        = rho_trm * trm{-1} ...
+        + (1 - rho_trm) * ss_trm ...
+        + shk_trm ...
+    !! trm = ss_trm;
 

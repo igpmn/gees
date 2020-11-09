@@ -4,7 +4,8 @@
 
 %% Households
 
-    rbl = r;
+    "Household Credit Risk"
+    hh = 0;
 
 %
 
@@ -25,13 +26,20 @@
 %% Definitions and Sectoral Distribution
     
     "Household Net Worth"
-    netw = nu_1*nn/(pk*k + dg_to_ngdp*ngdp);
+    netw = pk*k + bd - bl + beq;
 
     "Distribution of Doemstic Production"
     y = ych + ycg + yih;
 
     "Nominal GDP"
     ngdp = pch*ch + pih*ih + pcg*cg;
+
+    "Total Population"
+    gg_nn = nn;
+
+    "Financial Sector"
+    bl + dg_to_ngdp*ngdp = bdh + bdg + beq;
+    beq = ss_beq_to_bass * (bdh + bdg + beq);
 
 %
 

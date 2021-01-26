@@ -1,3 +1,5 @@
+%%%%%%%%%%%%%
+
 function compareParams(m1, m2)
 
 p1 = access(m1, "parameterValues");

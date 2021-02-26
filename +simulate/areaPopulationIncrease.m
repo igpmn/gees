@@ -1,12 +1,12 @@
-function [s, smc] = areaProductivityImprovements(m, simrange, area)
+function [s, smc] = areaPopulationIncrease(m, simrange, area)
 
 d = steadydb(m, simrange);
 
-m.(area+"_ss_ar") = m.(area+"_ss_ar") * 1.10;
+m.(area+"_ss_nr") = m.(area+"_ss_nr") * 1.10;
 
 m = steady( ...
     m ...
-    , "fixLevel", ["gg_a", "gg_nt", "us_pch", "ea_pch", "cn_pch","rw_pch"] ...
+    , "fixLevel", ["gg_a", "gg_nt", "us_pch", "ea_pch", "cn_pch", "rw_pch"] ...
     , "blocks", false ...
 );
 
@@ -14,7 +14,7 @@ checkSteady(m);
 m = solve(m);
 
 p = Plan.forModel(m, simrange);
-p = swap(p, simrange(1:3), [area+"_ar", area+"_shk_ar"]);
+p = swap(p, simrange(1:3), [area+"_nr", area+"_shk_nr"]);
 
 s = simulate( ...
     m, d, simrange ...

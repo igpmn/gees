@@ -14,7 +14,7 @@ sourceFiles = [
 ];
 
 
-areas = ["us", "ea", "rw"];
+areas = ["us", "ea", "cn", "rw"];
 numAreas = numel(areas);
 
 template = model.File(sourceFiles);
@@ -39,6 +39,7 @@ mw = Model( ...
     modelFiles ...
     , "growth", true ...
     , "assign", struct("areas", areas) ...
+    ,'saveas', 'fullmod.model' ...
 );
 
 mw = assignUserData(mw, "areas", areas);
@@ -105,11 +106,13 @@ checkSteady(mw);
 % Adapt WAP and labor market participation
 mw.us_ss_nw_to_nn = 0.65;
 mw.ea_ss_nw_to_nn = 0.64;
-mw.rw_ss_nw_to_nn = 0.68;
+mw.cn_ss_nw_to_nn = 0.70;
+mw.rw_ss_nw_to_nn = 0.64;
 
-mw.us_ss_nf_to_nw = 0.72;
+mw.us_ss_nf_to_nw = 0.73;
 mw.ea_ss_nf_to_nw = 0.74;
-mw.rw_ss_nf_to_nw = 0.66;
+mw.cn_ss_nf_to_nw = 0.76;
+mw.rw_ss_nf_to_nw = 0.66; %0.93???
 
 mw = steady( ...
     mw ...
@@ -118,9 +121,12 @@ mw = steady( ...
 );
 
 % Distribute commodity output across areas
+% ??? where is the data from ???
 mw.us_lambda = 0.20;
 mw.ea_lambda = 0.05;
-mw.rw_lambda = 0.75;
+% I've made up this one
+mw.cn_lambda = 0.30;
+mw.rw_lambda = 0.75 - 0.30;
 
 
 mw = steady( ...
@@ -137,7 +143,7 @@ t = table( ...
 
 
 % Create productivity differentials
-
+% Add for CN?
 mw.calib_y_pw_rw_us = 0.32;
 mw.calib_y_pw_ea_us = 0.73;
 
@@ -157,3 +163,9 @@ mw = solve(mw);
 
 save mat/createSymmetricWorld.mat mw
 
+%% Create PDF report
+
+x = report.new('Global Economy Equilibrium',...
+    'orientation','landscape');
+x.modelfile('lobal Economy Equilibrium','fullmod.model',mw);
+x.publish('model.pdf', 'display',false);

@@ -169,9 +169,9 @@ ma = solve(ma)
 
 
 %% Create Economies with Different Population Levels
-
-mas = alter(ma, 3);
-mas.ss_nr = [0.331, 0.515, 7.123];
+% us, ea, cn, rc
+mas = alter(ma, 4);
+mas.ss_nr = [0.331, 0.515, 1.439, 7.123-1.439];
 
 mas = steady(mas ...
     , "fixLevel", ["gg_nt", "gg_a", "pch"] ...

@@ -19,6 +19,7 @@ sourceFiles = [
 ma = Model( ...
     sourceFiles ...
     , "growth", true ...
+    , symbDiff=false ...
 );
 
 
@@ -165,7 +166,12 @@ t = table( ...
 
 %% Calculate First Order Solution
 
-ma = solve(ma)
+
+profile clear; profile on
+for i = 1 : 100
+    ma = solve(ma, select=false);
+end
+profile viewer
 
 
 %% Create Economies with Different Population Levels

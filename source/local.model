@@ -4,6 +4,7 @@
 !variables
 
     "Private consumption" ch
+    "Per-capita private consumption" ch_to_nn
     "Private consumption, Point of reference" ref_ch
     "Real discount factor" rdf
     "Per-worker labor supply" nh
@@ -322,7 +323,10 @@
 
 %
 
-%% Definitions of GDP 
+%% Definitions 
+
+    "Per-capita private consumption"
+    ch_to_nn = ch / nn;
 
     "Nominal GDP"
     ngdp = pch*ch + pih*ih + pcg*cg + pxx*xx - pmm*mm + pq*(xq - mq);

@@ -4,7 +4,7 @@
 * Technology choice production function
 
 * Several pairwise stages of production
-    
+  
 * Input factors
     * Labor
     * Intermediate imports
@@ -35,7 +35,7 @@ $$
 Area/Country relative productivity component
 
 $$
-\log ar_t = \rho_{ar} \ \log ar_{t-1} + (1-\rho_ar) \ \log ar\ss
+\log ar_t = \rho_{ar} \ \log ar_{t-1} + (1-\rho_ar) \ \log ar_\ss
 $$
 
 <br/>
@@ -47,7 +47,6 @@ a_t = aa^{gg}_t \cdot ar_t
 $$
 
 ---
-
 
 ## Technology Choice Production Function
 
@@ -117,7 +116,7 @@ $$
 Combine non-commodity variable factors
 
 $$
-y3_t = F_3\Bigl[ mm_t, \ \left(nh_t - \gamma_{n0} \cdot nh\ss\right) \cdot \xnf_t \Bigr]
+y3_t = F_3\Bigl[ mm_t, \ \left(nh_t - \gamma_{n0} \cdot nh_\ss\right) \cdot nl_t \Bigr]
 $$
 
 
@@ -185,7 +184,6 @@ $$
 $$
 ch = F\Bigl( ych_t,\ mch_t \Bigr)
 $$
-
 
 
 

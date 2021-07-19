@@ -1,37 +1,44 @@
+% Global trends module
+
+
 !variables
+
     "Global Productivity Trend Component" gg_a
     "Global Population Trend Component" gg_nt
-    "Global Population" gg_nn
 
 
-!log-variables
-    !all-but
+!log-variables !all-but
 
 
 !shocks
-    gg_shk_a
-    gg_shk_nn
+
+    "Shock to global productivity trend" gg_shk_a
+    "Shock to global population trend" gg_shk_nn
 
 
 !parameters
-    gg_rho_a
-    gg_ss_roc_a
-    gg_rho_nn
-    gg_ss_roc_nn
+
+    "Autoregression in global productivity trend" gg_rho_a
+    "S/S Global productivity trend, Rate of change" gg_ss_roc_a
+    "Autoregression in global population trend" gg_rho_nt
+    "S/S Global population trend, Rate of change" gg_ss_roc_nt
+
+    "Global intercept in Euler equation" gg_nu
 
 
 !equations
-    "Global Productivity Component"
-    difflog(gg_a) ...
-        = gg_rho_a*difflog(gg_a{-1}) ...
+
+    "Global productivity trend"
+    difflog(gg_a) = ...
+        + gg_rho_a*difflog(gg_a{-1}) ...
         + (1-gg_rho_a)*(log(gg_ss_roc_a) + gg_shk_a) ...
     !! gg_a = gg_a{-1}*gg_ss_roc_a;
 
 
-    "Global Population Component"
-    difflog(gg_nt) ...
-        = gg_rho_a*difflog(gg_nt{-1}) ...
-        + (1-gg_rho_a)*(log(gg_ss_roc_nn) + gg_shk_nn) ...
-    !! gg_nt = gg_nt{-1}*gg_ss_roc_nn;
+    "Global population trend"
+    difflog(gg_nt) = ...
+        + gg_rho_a * difflog(gg_nt{-1}) ...
+        + (1-gg_rho_a) * (log(gg_ss_roc_nt) + gg_shk_nn) ...
+    !! gg_nt = gg_nt{-1} * gg_ss_roc_nt;
 
 

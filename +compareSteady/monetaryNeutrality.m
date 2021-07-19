@@ -1,14 +1,17 @@
+function [t, m1] = monetaryNeutrality(m, area, size)
 
-close all
-clear
+if strlength(area)>0
+    area = area + "_";
+else
+    area = "";
+end
 
-load mat/createModel.mat m
+m1 = m;
+m1.(area+"ss_roc_pch") = m1.(area+"ss_roc_pch") + size;
 
-m = alter(m, 2);
-m.ss_roc_pch(2) = m.ss_roc_pch(1) + 0.01;
-
-m = steady(m ...
-    , "fixLevel", ["y", "nn", "pch"] ...
+m1 = steady( ...
+    m1 ...
+    ... , "fixLevel", ["gg_a", "gg_nn"] ...
     , "blocks", false ...
 );
 
@@ -19,5 +22,7 @@ columns = [
     "compareSteadyChange"
 ];
 
-table(m, columns)
+t = table(m, columns);
+
+end%
 

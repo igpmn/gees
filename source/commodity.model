@@ -2,57 +2,49 @@
 
 
 !variables
-    "Long-Run Level of Global Commodity Production" gg_qq
-    "Long-Run Productivity in Commodity Extraction" gg_aq
-    "Global Commodity Demand" gg_q
-    "Log Excess Demand in Commodity Market" gg_qexc
-    "Nominal Commodity Prices" gg_pq
-    
+    "Long-run level of global commodity production" gg_qq
+    "Global commodity demand" gg_q
+    "Excess demand in global commodity market" gg_qexc
+    "Global price of commodities, Reference currency" gg_pq
+    "Global real price of commodities" gg_pq_to_pxx
 
-!log-variables
-    !all-but
-    gg_qexc
+
+!log-variables !all-but
 
 
 !parameters
 
-    "S/S Long-Run Level of Global Commodity Production" gg_ss_aq
-    "Autoregression in Long-Run Level of Global Commodity Production" gg_rho_aqq
-    "Excess Demand Elasticity of Commodity Prices" iota_1
-    "Commodity Supply Curvature" iota_2
+    "S/S Long-run level of global commodity production" gg_ss_aq
+    "Autoregression in long-run level of global commodity production" gg_rho_aqq
+    "Excess demand elasticity of commodity prices" iota_1
 
 
 !shocks
-    gg_shk_aqq
-    gg_shk_pq
+
+    "Shock to long-run level of global commodity production" gg_shk_qq
+    "Shock to global price of commodities" gg_shk_pq
 
 
 !equations
 
-    "Long-Run Level of Global Commodity Production"
-    gg_qq = gg_aq * gg_a * (&gg_q / (&gg_aq * &gg_a)) ...
-        !! gg_qq = gg_q;
-
-    
-    "Long-Run Productivity in Commodity Extraction"
-    log(gg_aq) ...
-        = gg_rho_aqq*log(gg_aq{-1}) ...
-        + (1-gg_rho_aqq)*log(gg_ss_aq) ...
-        + gg_shk_aqq ...
-    !! gg_aq = gg_ss_aq;
+    "Long-run level of global commodity production"
+    gg_qq = gg_a * gg_nn * (&gg_q / &gg_a / &gg_nn) * exp(gg_shk_qq) ...
+    !! gg_qq = gg_q;
 
 
-    "Log Excess Demand in Commodity Market" 
-    gg_qexc = log(gg_q) - log(gg_qq) ...
-    !! gg_qexc = 0;
+    "Log excess demand in commodity market"
+    gg_qexc = gg_q / gg_qq ...
+    !! gg_qexc = 1;
 
 
-    "Commodity Supply Curve"
-    log(gg_pq) - log(gg_pxx) ...
-        = iota_1 * (1/iota_2)*(exp(iota_2*gg_qexc)-1) + gg_shk_pq ...
+    "Commodity supply curve"
+    gg_pq = gg_pxx * gg_qexc^iota_1 * exp(gg_shk_pq) ...
     !! gg_pq = gg_pxx;
 
-%
 
+    "Global real prices of commodities"
+    gg_pq_to_pxx = gg_pq / gg_pxx;
+
+%
 
 

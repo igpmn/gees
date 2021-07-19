@@ -1,40 +1,43 @@
 % Fiscal Policy Module
 
+
 !variables
-    "Government Debt Interest Rate" rg
+
+    "Government debt interest rate" rg
     "Price of Government Consumption" pcg
-    "Government Consumption" cg
-    "Government Debt to GDP Ratio" dg_to_ngdp
-    "Net Lump-Sum Tax Rate on Wealthy Consumers" trl1
-    "Net Lump-Sum Tax Rate on Poor Consumers" trl2
-    "Government Consumption, Rate of Change" roc_cg
-    "Bank Deposits Held by Government" bdg
-    "Import Tariff Rate" trm
+    "Government consumption" cg
+    "Government debt to GDP ratio" dg_to_ngdp
+    "Net lump-sum tax rate on wealthy consumers" trls1
+    "Net lump-sum tax rate on poor consumers" trls2
+    "Government consumption, Rate of Change" roc_cg
+    "Import tariff rate" trm
 
 
-!log-variables
-    !all-but
-    trl1, trl2, dg_to_ngdp, trm
-    
+!log-variables !all-but
+
+    trls1, trls2, dg_to_ngdp, trm
 
 
 !parameters
-    ss_dg_to_ngdp
-    ss_ncg_to_ngdp
-    ss_trm
-    tau_cg
-    tau_trl1
-    rho_cg
-    rho_trl2
-    rho_trl1
-    rho_trm
+
+    "S/S Government debt to GDP ratio" ss_dg_to_ngdp
+    "S/S Government consumption to GDP ratio" ss_ncg_to_ngdp
+    "S/S General import tariff rate" ss_trm
+
+    "Response in government consumption to government debt" tau_cg
+    "Response in type 1 lump-sum tax rate to government debt" tau_trls1
+    "Autoregression in government consumption" rho_cg
+    "Autoregression in type 1 lump-sum tax rate" rho_trls2
+    "Autoregression in type 2 lump-sum tax rate" rho_trls1
+    "Autoregression in generate import tariff rate" rho_trm
 
 
 !shocks
-    shk_cg
-    shk_trl1
-    shk_trl2
-    shk_trm
+
+    "Shock to government consumption" shk_cg
+    "Shock to type 1 lump-sum taxes" shk_trls1
+    "Shock to type 2 lump-sum taxes" shk_trls2
+    "Shock to general import tariff rate" shk_trm
 
 
 !equations
@@ -42,35 +45,45 @@
     pcg = py;
     rg = r;
 
-    bdg = kappa_2 * (pcg * cg);
 
-    dg_to_ngdp*ngdp ...
-        = rg{-1}*dg_to_ngdp{-1}*ngdp{-1} ...
+    "Dynamic fiscal budget constraint"
+    dg_to_ngdp*ngdp = ...
+        + rg{-1}*dg_to_ngdp{-1}*ngdp{-1} ...
         + pcg*cg ...
-        - (trl1 + trl2)*pch*ch ...
-        - (pmm - fob_pmm)*mm ...
-    ;
+        - (trls1 + trls2) * pch*ch ...
+        - (pmm - fob_pmm) * mm;
 
-    log(cg) ...
-        = rho_cg*log(cg{-1}*&roc_cg) ...
+
+    "Fiscal reaction function for government consumption"
+    log(cg) = ...
+        + rho_cg*log(cg{-1}*&roc_cg) ...
         + (1-rho_cg)*log(ss_ncg_to_ngdp*ngdp/pcg) ...
         - tau_cg*(dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
         + shk_cg ...
     !! pcg*cg = ss_ncg_to_ngdp*ngdp;
 
-    trl1 ...
-        = rho_trl1*trl1{-1} ...
-        + (1-rho_trl1)*&trl1 ...
-        + tau_trl1*(dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
-        + shk_trl1 ...
+
+    "Fiscal reaction function for type 1 net lump-sum taxes"
+    trls1 = ...
+        + rho_trls1 * trls1{-1} ...
+        + (1-rho_trls1) * &trls1 ...
+        + tau_trls1 * (dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
+        + shk_trls1 ...
     !! dg_to_ngdp = ss_dg_to_ngdp;
 
-    trl2 = rho_trl2*trl2{-1} + shk_trl2 !! trl2 = 0;
 
-    % Import tariffs
-    trm ...
-        = rho_trm * trm{-1} ...
+    "Fiscal reaction function for type 2 net lump-sum taxes"
+    trls2 = ...
+        + rho_trls2*trls2{-1} ...
+        + shk_trls2 ...
+    !! trls2 = 0;
+
+
+    "Fiscal reaction function for import tariffs rate"
+    trm = ...
+        + rho_trm * trm{-1} ...
         + (1 - rho_trm) * ss_trm ...
         + shk_trm ...
     !! trm = ss_trm;
+
 

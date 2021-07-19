@@ -1,88 +1,74 @@
-%% Open Economy Sectors
+%% Open Economy Sectors 
 
 
 !variables
-    "Non-Commodity Imports" mm
-    "Price of Non-Commodity Imports" pmm
-    "Price of Non-Commodity Imports, Free on Board at Destinatin Point" fob_pmm
-    "Import Content of Non-Commodity Exports" mxx
-    "Intermediate Import Inputs into Domestic Production" my
+    "Non-commodity imports" mm
+    "Price of non-commodity imports" pmm
+    "Price of non-commodity imports, Free on board at destinatin point" fob_pmm
+    "Import content of non-commodity exports" mxx
+    "Intermediate import inputs into domestic production" my
 
-    "Domestic Content of Non-Commodity Exports" yxx
-    "Non-Commodity Exports" xx
-    "Price of Non-Commodity Exports" pxx
+    "Domestic content of non-commodity exports" yxx
+    "Non-commodity exports" xx
+    "Commodity exports" xq
+    "Price of non-commodity exports" pxx
 
-    "Net Foreign Assets to GDP Ratio" nfa_to_ngdp
-    "Effective Interest Rate and Valuation on NFA" rnfa
-    "Checksum for Net Foreign Assets to GDP Ratio" nfa_to_ngdp_checksum
-    "Nominal Exchange Rate" e
-    "Expectations of Nominal Exchange Rate" exp_e
+    "Net foreign assets to GDP Ratio" nfa_to_ngdp
+    "Effective interest rate and valuation on NFA" rnfa
+    "Checksum for net foreign assets to GDP ratio" nfa_to_ngdp_checksum
+    "Nominal exchange rate" e
+    "Expectations of nominal exchange rate" exp_e
     "Nominal Exchange Rate, Rate of Change" roc_e
-    "Net Commdity Export to GDP Ratio" netxq_to_ngdp
+    "Financial flows from corporate equity to GDP ratio" feq_to_ngdp
+    "Price of non-commodity exports, Reference currency" pxx_rcy
+    "Value of non-commodity exports, Reference currency" nxx_rcy
 
 
+!log-variables !all-but
 
-!log-variables
-    !all-but
     nfa_to_ngdp
     nfa_to_ngdp_checksum
-    netxq_to_ngdp
+    feq_to_ngdp
 
 
 !parameters
-    "Import Intensity of Non-Commodity Exports" alpha
-    "Acceleration in Exportable Productivity" gamma_xx
-    "Elasticity of Household Lending Rate to Risk" theta
-    "Weight on Model-Consistent Expectations in Exchange Rate" zeta_e
-    "Share of Local Commodity Production in World Commodity Production" lambda
-    "Adjustment Cost Parameter in Stage T-3 Production" xi_y3
+
+    "Import intensity of non-commodity exports" alpha
+    "Acceleration in exportable productivity" gamma_xx
+    "Intercept in household risk function" theta_0
+    "Elasticity of household risk function" theta_1
+    "Weight on model-consistent expectations in exchange rate" zeta_e
+    "Share of local commodity production in world commodity production" lambda
+    "Adjustment cost parameter in stage t-3 production" xi_y3
 
 
 !shocks
-    "Interest Parity Shock" shk_e
+
+    "Interest parity shock" shk_e
 
 
 !substitutions
+
     adj_nv = (log(nv/y3)-log(nv{-1}/y3{-1})-log(&roc_nv/&roc_y3))-&rdf*(log(nv{+1}/y3{+1})-log(nv/y3)-log(&roc_nv/&roc_y3));
     adj_mm = (log(my/y3)-log(my{-1}/y3{-1}))-&rdf*(log(my{+1}/y3{+1})-log(my/y3));
 
 %
 
 
-
 !equations
 
 
-%% Distribution of Non-Commodity Imports
+%% Distribution of non-commodity imports 
 
     mm = my + mxx;
 
 %
 
 
-%% Commodity Prices
+%% Commodity Prices 
 
+    xq = lambda * gg_q;
     pq = gg_pq * e;
-
-%
-
-
-%% Stage T-3 Production: Labor and Intermediate Imports
-
-    y3 = (my/(1-gamma_n))^(1-gamma_n) * ([ar * gg_a * nv]/(gamma_n))^gamma_n;
-
-    (1-gamma_n) * py3 * y3 = pmm * my * [1 + xi_y3*($adj_mm$)] ...
-    !! (1-gamma_n) * py3 * y3 = pmm * my;
-
-    gamma_n * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
-    !! gamma_n * py3 * y3 = mu_y3 * w * nv;
-
-%
-
-
-%% Distribution of Domestic Production
-
-    y = ych + ycg + yih + yxx;
 
 %
 
@@ -96,60 +82,55 @@
 %
 
 
-%% Balance of Payments and Exchange Rate
+%% Balance of payments and exchange rate
 
-    "Balance of Payments Transactions"
-    nfa_to_ngdp * ngdp ...
-        = rnfa * nfa_to_ngdp{-1}*ngdp{-1} ...
+    "Balance of payments transactions"
+    nfa_to_ngdp * ngdp = ...
+        + rnfa * nfa_to_ngdp{-1}*ngdp{-1} ...
+        + feq_to_ngdp * ngdp ...
         + pxx * xx ... Non-commodity exports
         - fob_pmm * mm ... Non-commodity imports, priced FOB destination
-        + pq * (lambda*gg_q - q) ... Net commodity exports
+        + pq * (xq - mq) ... Net commodity exports
         + nfa_to_ngdp_checksum * ngdp;
 
     "Household Credit Risk"
-    hh = - theta * nfa_to_ngdp;
-    roc_bl = bl / bl{-1};
+    zh = theta_0 - theta_1 * nfa_to_ngdp;
 
     "Nominal Exchange Rate Expectations"
     exp_e = e{+1}^zeta_e * (e*&roc_e)^(1-zeta_e);
 
-    "Financial Sector"
-    bl + (dg_to_ngdp + nfa_to_ngdp)*ngdp = bdh + bdg + beq;
-    beq = ss_beq_to_bass * (bdh + bdg + beq);
-
-%
-
-
-%% Definitions
-
-    "Nominal GDP"
-    ngdp = pch*ch + pih*ih + pcg*cg + pxx*xx - pmm*my;
-
-    "Net Worth of Households"
-    netw = pk*k + bdh - bl + beq; % dg_to_ngdp*ngdp + nfa_to_ngdp*ngdp;
-
     roc_e = e / e{-1};
-    
-    netxq_to_ngdp * ngdp = pq*(lambda*gg_q - q);
 
 %
 
 
-%% Definitions outside Model
+%% International comparison 
+
+    "Price of non-commodity exports in reference currency"
+    pxx_rcy = pxx / e;
+
+    "Value of non-commodity exports in reference currency"
+    nxx_rcy = pxx_rcy * xx;
+
+%
+
+
+%% Postprocessing equations outside model 
 
 !postprocessor
 
     nmm_to_ngdp = pmm * mm / ngdp;
     nxx_to_ngdp = pxx * xx / ngdp;
     nmxx_to_ngdp = pmm * mxx / ngdp;
+    netxq_to_ngdp = pq*(xq - mq) / ngdp;
 
 
-!log-variables
-    !all-but
+!log-variables !all-but
+
     nmm_to_ngdp
     nxx_to_ngdp
     nmxx_to_ngdp
+    netxq_to_ngdp
 
 %
-
 

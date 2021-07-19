@@ -1,60 +1,83 @@
-%% Multiarea Model Wrapper
+%% Wrapper for multi-area economy 
 
-%
+
+!variables
+
+    "Global population" gg_nn
+    "Global population, Rate of change" gg_roc_nn
+    "Global index of non-commodity export prices" gg_pxx
+    "Global nominal GDP" gg_ngdp
+    "Global real GDP index, Rate of change" gg_roc_gdp
+    "Global per-capita real GDP index, Rate of change" gg_roc_gdp_to_nn
 
 
 !equations
 
-%% Multi-Area Equilibrium and Clearing
+%% Multi-area equilibrium and clearing 
 
-    "Net Asset Clearing"
+    "Net asset clearing"
     0 = !for ?A=<areas> !do + ?A_nfa_to_ngdp * ?A_ngdp / ?A_e !end;
 
     !for ?A=<areas(2:end)> !do
-        "Interest Parity"
+        "Interest parity"
         ?A_r = <areas(1)>_r * ?A_exp_e / ?A_e * exp(?A_shk_e);
 
-        "Effective NFA Rate"
+        "Effective NFA rate"
         ?A_rnfa = <areas(1)>_r{-1} * ?A_e / ?A_e{-1};
 
-        "NFA Checksum"
+        "NFA checksum"
         ?A_nfa_to_ngdp_checksum = 0;
     !end
 
-    "Reference Currency Effective NFA Rate"
+    "Global reference currency effective NFA rate"
     <areas(1)>_rnfa = <areas(1)>_r{-1};
 
-    "Reference Currency Exchange Rate"
+    "Reference currency exchange rate"
     <areas(1)>_e = 1;
 
-    "Total Population"
-    gg_nn = !for <areas> !do + ?_nn !end;
+    "Global population"
+    gg_nn = !for ?A=<areas> !do + ?A_nn !end;
+
+    "Global population, rate of change"
+    gg_roc_nn = gg_nn / gg_nn{-1};
+
+    "Global index of non-commodity export prices"
+    gg_pxx = ...
+        (!for ?A=<areas> !do + ?A_pxx_rcy * ?A_nxx_rcy !end) ...
+        / (!for ?A=<areas> !do + ?A_nxx_rcy !end) ...
+    ;
+
+    "Global demand for commodities"
+    gg_q = !for ?A=<areas> !do + ?A_mq !end;
 
 %
 
 
-%% International Comparison
+%% Global GDP 
 
-    !for ?A=<areas> !do
-        !variables
-            "?:A Per-Worker GDP for International Comparison" ?A_ngdp_pw_int
-            "?:A Per-Capita GDP for International Comparison" ?A_ngdp_pc_int
+    "Global nominal GDP"
+    gg_ngdp = !for ?A=<areas> !do + ?A_ngdp / ?A_e !end;
 
-        !equations
-            "?:A Per-Worker GDP for International Comparison"
-            ?A_ngdp_pw_int = ?A_ngdp / ?A_e / ?A_nf;
+    "Global real GDP, Rate of change"
+    gg_roc_gdp = ...
+        !for ?A=<areas> !do + (?A_ngdp/gg_ngdp + ?A_ngdp{-1}/gg_ngdp{-1})/2 * ?A_roc_gdp !end;
 
-            "?:A Per-Worker GDP for International Comparison"
-            ?A_ngdp_pc_int = ?A_ngdp / ?A_e / (?A_nn);
-    !end
+    "Global per-capita real GDP, Rate of change"
+    gg_roc_gdp_to_nn = gg_roc_gdp / gg_roc_nn; 
 
+%
 
 
+%% International comparison 
+
+!for ?A=<areas> !do
     !variables
-        calib_y_pw_rw_us
-        calib_y_pw_ea_us
-
+        "Per-capita private consumption" ?A_comp_ch_to_nn
+        "Per-capita gross production" ?A_comp_y_to_nn
     !equations
-        calib_y_pw_rw_us = (rw_y/rw_nf) / (us_y/us_nf);
-        calib_y_pw_ea_us = (ea_y/ea_nf) / (us_y/us_nf);
+        ?A_comp_ch_to_nn = (?A_ch / ?A_nn) / (<areas(1)>_ch / <areas(1)>_nn);
+        ?A_comp_y_to_nn = (?A_y / ?A_nn) / (<areas(1)>_y / <areas(1)>_nn);
+!end
+
+%
 

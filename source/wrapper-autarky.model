@@ -1,5 +1,24 @@
+%% Wrapper for autarky economy 
+
+
 !variables
-    gg_pxx
+
+    "Global population" gg_nn
+    "Global population, Rate of change" gg_roc_nn
+    "Global index of non-commodity export prices" gg_pxx
+    "Global nominal GDP" gg_ngdp
+    "Global real GDP index, Rate of change" gg_roc_gdp
+    "Global per-capita real GDP index, Rate of change" gg_roc_gdp_to_nn
+
+
+!substitutions
+
+    ref_k = k{+1}/&roc_k;
+
+
+!parameters
+
+    "Forward capital adjustment cost parameter" xi_k
 
 
 !equations
@@ -16,8 +35,43 @@
 
     rnfa = r{-1};
 
-    gg_q = q;
-
-    gg_pxx = pxx;
-
+    "Global population"
     gg_nn = nn;
+
+    "Global population, Rate of change" 
+    gg_roc_nn = nn / nn{-1};
+
+    - vh*pk*k*(1 + xi_k*log(k/($ref_k$))) ...
+        + vh*pu*k + beta_k*beta*vh{+1}*(1-delta)*k*pk{+1} ...
+        = (-vh + beta*vh{+1}*rh)*k*pk ...
+    !! - vh*pk*k + vh*pu*k + beta_k*beta*vh{+1}*(1-delta)*k*pk{+1} ...
+        = (-vh + beta*vh{+1}*rh )*k*pk;
+
+    "Financial account flows in corporate equity"
+    feq_to_ngdp = 0;
+
+    "Corporate equity portfolio"
+    kk = pk * k;
+
+    "Global index of non-commodity export prices"
+    gg_pxx = pxx_rcy;
+
+    "Global demand for commodities"
+    gg_q = mq;
+
+%
+
+
+%% Global GDP 
+
+    "Global real GDP, Rate of change"
+    gg_roc_gdp = roc_gdp;
+
+    "Global per-capita real GDP, Rate of change"
+    gg_roc_gdp_to_nn = roc_gdp_to_nn;
+
+    "Global nominal GDP"
+    gg_ngdp = ngdp;
+
+%
+

@@ -99,10 +99,10 @@ for n = areas
     n_nn = real(m4.(n+"_nn"));
     m4.(n+"_xi_mm") = 0.5;
     m4.(n+"_lambda") = n_nn / gg_nn;
-    for x = areas
+    for x = setdiff(areas, n)
         x_nn = real(m4.(x+"_nn"));
-        m4.(n+"_omega_"+x) = x_nn / gg_nn;
-        m4.(n+"_mm_"+x) = real(m4.(n+"_mm")) * x_nn / gg_nn + 1i*imag(ma.mm);
+        m4.(n+"_omega_"+x) = x_nn / (gg_nn - n_nn);
+        m4.(n+"_mm_sh_"+x) = x_nn / (gg_nn - n_nn);
         m4.(n+"_ss_trm_"+x) = 0;
         m4.(n+"_rho_trm_"+x) = 0;
         m4.(n+"_trm_"+x) = 0;
@@ -110,8 +110,7 @@ for n = areas
 end
 
 % Calibrate corporate equity exposures
-% own = 0.90;
-own = 1;
+own = 0.90;
 for a = areas
     for b = areas
         n = a + "_phi_" + b;
@@ -169,11 +168,25 @@ m4.ea_comp_ch_to_nn = 0.73;
 m4.cn_comp_ch_to_nn = 0.40; %%%%% FIXME
 m4.rw_comp_ch_to_nn = 0.32;
 
+% m4 = steady( ...
+    % m4 ...
+    % , "fix", ["gg_nt", "gg_a", areas+"_pch"] ...
+    % , "exogenize", ["ea", "cn", "rw"]+"_comp_ch_to_nn" ...
+    % , "endogenize", ["ea", "cn", "rw"]+"_ss_ar" ...
+    % , "blocks", false ...
+% );
+% 
+% checkSteady(m4);
+
+m4.us_nmm_to_ngdp = 0.15;
+m4.ea_nmm_to_ngdp = 0.25;
+m4.cn_nmm_to_ngdp = 0.18;
+
 m4 = steady( ...
     m4 ...
     , "fix", ["gg_nt", "gg_a", areas+"_pch"] ...
-    , "exogenize", ["ea", "cn", "rw"]+"_comp_ch_to_nn" ...
-    , "endogenize", ["ea", "cn", "rw"]+"_ss_ar" ...
+    , "exogenize", [["ea", "cn", "rw"]+"_comp_ch_to_nn", ["us", "ea", "cn"]+"_nmm_to_ngdp"] ...
+    , "endogenize", [["ea", "cn", "rw"]+"_ss_ar", ["us", "ea", "cn"]+"_gamma_m"] ...
     , "blocks", false ...
 );
 

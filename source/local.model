@@ -74,7 +74,7 @@
     ng = nf;
 
     % Current income definition
-    curr = (w*nh*nf - trls2*pch*ch);
+    curr = (w*nh*nf - txls2_to_nc*pch*ch);
 
     % Stage T-2 input factor adjustment marginal cost
     adj_uk = (log(uk/y2)-log(uk{-1}/y2{-1}))-&rdf*(log(uk{+1}/y2{+1})-log(uk/y2));
@@ -116,7 +116,7 @@
     "Inverse elasticity of cost of utilization of production capital" upsilon_1
 
     "Share of overhead labor" gamma_n0
-    "Share of labor in stage T-3 production" gamma_n
+    "Share of intermediate imports in stage T-3 production" gamma_m
     "Share of capital services in stage T-2 production" gamma_uk
     "Share of commodity inputs in stage T-1 production" gamma_q
     "Share of roundabout intermediates in stage T-0 production" gamma_yz
@@ -226,15 +226,15 @@
     nv = (nh - gamma_n0*&nh) * nf;
 
     "Stage T-3 production function"
-    y3 = (my/(1-gamma_n))^(1-gamma_n) * ([ar * gg_a * nv]/(gamma_n))^gamma_n;
+    y3 = (my/gamma_m)^gamma_m * ([ar * gg_a * nv]/(1-gamma_m))^(1-gamma_m);
 
     "Demand for intermediate imports"
-    (1-gamma_n) * py3 * y3 = pmm * my * [1 + xi_y3*($adj_mm$)] ...
-    !! (1-gamma_n) * py3 * y3 = pmm * my;
+    gamma_m * py3 * y3 = pmm * my * [1 + xi_y3*($adj_mm$)] ...
+    !! gamma_m * py3 * y3 = pmm * my;
 
     "Demand for labor"
-    gamma_n * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
-    !! gamma_n * py3 * y3 = mu_y3 * w * nv;
+    (1-gamma_m) * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
+    !! (1-gamma_m) * py3 * y3 = mu_y3 * w * nv;
 
 %
 

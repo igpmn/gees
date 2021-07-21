@@ -52,6 +52,7 @@ table = rephrase.Table( ...
 globalSeries = [
     "gg_a"
     "gg_nt"
+    "gg_nn"
     "gg_roc_gdp"
     "gg_roc_gdp_to_nn"
     "gg_pq_to_pxx"
@@ -61,7 +62,7 @@ globalSeries = [
 % Initialize grid element for global series
 heading = "Global";
 numRows = [];
-numColumns = 2;
+numColumns = 3;
 grid = rephrase.Grid(heading, numRows, numColumns, "DisplayTitle", true);
 
 % Add dividing heading to table
@@ -85,10 +86,13 @@ areaSeries = [
     "ch"
     "ih"
     "cg"
+    "txls1_to_nc"
     "xx"
     "mm"
     "roc_pch"
     "r"
+	"pk"
+	"u"
     "k"
 ];
 
@@ -97,8 +101,6 @@ areaSeries = [
 for a = reshape(areas, 1, [])
 
     heading = "Area " + upper(a);
-    numRows = [];
-    numColumns = 2;
     grid = rephrase.Grid(heading, numRows, numColumns, "DisplayTitle", true);
     table < rephrase.Heading(heading);
 

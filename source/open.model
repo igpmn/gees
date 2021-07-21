@@ -22,6 +22,9 @@
     "Financial flows from corporate equity to GDP ratio" feq_to_ngdp
     "Price of non-commodity exports, Reference currency" pxx_rcy
     "Value of non-commodity exports, Reference currency" nxx_rcy
+    "Net claims of financial sector on households" bh_to_ngdp
+    "Non-commodity imports to GDP ratio" nmm_to_ngdp
+    "Non-commodity exports to GDP ratio" nxx_to_ngdp
 
 
 !log-variables !all-but
@@ -29,6 +32,9 @@
     nfa_to_ngdp
     nfa_to_ngdp_checksum
     feq_to_ngdp
+    bh_to_ngdp
+    nmm_to_ngdp
+    nxx_to_ngdp
 
 
 !parameters
@@ -36,7 +42,8 @@
     "Import intensity of non-commodity exports" alpha
     "Acceleration in exportable productivity" gamma_xx
     "Intercept in household risk function" theta_0
-    "Elasticity of household risk function" theta_1
+    "Elasticity of household risk function wrt NFA" theta_1
+    "Elasticity of household risk function wrt government debt held" theta_2
     "Weight on model-consistent expectations in exchange rate" zeta_e
     "Share of local commodity production in world commodity production" lambda
     "Adjustment cost parameter in stage t-3 production" xi_y3
@@ -73,7 +80,7 @@
 %
 
 
-%% Export Production
+%% Export Production 
 
     xx = ar^gamma_xx * (yxx/(1-alpha))^(1-alpha) * (mxx/alpha)^alpha;
     (1-alpha) * pxx * xx = py * yxx;
@@ -82,7 +89,7 @@
 %
 
 
-%% Balance of payments and exchange rate
+%% Balance of payments and exchange rate 
 
     "Balance of payments transactions"
     nfa_to_ngdp * ngdp = ...
@@ -93,8 +100,11 @@
         + pq * (xq - mq) ... Net commodity exports
         + nfa_to_ngdp_checksum * ngdp;
 
-    "Household Credit Risk"
-    zh = theta_0 - theta_1 * nfa_to_ngdp;
+    "Household credit risk"
+    zh = theta_0 - theta_1 * nfa_to_ngdp - theta_2 * dg_to_ngdp;
+
+    "Net balance sheet of local financial sector"
+    bh_to_ngdp + dg_to_ngdp + nfa_to_ngdp = 0;
 
     "Nominal Exchange Rate Expectations"
     exp_e = e{+1}^zeta_e * (e*&roc_e)^(1-zeta_e);
@@ -114,14 +124,18 @@
 
 %
 
+%% Calibration ratios 
+
+    "Total imports to GDP ratio"
+    nmm_to_ngdp = fob_pmm*mm / ngdp;
+    nxx_to_ngdp = pxx*xx / ngdp;
+
 
 %% Postprocessing equations outside model 
 
 !postprocessor
 
-    nmm_to_ngdp = pmm * mm / ngdp;
-    nxx_to_ngdp = pxx * xx / ngdp;
-    nmxx_to_ngdp = pmm * mxx / ngdp;
+    nmxx_to_ngdp = fob_pmm * mxx / ngdp;
     netxq_to_ngdp = pq*(xq - mq) / ngdp;
 
 

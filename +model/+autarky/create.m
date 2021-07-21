@@ -49,31 +49,32 @@ ma.rho_nr = 0.9;
 ma.rho_nw = 0.9;
 ma.rho_nf = 0.5;
 
-ma.beta = 0.95; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ma.beta = 0.95;
 ma.beta_k = 0.90;
 ma.delta = 0.15;
 ma.eta = 0;
 ma.rho_w = 0.50;
 
 ma.chi = 1;
-ma.chi_curr = 0.5;
+ma.chi_curr = 0.6;
 ma.chi_ch = 0.3;
 
 ma.nu_0 = 0;
-ma.nu_1 = 0.05;
+ma.nu_1 = 0.07;
 ma.theta_0 = 0;
-ma.theta_1 = 0.10;
+ma.theta_1 = 0.05;
+ma.theta_2 = 0;
 
 ma.mu_y3 = 1.3;
 
 ma.gamma_n0 = 1/3;
-ma.gamma_n = 0.6;
+ma.gamma_m = 0.15;
 ma.gamma_q = 0.05;
 ma.gamma_uk = 0.3;
 ma.gamma_yz = 0.60;
 ma.gamma_xx = 0.50;
 
-ma.alpha = 0.50;
+ma.alpha = 0.4;
 
 ma.upsilon_0 = 1;
 ma.upsilon_1 = 1/0.2;
@@ -105,17 +106,17 @@ ma.floor = 1;
 ma.ss_ncg_to_ngdp = 0.20;
 ma.ss_dg_to_ngdp = 0.40;
 ma.rho_cg = 0.5;
-ma.rho_trls1 = 0.5;
-ma.tau_trls1 = 2.5;
+ma.rho_txls1 = 0.5;
+ma.tau_txls1 = 2.5;
 ma.tau_cg = 0;
-ma.rho_trls2 = 0.5;
+ma.rho_txls2 = 0.5;
 ma.ss_trm = 0;
 ma.rho_trm = 0;
 
 % Commodity Sector
 ma.lambda = 1;
 ma.gg_rho_aqq = 0.7;
-ma.iota_1 = 0.2;
+ma.gg_iota_1 = 0.2;
 ma.gg_ss_aq = 1;
 
 ma.theta_3 = 0;

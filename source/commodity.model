@@ -16,7 +16,7 @@
 
     "S/S Long-run level of global commodity production" gg_ss_aq
     "Autoregression in long-run level of global commodity production" gg_rho_aqq
-    "Excess demand elasticity of commodity prices" iota_1
+    "Excess demand elasticity of commodity prices" gg_iota_1
 
 
 !shocks
@@ -38,7 +38,7 @@
 
 
     "Commodity supply curve"
-    gg_pq = gg_pxx * gg_qexc^iota_1 * exp(gg_shk_pq) ...
+    gg_pq = gg_pxx * gg_qexc^gg_iota_1 * exp(gg_shk_pq) ...
     !! gg_pq = gg_pxx;
 
 

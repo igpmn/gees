@@ -11,7 +11,9 @@ prefix = utils.resolveArea(areas, "prefix");
 %
 
 m1 = m;
-m1.gg_a = m.gg_a * (1 + size);
+
+% m1.gg_a = m.gg_a * (1 + size);
+m1.gg_a = real(m.gg_a)*(1 + size) + 1i*imag(m.gg_a);
 
 m1 = steady( ...
     m1 ...

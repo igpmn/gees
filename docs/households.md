@@ -94,7 +94,7 @@ lump-sum taxes (or transfers) and externalized from the household
 optimization
 
 $$
-ch_t^\ref \equiv \chi \, \frac{curr_t}{pc_t}
+ch_t^\ref \equiv \chi_{curr} \, \frac{curr_t}{pc_t} + \chi_c \, c_{t-1}
 $$
 
 * $\kappa_{ch} \equiv 1 - ch^\ref_\ss\, ch_\ss{}^{-1}$ is a steady-state
@@ -167,18 +167,19 @@ financial sector, $\Pi_{b,t}$,
 
 * current outlays on investment goods, $-pi_t \, i_t$,
 
-
 $$
 \begin{gathered}
 \tsum\nolimits_a s_{a,t} \, ex_{a,t} \, pk_{t}^a \, k_{t}^a - bh_t \ \cdots
 \newl
-=\ \tsum\nolimits_a s_{a,t-1}\, ex_{a,t} \Bigl[
-pu_{t}^a \, u^a_t + \left(1-\delta^a\right) pk^a_{t} 
-\Bigr] k^a_{t-1} 
-- rh_{t-1} bh_{t-1} \ \cdots
-\newl
-+ \ w_t \, nh_t \, nl_t - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t \ \cdots
-\newl
+=\ 
+\tsum\nolimits_a s_{a,t-1}\, ex_{a,t} \left(1-\delta^a\right) pk^a_{t}\, k^a_{t-1} 
+- bh_{t-1}
+\ \cdots \newl
++ \ \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
+ - \left(rh_{t-1} - 1\right) bh_{t-1}
+\ \cdots \newl
++ \ w_t \, nh_t \, nl_t - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t
+\ \cdots \newl
 + \ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} - \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \end{gathered}
 $$
@@ -292,22 +293,27 @@ $$
 \newl
 \sum\nolimits_{t} \beta^t \Bigl[
 \Uch + \Unh + \Unetw \Bigr] \, nn_t \ \cdots
-\newl
+\end{gathered}
+$$
+
+$$
+\begin{multline}
 +\ \sum\nolimits_t \beta^t vh_t\, \Bigl\{
 - \tsum\nolimits_{a} s_{a,t} \, ex_{a,t} \, pk_{t}^a \, k_{t}^a + bh_t
-\Bigr. \ \cdots
-\newl
-+\ \tsum\nolimits_{a} s_{a,t-1}\, ex_{a,t} \Bigl[
-pu_{t}^a \, u^a_t + \left(1-\delta^a\right) pk^a_{t} 
-\Bigr] k^a_{t-1} 
-- rh_{t-1} bh_{t-1} \ \cdots
-\newl
+\Bigr.
+\ \cdots \newl
++\ \tsum\nolimits_a s_{a,t-1}\, ex_{a,t} \left(1-\delta^a\right) pk^a_{t}\, k^a_{t-1} 
+- bh_{t-1}
+\ \cdots \newl
++ \ \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
+ - \left(rh_{t-1} - 1\right) bh_{t-1}
+\ \cdots \newl
 + \ ww_t \, nh_t \, nl_t 
-- pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t \ \cdots
-\newl
+- pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t .
+\ \cdots \newl
 + \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} -\ \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \Bigr. \Bigr\} 
-\end{gathered}
+\end{multline}
 $$
 
 where $vh_t$ is the Lagrange multiplier on time-$t$ budget constraint.
@@ -355,12 +361,12 @@ pk_t = pi_t \Bigl[
 \Bigr]
 $$
 
-* Claims on area $a$'s production capital, $s_{a,t}$
+* Claims on area $a$'s production capital, $s_{a,t}$, $\forall a \in A$
 
 $$
-vh_t \, pk^a_t 
-= vh_t \, pu^a_t \, u^a_t 
-+ \beta \, vh_{t+1} \left(1-\delta^a\right) pk_{t+1}, \quad \forall a \in A
+\beta \, vh_{t+1} \, rh_t \, pk^a_t \, ex_t^a 
+= vh_t \, pu^a_t \, ex_t^a \, u^a_t  
++ \beta \, vh_{t+1} \left(1-\delta^a\right) pk^a_{t+1}\, ex_{t+1}^a
 $$
 
 The last set of equations defines arbitrage-free conditions (AFCs) for a

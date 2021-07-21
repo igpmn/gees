@@ -1,26 +1,33 @@
-function [s, smc] = areaTariffs(m, importer, exporter, range, size)
+function [s, smc, d, modelAfter] = run(model, importer, exporter, range, size)
 
-d = steadydb(m, range);
+areas = accessUserData(model, "areas");
+prefixes = utils.resolveArea(areas, "prefix");
 
-m0 = m;
+d = steadydb(model, range);
 
-if strlength(exporter)>0
-    exporter = "_" + exporter;
-end
+exporter = utils.resolveArea(exporter, "suffix");
+importer = utils.resolveArea(importer, "prefix");
 
-m.(importer+"_ss_trm"+exporter) = m.(importer+"_ss_trm"+exporter) + size;
+modelAfter = model;
+modelAfter.(importer+"ss_trm"+exporter) = modelAfter.(importer+"ss_trm"+exporter) + size;
 
-m = steady(m);
-checkSteady(m);
-m = solve(m);
-
-s = simulate( ...
-    m, d, range ...
-    , "prependInput", true ...
-    , "method", "stacked" ...
+modelAfter = steady( ...
+	modelAfter ...
+    , "fixLevel", ["gg_a", "gg_nt", prefixes+"pch"] ...
+    , "blocks", false ...
 );
 
-smc = databank.minusControl(m, s, d);
+checkSteady(modelAfter);
+modelAfter = solve(modelAfter);
+
+s = simulate( ...
+    modelAfter, d, range ...
+    , "prependInput", true ...
+    , "method", "stacked" ...
+	, "blocks", false ...
+);
+
+smc = databank.minusControl(modelAfter, s, d);
 
 end%
 

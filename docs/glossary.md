@@ -26,6 +26,7 @@ $e_t$ | `e` | Nominal exchange rate against the global reference area's currency
 $ex_{a,t}$ | `xxx` | Nominal cross rate between local currency and area $a$'s currency
 $rh_t$ | `rh` | Gross rate of interest on financial claims on the household sector
 $rg_t$ | `rg` | Gross rate of interest on financial claims on the government
+$\betak_$ | `zk` | Additional discount factor on production capital
 $\Pi_{y,t}$ | `xxx` | Profits from local producers
 $\Pi_{x,t}$ | `xxx` | Profits from local exporters
 $\Pi_{b,t}$ | `xxx` | Profits from the local financial sector

@@ -18,7 +18,6 @@ $$
 \newcommand{\ss}{_\mathrm{ss}}
 \newcommand{\ssp}{_\mathrm{ss+1}}
 \newcommand{\ssm}{_\mathrm{ss-1}}
-\newcommand{\xnf}{\mathit{nf}}
 \newcommand{\ref}{\mathrm{ref}}
 $$
 

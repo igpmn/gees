@@ -1,3 +1,5 @@
+# Title
+
 $$
 \newcommand{\tsum}{\textstyle\sum}
 \newcommand{\extern}[1]{\mathrm{\mathbf{{#1}}}}
@@ -12,9 +14,10 @@ $$
 \newcommand{\bPi}{\mathbf{\Pi}}
 \newcommand{\bU}{\mathbf{U}}
 \newcommand{\newl}{\\[8pt]}
+\newcommand{\betak}{\mathit{zk}}
+\newcommand{\betay}{\mathit{zy}}
 \notag
 $$
-
 
 # Production
 
@@ -35,21 +38,19 @@ $$
 
 ---
 
-## Productivity 
+## Productivity
 
 Global productivity component
 
 $$
-\Delta \log a_t^{gg} = \rho_a \ \Delta \log a_{t-1}^{gg} 
-+ (1-\rho_a) \log \roc{a}^{gg}_\ss
+\Delta \blog a_t^{gg} = \rho_a \ \Delta \blog a_{t-1}^{gg} 
++ (1-\rho_a) \blog \roc{a}^{gg}_\ss
 $$
-
-<br/>
 
 Area-specific relative productivity component
 
 $$
-\log ar_t = \rho_{ar} \ \log ar_{t-1} + (1-\rho_ar) \ \log ar_\ss
+\blog ar_t = \rho_{ar} \ \blog ar_{t-1} + (1-\rho_ar) \ \blog ar_\ss
 $$
 
 <br/>
@@ -62,131 +63,165 @@ $$
 
 ---
 
-## Technology Choice Production Function
+## Production technology with time-varying elasticity
 
-Short-run CES technology
-
-$$
-y_t = F\left( ak_t \, k_t, \ an_t \, n_t \right)
-$$
-
-<br/>
-
-subject to a long-run technology frontier
 
 $$
-G(ak_t, \ an_t) = a_t
+y_t = F(a_t, b_t) = a_t{}^\gamma \, b_t{}^{1-\gamma}
 $$
 
-<br/>
-
-with adjustment costs
+Period profit function
 
 $$
-\frac{1}{2}\ \xi \, py_t\, y_t \Bigl( \log\frac{ak_t}{an_t} -
-\log\frac{ak_{t-1}}{an_{t-1}} \Bigr)^2
+\Pi_t \equiv py_t\, y_t - pa_t\, a_t - pb_t\,b_t - \Xi_{y,t}
 $$
 
----
-
-## Leontief-Cobb-Douglas Case
-
-Short-run Leontief
+Cost of changing input factor proportions
 
 $$
-y_t = ak_t \, k_t \\[5pt]
-y_t = an_t \, n_t 
+\Xi_{y,t} \equiv \tfrac{1}{2} \xi_y \, py_t \, \extern{y}_t
+\left[\left(
+\blog \frac{a_t}{y_t} - \blog\frac{a_{t-1}}{y_{t-1}}  
+\right)^2 + \left(
+\blog \frac{b_t}{y_t} - \blog\frac{b_{t-1}}{y_{t-1}}  
+\right)^2\right]
 $$
 
-Long-run Cobb-Douglas
+
+Optimization problem
 
 $$
-ak_t{}^\gamma \, an_t{}^{1-\gamma} = a_t
+\max\nolimits_{\{a_t, b_t\}}
+\E_t \sum_t \left( \beta\, \betay_t\right)^t \, vh_t \, \Pi_{y,t}
 $$
 
-<br/>
-
-Without adjustment costs, this is perfectly equivalent (up to a scale
-constant) to
+Optimal choice of input factors
 
 $$
-y_t = a_t \, k_t{}^\gamma \, n_t{}^{1-\gamma}
+\gamma \, py_t \, y_t = pa_t \, a_t \left[
+1 + \xi_t \left( \bDelta \blog \frac{a_t}{y_t}
+- \beta \, \betay_t \, \bDelta \blog \frac{a_{t+1}}{y_{t+1}} \right) \right]
 $$
 
 ---
 
 ## Production Stages
 
-Combine imports from other areas
+T-4: Combine imports from other areas
 
 $$
-m_t = F_4\left( m_t^1, \dots, m_t^A \right)
+mm_t = F_4\left( mm_t^1, \dots, mm_t^A \right)
 $$
 
 $$
-m_t = mm_t + mch_t + mih_t + mcg_t + mih_t + mxx_t
+mm = my_t + mx_t
 $$
 
-Combine non-commodity variable factors
+where
+* $my_t$ is the intermediate import inputs into local production
+* $mx_t$ is the intermediate import inputs into export production (re-exports)
+
+T-3: Combine non-commodity variable factors
 
 $$
-y3_t = F_3\Bigl[ mm_t, \ \left(nh_t - \gamma_{n0} \, nh_\ss\right) \, nl_t \Bigr]
+y_{3,t} = F_3\bigl( mm_t, nv_t\bigr) \newl
+nv_t \equiv \left( nh_t - \gamma_{nv} nh_\ss \right) nl_t
 $$
 
+where
 
-Combine variable factors with capital
+* $nv_t$ is the variable labor input with $\gamma_{nv} nh_\ss$ being the
+  overhead labor needed to maintain production regardless of the output
+  actually produced
 
-$$
-y2_t = F_2\Bigl( ukh_t,\ kg_t,\ y3_t \Bigr) \\[5pt]
-ukh_t = u_t \, kh_t
-$$
-
-Add dependence on commodity inputs
+T-2: Combine variable factors with capital
 
 $$
-y1_t = F_1\Bigl( y2_t,\ mq_t \Bigr)
+y_{2,t} = F_2\bigl( uk_t\, y_{3,t} \bigr) \newl
+uk_t = u_t \, k_t
 $$
 
-Add a roundabout production layer and sticky prices
+T-1: Add dependence on commodity inputs
 
 $$
-y_t - z_t = F_0(y1_t,\ z_t) \\[10pt]
-y_t = ych_t + yih_t + ycg_t + yig_t + yxx_t
+y_{1,t} = F_1\bigl( y_{2,t},\ mq_t \bigr)
+$$
+
+T-0: Add a roundabout production layer and sticky prices
+
+$$
+y_t = F_0\bigl(y_{1,t},\ yz_t\bigr) + yz_t
 $$
 
 ---
 
 ## Sticky Prices
 
-Maximize profits
+Downward sloping demand curve
 
 $$
-py_t \, y_t \ \left(1 + jp_t\right) - py0_t \, y0_t
+y_t 
+= \extern{y}_t \, \left( \frac{py_t}{\extern{py}_t} \right)^{\left.-{\mu_{py}}\middle/\left(\mu_{py}-1\right)\right.} \,
+$$
+
+where
+* $mu_{py}$ is the monopoly power of the representative producer in its own
+  market, and ${\left.{\mu_{py}}\middle/\left(\mu_{py}-1\right)\right.}$ is
+  the underlying elasticity of substitution of demand for the producer's
+  output (which gives rise to the monopoly power)
+
+Period profits
+
+$$
+\Pi_{y0,t} \equiv \left( py_t  - py_{0,t}\right) y_t - \Xi_{py,t}
 $$
 
 with the price adjustment costs given by
 $$
-jp_t 
-=\frac{1}{2} \ \xi_{py} \ \Bigl( \Delta \log py_t - \log \roc{py}_t^\ref \Bigr)^2
+\Xi_{py,t}
+\equiv \tfrac{1}{2} \, \xi_{py} \, \bigl( \Delta \blog py_t - j_t \bigr)^2
 $$
 
-Point of reference in price setting
+where $j_t$ is a price indexation factor given by
 
 $$
-\log \roc{py}_t^\ref = \zeta_{py}\Delta \log py_{t-1} + (1-\zeta_{py})
-\log \roc{py}_\ss
+j \equiv  \zeta_{py}\, \blog \roc{\extern{py}}_{t-1} + (1-\zeta_{py})
+\,\blog \roc{py}_\ss
+$$
+
+Maximization problem
+
+$$
+\max\nolimits_{\{y_t, py_t\}}
+\E_t \sum_t \left( \beta\, \betay_t\right)^t \, vh_t \, \Pi_{y0,t}
+$$
+
+where 
+* $\betay$ is an additional discount factor to compensate for the
+  uncertainty of cash flows generated by real economic activity
+
+
+Optimal price setting
+
+$$
+p_{y,t} = \mu_{py}\, p_{y0,t} \, \Bigl\{
+1 + \left(\mu_{py}-1\right) \, \xi_{py} \left[
+\left(\bDelta \blog p_{y,t} - j_t \right)
+- \beta \, \betay_t \left(\bDelta \blog p_{y,t+1} - j_{t+1} \right)
+\right] \Bigr\}
 $$
 
 ---
 
-## Production Sector Total Profits
+## Production sector total profits
 
 $$
-\Pi_{y,}
-= py_t \, y0_t \ \left( 1 - jy_t \right)
-- pm_t \, mm_t 
-- w_t \, nh_t \, \xnf_t 
-- pu_t \, u_t k_t
+\Pi_{y,t}
+\equiv py_t \, y_{0,t}
+- pmm_t \, my_t 
+- w_t \, nh_t \, nl_t
+- pu_t \, u_t\, k_t 
+-\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi{py,t}
 $$
 
 ---
@@ -194,8 +229,14 @@ $$
 ## Final Goods Assembly
 
 $$
-ch = F\Bigl( ych_t,\ mch_t \Bigr)
+y_t = ch_t + cg_t + ih_t + yx_t
 $$
 
+where
+
+* $ch_t$ is private consumption (by households)
+* $cg_t$ is government consumption
+* $ih_t$ is private investment (by households)
+* $yx_t$ is the local component in the export production
 
 

@@ -19,7 +19,7 @@ list = [
     "ch"
     "ih"
     "r"
-    "roc_pch"
+    "roc_pc"
     "e"
     "xx"
     "mm"

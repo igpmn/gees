@@ -54,7 +54,7 @@ plot(0:10, [smc.rw_e, smc.us_e, smc.ea_e]);
 title("Nominal Exchange Rate");
 
 nexttile;
-plot(0:10, [smc.rw_roc_pch, smc.us_roc_pch, smc.ea_roc_pch]);
+plot(0:10, [smc.rw_roc_pc, smc.us_roc_pc, smc.ea_roc_pc]);
 title("Consumer Inflation");
 
 visual.hlegend("bottom", "RW Baseline", "RW No AC", "US Baseline", "US No AC", "EA Baseline", "EA No AC")
@@ -72,7 +72,7 @@ list = [
     "ch"
     "ih"
     "r"
-    "roc_pch"
+    "roc_pc"
     "e"
     "xx"
     "mm"

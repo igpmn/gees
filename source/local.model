@@ -10,13 +10,16 @@
     "Per-worker labor supply" nh
     "Variable labor" nv
     "Private investment" ih
+    "Uncertainty discount factor on capital" zk
+    "Uncertainty discount factor on production cash flows" zy
+    "Ex-post return on capital" rk
     "Production capital" k
     "Production capital services" uk
     "Portfolio of claims on production capital" kk
     "Household net worth" netw
     "Area specific productivity component" ar
     "Shadow value of household budget constraing" vh
-    "Price of private consumption" pch
+    "Price of private consumption" pc
     "Price of private investment" pih
     "Domestic intermediate inputs" yz
     "Stage T-3 output" y3
@@ -48,16 +51,12 @@
     "Price of final domestic output, Rate of change" roc_py
     "Price of final domestic output, Rate of change, Point of reference" ref_roc_py
     "Nominal wage rate, Rate of change" roc_w
-    "Price of consumer goods, Rate of change" roc_pch
+    "Price of consumer goods, Rate of change" roc_pc
     "Household investment, Rate of change" roc_ih
     "Utilization rate of production capital" u
     "Utilization rate of production capital, Rate of change" roc_k
     "Stage T-3 output, Rate of change" roc_y3
     "Variable labor, Rate of change" roc_nv
-
-    "Domestic component of household consumption" ych
-    "Domestic component of government consumption" ycg
-    "Domestic component of household investment" yih
 
     "Auxiliary variable for steady-state calibration of upsilon_0" upsilon_1_py_to_pu
     "Auxiliary equation for steady-state calibration of nu_0" nch_to_netw_minus_nu_0
@@ -74,7 +73,7 @@
     ng = nf;
 
     % Current income definition
-    curr = (w*nh*nf - txls2_to_nc*pch*ch);
+    curr = (w*nh*nf - txls2_to_nc*pc*ch);
 
     % Stage T-2 input factor adjustment marginal cost
     adj_uk = (log(uk/y2)-log(uk{-1}/y2{-1}))-&rdf*(log(uk{+1}/y2{+1})-log(uk/y2));
@@ -90,20 +89,23 @@
     adj_ih2 = log(ih/ih{-1}/&roc_ih) - beta*log(ih{+1}/ih/&roc_ih);
 
     % Final price adjustment marginal cost
-    adj_py = log(roc_py/ref_roc_py) - beta*log(roc_py{+1}/ref_roc_py{+1});
+    adj_py = log(roc_py/ref_roc_py) - beta*gg_zy*zy*log(roc_py{+1}/ref_roc_py{+1});
 
 
 !parameters
 
     "S/S Area specific productivity component" ss_ar
-    "S/S Price of private consumption, Rate of change" ss_roc_pch
-    "Autoregression in area specific productivity component" rho_ar
-
+    "S/S Price of private consumption, Rate of change" ss_roc_pc
+    "S/S Uncertainty discount factor on capital" ss_zk
+    "S/S Uncertainty discount factor on production cash flows" ss_zy
     "Household discount factor" beta
-    "Inverse elasticity of labor supply" eta
-    "Autoregression in real wage rate" rho_w
-    "Uncertainty discount factor on capital" beta_k
     "Depreciation of production capital" delta
+    "Inverse elasticity of labor supply" eta
+
+    "Autoregression in real wage rate" rho_w
+    "Autoregression in area specific productivity component" rho_ar
+    "Autoregression in uncertainty discount factor on capital" rho_zk
+    "Autoregression in uncertainty discount factor on production cash flows" rho_zy
 
     "Point of reference in consuptions switch" chi
     "Past consumption in reference consumption parameter" chi_ch
@@ -124,7 +126,7 @@
     "Monopoly power (markup) of local producers" mu_py
 
     "Autoregression in policy rate" rho_r 
-    "Monetary policy reaction to CPI" psi_pch 
+    "Monetary policy reaction to CPI" psi_pc 
     "Monetary policy reaction to nominal exchange rate" psi_e
 
     "Markup to cover overhead labor" mu_y3
@@ -144,33 +146,43 @@
     "Shock to wage rate" shk_w
     "Shock to current income" shk_curr
     "Shock to capital prices" shk_pk
+    "Shock to uncertainty discount factor on capital" shk_zk
+    "Shock to uncertainty discount factor on production cash flows" shk_zy
 
 
 !equations
 
-%% Household Consumption 
+%% Household consumption-saving choice 
 
     "Optimal choice of household consumption"
-    vh*pch*(ch - chi*ref_ch) = $ng$*(1 - chi*&ref_ch/&ch) ...
-    !! vh*pch*ch = $ng$;
+    vh*pc*(ch - chi*ref_ch) = $ng$*(1 - chi*&ref_ch/&ch) ...
+    !! vh*pc*ch = $ng$;
 
     "Point of reference in household consumption" 
-    ref_ch = chi_curr*($curr$)/pch + chi_ch*ch{-1};
+    ref_ch = chi_curr*($curr$)/pc + chi_ch*ch{-1};
 
     "Optimal choice of net position with local financial sector"
-    vh = beta*vh{+1}*rh + ($ng$)/(pch*ch)*[nu_1*(pch*ch/netw - nu_0) - gg_nu] ...
-    !! 1 = beta*rh/gg_ss_roc_a/ss_roc_pch + nu_1*nch_to_netw_minus_nu_0 - gg_nu;
+    vh = beta*vh{+1}*rh + ($ng$)/(pc*ch)*[nu_1*(pc*ch/netw - nu_0) - gg_nu] ...
+    !! 1 = beta*rh/gg_ss_roc_a/ss_roc_pc + nu_1*nch_to_netw_minus_nu_0 - gg_nu;
 
     "Auxiliary equation for steady-state calibration of nu_0"
-    nch_to_netw_minus_nu_0 = pch * ch / netw - nu_0;
+    nch_to_netw_minus_nu_0 = pc * ch / netw - nu_0;
 
-    rdf = beta*vh{+1}*pch{+1}/(vh*pch);
+    rdf = beta*vh{+1}*pc{+1}/(vh*pc);
 
     "Risk adjusted household rate"
     rh * (1 - zh) = r + theta_3*(unc_r - r);
 
     "Current net worth of households"
     netw = kk + dg_to_ngdp*ngdp + nfa_to_ngdp*ngdp;
+
+    "Uncertainty discount factor on capital"
+    log(zk) = rho_zk*log(zk{-1}) + (1-rho_zk)*log(ss_zk) + shk_zk ...
+    !! zk = ss_zk;
+
+    "Uncertainty discount factor on production cash flows"
+    log(zy) = rho_zy*log(zy{-1}) + (1-rho_zy)*log(ss_zy) + shk_zy ...
+    !! zy = ss_zy;
 
 
 %% Labor supply 
@@ -179,9 +191,9 @@
     vh * ww = nh^eta;
 
     "Real wage rigidities"
-    log(w/pch) = ...
-        + rho_w * log(w{-1}*&roc_w/pch{-1}/&roc_pch) ... * &roc_w * &roc_pch) ...
-        + (1-rho_w) * log(ww/pch) ...
+    log(w/pc) = ...
+        + rho_w * log(w{-1}*&roc_w/pc{-1}/&roc_pc) ... * &roc_w * &roc_pc) ...
+        + (1-rho_w) * log(ww/pc) ...
         + shk_w ...
     !! w = ww;
 
@@ -208,13 +220,19 @@
 
     roc_ih = ih/ih{-1};
 
+    "Ex-post return on capital"
+    rk*pk{-1} = u{-1}*pu{-1}*rh{-1} + (1-delta)*pk;
+
 %
 
 
 %% Productivity 
 
-    "Area specific productivity component"
-    log(ar) = rho_ar*log(ar{-1}) + (1-rho_ar)*log(ss_ar) + shk_ar ...
+    "Area-specific relative productivity component"
+    log(ar) = ...
+        + rho_ar * log(ar{-1}) ...
+        + (1 - rho_ar) * log(ss_ar) ...
+        + shk_ar ...
     !! ar = ss_ar;
 
 %
@@ -279,19 +297,15 @@
 
     ref_roc_py = roc_py{-1}^(1-zeta_py) * &roc_py^zeta_py;
 
-    pch = py;
+    pc = py;
     pih = py;
-
-    ch = ych;
-    cg = ycg;
-    ih = yih;
 
 %
 
 
 %% Distribution of final goods 
 
-    y = ych + ycg + yih + yxx;
+    y = ch + cg + ih + yxx;
 
 %
 
@@ -303,11 +317,11 @@
         = rho_r * log(unc_r{-1}) ...
         + (1-rho_r) * [ ...
             + log(&unc_r) ...
-            + psi_pch * (log(roc_pch{+1}) - log(ss_roc_pch)) ...
+            + psi_pc * (log(roc_pc{+1}) - log(ss_roc_pc)) ...
             + psi_e * (log(roc_e) - log(&roc_e)) ...
         ] ...
         + shk_r ...
-    !! pch = pch{-1} * ss_roc_pch;
+    !! pc = pc{-1} * ss_roc_pc;
 
     "Zero floor constraint on policy rate"
     r = floor*max(1, unc_r) + (1-floor)*unc_r;
@@ -317,7 +331,7 @@
 
 %% Rates of change 
 
-    !for cg, w, pch, py, k, y3, nv !do
+    !for cg, w, pc, py, k, y3, nv !do
         roc_? = ? / ?{-1};
     !end
 
@@ -329,13 +343,13 @@
     ch_to_nn = ch / nn;
 
     "Nominal GDP"
-    ngdp = pch*ch + pih*ih + pcg*cg + pxx*xx - pmm*mm + pq*(xq - mq);
+    ngdp = pc*ch + pih*ih + pc*cg + pxx*xx - pmm*mm + pq*(xq - mq);
 
     "Real GDP index, Rate of change"
     roc_gdp = ...
-        + (pch*ch/ngdp + pch{-1}*ch{-1}/ngdp{-1})/2 * roc(ch) ...
+        + (pc*ch/ngdp + pc{-1}*ch{-1}/ngdp{-1})/2 * roc(ch) ...
         + (pih*ih/ngdp + pih{-1}*ih{-1}/ngdp{-1})/2 * roc(ih) ...
-        + (pcg*cg/ngdp + pcg{-1}*cg{-1}/ngdp{-1})/2 * roc(cg) ...
+        + (pc*cg/ngdp + pc{-1}*cg{-1}/ngdp{-1})/2 * roc(cg) ...
         + (pxx*xx/ngdp + pxx{-1}*xx{-1}/ngdp{-1})/2 * roc(xx) ...
         - (pmm*mm/ngdp + pmm{-1}*mm{-1}/ngdp{-1})/2 * roc(mm) ...
         + (pq*xq/ngdp + pq{-1}*xq{-1}/ngdp{-1})/2 * roc(xq) ...
@@ -352,7 +366,7 @@
 
 !postprocessor
 
-    nch_to_ngdp = pch * ch / ngdp;
+    nch_to_ngdp = pc * ch / ngdp;
     nih_to_ngdp = pih * ih / ngdp;
     nkh_to_ngdp = pk * k / ngdp;
     curr_to_ngdp = ($curr$) / ngdp;

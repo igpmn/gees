@@ -1,7 +1,7 @@
 function [s, smc, m1] = areaDisinflation(m, area, size, range)
 
 area = utils.resolveArea(area, "prefix");
-name = area + "ss_roc_pch";
+name = area + "ss_roc_pc";
 
 checkSteady(m);
 m = solve(m);

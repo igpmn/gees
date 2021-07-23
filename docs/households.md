@@ -13,6 +13,8 @@ $$
 \newcommand{\bPi}{\mathbf{\Pi}}
 \newcommand{\bU}{\mathbf{U}}
 \newcommand{\newl}{\\[8pt]}
+\newcommand{\betak}{zk}
+\newcommand{\betay}{zy}
 \notag
 $$
 
@@ -305,7 +307,7 @@ $$
 +\ \tsum\nolimits_a s_{a,t-1}\, ex_{a,t} \left(1-\delta^a\right) pk^a_{t}\, k^a_{t-1} 
 - bh_{t-1}
 \ \cdots \newl
-+ \ \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
++ \ \left(\betak_{t-1}{}\right)^t \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
 + \ ww_t \, nh_t \, nl_t 
@@ -316,7 +318,10 @@ $$
 \end{multline}
 $$
 
-where $vh_t$ is the Lagrange multiplier on time-$t$ budget constraint.
+where $vh_t$ is the Lagrange multiplier on time-$t$ budget constraint, and
+$\betak$ is the additional discount factor applied to the value of
+corporate equity holdings to compensate for the risk aversion of
+households.
 
 ---
 
@@ -357,7 +362,7 @@ $$
 pk_t = pi_t \Bigl[
 1 + \xi_{i1} \bigl( \blog i_t - \blog \extern{i}^\ref_t \bigr)
 + \xi_{i2} \bigl(\bDelta \blog i_t - \kappa_i\bigr) 
-- \xi_{i2} \, \beta\, \bigl(\bDelta \blog i_{t+1} - \kappa_i\bigr)
+- \xi_{i2} \, \beta\, zk_t \, \bigl(\bDelta \blog i_{t+1} - \kappa_i\bigr)
 \Bigr]
 $$
 
@@ -366,7 +371,7 @@ $$
 $$
 \beta \, vh_{t+1} \, rh_t \, pk^a_t \, ex_t^a 
 = vh_t \, pu^a_t \, ex_t^a \, u^a_t  
-+ \beta \, vh_{t+1} \left(1-\delta^a\right) pk^a_{t+1}\, ex_{t+1}^a
++ \beta \, \betak_{t} \, vh_{t+1} \left(1-\delta^a\right) pk^a_{t+1}\, ex_{t+1}^a
 $$
 
 The last set of equations defines arbitrage-free conditions (AFCs) for a

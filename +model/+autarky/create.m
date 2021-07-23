@@ -32,10 +32,14 @@ ma = assignUserData(ma, "areas", "");
 
 ma.gg_ss_roc_a = 1.02; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ma.gg_ss_roc_nt = 1.01; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-ma.ss_roc_pch = 1.03;
+ma.ss_roc_pc = 1.03;
+ma.gg_ss_zk = 0.90;
+ma.gg_ss_zy = 1;
 
 ma.gg_rho_a = 0.5;
 ma.gg_rho_nt = 0.9;
+ma.gg_rho_zk = 0.90;
+ma.gg_rho_zy = 0.90;
 
 ma.gg_nu = 0;
 
@@ -50,10 +54,14 @@ ma.rho_nw = 0.9;
 ma.rho_nf = 0.5;
 
 ma.beta = 0.95;
-ma.beta_k = 0.90;
+ma.ss_zk = 1;
+ma.ss_zy = 1;
 ma.delta = 0.15;
 ma.eta = 0;
+
 ma.rho_w = 0.50;
+ma.rho_zk = 0.90;
+ma.rho_zy = 0.90;
 
 ma.chi = 1;
 ma.chi_curr = 0.6;
@@ -98,7 +106,7 @@ ma.zeta_py = 0.5;
 
 % Monetary Policy
 ma.rho_r = 0.50;
-ma.psi_pch = 2.5;
+ma.psi_pc = 2.5;
 ma.psi_e = 0;
 ma.floor = 1;
 
@@ -127,7 +135,7 @@ ma.theta_3 = 0;
 % Anchor the level of three independent stochastic trends
 ma.gg_a = 1;0.85;
 ma.gg_nt = 1;
-ma.pch = 1;
+ma.pc = 1;
 
 ma.r = 1.05;
 
@@ -135,7 +143,7 @@ ma.nch_to_netw_minus_nu_0 = 0;
 ma.upsilon_1_py_to_pu = 1;
 
 ma = steady(ma ...
-    , "fixLevel", ["gg_a", "gg_nt", "pch"] ...
+    , "fixLevel", ["gg_a", "gg_nt", "pc"] ...
     , "exogenize", ["r", "nch_to_netw_minus_nu_0", "upsilon_1_py_to_pu"] ...
     , "endogenize", ["gg_nu", "nu_0", "upsilon_0"] ...
     , "blocks", false ...

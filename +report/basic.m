@@ -23,6 +23,7 @@ areas = accessUserData(m, "areas");
 
 % Transformation function
 func = @(x) 100*(x - 1);
+altFunc = @(x) 100*x;
 
 
 %% Start report object 
@@ -86,14 +87,15 @@ areaSeries = [
     "ch"
     "ih"
     "cg"
-    "txls1_to_nc"
+    "^txls1_to_nc"
     "xx"
     "mm"
-    "roc_pch"
+    "roc_pc"
     "r"
 	"pk"
 	"u"
     "k"
+    "mq"
 ];
 
 
@@ -105,10 +107,17 @@ for a = reshape(areas, 1, [])
     table < rephrase.Heading(heading);
 
     % Loop over time series 
-    for n = reshape(utils.resolveArea(a, "prefix") + areaSeries, 1, [])
-        series = s.(n);
-        grid = locallySeriesToChart(grid, upper(a), series, startDate, endDate, legends, func);
-        table = locallySeriesToTable(table, "", series, legends, func);
+    for n = reshape(areaSeries, 1, [])
+        thisFunc = func;
+        name = n;
+        if startsWith(n, "^")
+            name = extractAfter(name, 1);
+            thisFunc = altFunc;
+        end
+        name = utils.resolveArea(a, "prefix") + name;
+        series = s.(name);
+        grid = locallySeriesToChart(grid, upper(a), series, startDate, endDate, legends, thisFunc);
+        table = locallySeriesToTable(table, "", series, legends, thisFunc);
     end
 
     report < grid;

@@ -1,33 +1,72 @@
-function [s, smc, d, modelAfter] = run(model, importer, exporter, range, size)
+%% Simulate an area's change in import tariffs on another area 
 
-areas = accessUserData(model, "areas");
-prefixes = utils.resolveArea(areas, "prefix");
+function [s, smc, d, modelAfter] = run(model, area, counter, range, size, stamp)
 
-d = steadydb(model, range);
+htmlFileNameTemplate = "area-import-tariffs-$(area)-$(counter)-$(stamp)";
+reportTitleTemplate = "Area $(area) change in import tariffs on $(counter)";
+legend = string(100*size) + "%";
 
-exporter = utils.resolveArea(exporter, "suffix");
-importer = utils.resolveArea(importer, "prefix");
+thisDir = string(fileparts(mfilename("fullpath")));
+areaPrefix = utils.resolveArea(area, "prefix");
+counterSuffix = utils.resolveArea(counter, "suffix");
+allAreas = accessUserData(model, "areas");
+allPrefixes = utils.resolveArea(allAreas, "prefix");
+
+
+%
+% Create initial steady state databank
+%
+
+d0 = steadydb(model, range);
+
+
+%
+% Create an economy with a new level of import tariffs
+%
 
 modelAfter = model;
-modelAfter.(importer+"ss_trm"+exporter) = modelAfter.(importer+"ss_trm"+exporter) + size;
+modelAfter.(areaPrefix+"ss_trm"+counterSuffix) = modelAfter.(areaPrefix+"ss_trm"+counterSuffix) + size;
 
 modelAfter = steady( ...
-	modelAfter ...
-    , "fixLevel", ["gg_a", "gg_nt", prefixes+"pc"] ...
+    modelAfter ...
+    , "fixLevel", ["gg_a", "gg_nt", allPrefixes+"pc"] ...
     , "blocks", false ...
 );
-
 checkSteady(modelAfter);
 modelAfter = solve(modelAfter);
+
+
+%
+% Simulate transition
+%
+
+d = d0;
 
 s = simulate( ...
     modelAfter, d, range ...
     , "prependInput", true ...
     , "method", "stacked" ...
-	, "blocks", false ...
+    , "blocks", false ...
 );
 
 smc = databank.minusControl(modelAfter, s, d);
+
+
+%
+% Generate HTML reports
+%
+
+reportTitle = reportTitleTemplate;
+reportTitle = replace(reportTitle, "$(area)", upper(area));
+reportTitle = replace(reportTitle, "$(counter)", upper(counter));
+
+htmlFileName = htmlFileNameTemplate;
+htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+htmlFileName = replace(htmlFileName, "$(counter)", upper(counter));
+htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+htmlFileName = fullfile(thisDir, htmlFileName);
+
+report.basic(model, smc, range, reportTitle, legend, htmlFileName);
 
 end%
 

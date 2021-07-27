@@ -1,70 +1,72 @@
-%% Permanent change in global productivity 
+%% Simulate global change in productivity 
 
-function [s, smc, d, m1] = run(m, range, size, reportStamp)
+function [s, smc, d, modelAfter] = run(model, range, size, stamp)
 
+htmlFileNameTemplate = "global-productivity-$(stamp)";
+reportTitleTemplate = "Global change in productivity";
+legend = string(100*size) + "%";
+
+area = "";
 thisDir = string(fileparts(mfilename("fullpath")));
-size = log(1 + size);
+allAreas = accessUserData(model, "areas");
+allPrefixes = utils.resolveArea(allAreas, "prefix");
 
 %
-% Create model with a higher level of productivity
+% Create initial steady state databank
 %
 
-m1 = m;
-m1.gg_a = complex( real(m1.gg_a)*exp(size), imag(m1.gg_a) );
-areas = accessUserData(m1, "areas");
-areas = utils.resolveArea(areas, "prefix");
-m1 = steady( ...
-    m1 ...
-    , "fix", ["gg_nt", "gg_a", areas+"pc"] ...
+d0 = steadydb(model, range);
+
+
+%
+% Create an economy with a new level of productivity
+%
+
+modelAfter = model;
+
+modelAfter.gg_a = complex( ...
+    real(modelAfter.gg_a) * (1 + size) ...
+    , imag(modelAfter.gg_a) ...
+);
+
+modelAfter = steady( ...
+    modelAfter ...
+    , "fixLevel", ["gg_a", "gg_nt", allPrefixes+"pc"] ...
     , "blocks", false ...
 );
-checkSteady(m1);
-m1 = solve(m1);
+checkSteady(modelAfter);
+modelAfter = solve(modelAfter);
+
 
 %
-% Simulate dynamic response to productivity shock, 3 variants:
-% * Unanticipated
-% * Anticipated
-% * Half-anticipated
+% Simulate transition 
 %
 
-d = steadydb(m, range(1)-1:range(end), "numColumns", 3);
-d0 = d;
-d.gg_shk_a(range(2), :) = [1i*size, size, (0.5+0.5i)*size];
+d = d0;
+d.gg_shk_a(range(1)) = log(1 + size);
 
 s = simulate( ...
-    m, d, range ...
+    modelAfter, d, range ...
     , "prependInput", true ...
     , "method", "stacked" ...
-    , "blocks", false ...
-    , "startIter", "data" ...
 );
 
-s = postprocess(m, s, range(1)-1:range(end));
+smc = databank.minusControl(model, s, "range", range);
 
-smc = databank.minusControl(m, s, d0);
 
 %
-% Generate HTML reports
+% Generate HTML report 
 %
 
-reportTitle = "Global productivity simulation";
+reportTitle = reportTitleTemplate;
+reportTitle = replace(reportTitle, "$(area)", upper(area));
 
-% Unanticipated vs anticipated
-smc12 = databank.retrieveColumns(smc, 1:2);
-legends12 = ["Unanticipated", "Anticipated"];
-report.basic( ...
-    m, smc12, range, reportTitle, legends12 ...
-    , fullfile(thisDir, "global-productivity-unanticipated-anticipated-" + string(reportStamp)) ...
-);
+htmlFileName = htmlFileNameTemplate;
+htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+htmlFileName = fullfile(thisDir, htmlFileName);
 
-% Anticipated vs half-anticipated
-smc23 = databank.retrieveColumns(smc, 2:3);
-legends23 = ["Anticipated", "Half-anticipated"];
-report.basic( ...
-    m, smc23, range, reportTitle, legends23 ...
-    , fullfile(thisDir, "global-productivity-anticipated-halfanticipated-" + string(reportStamp)) ...
-);
+report.basic(model, smc, range, reportTitle, legend, htmlFileName);
 
 end%
 

@@ -46,7 +46,6 @@
     "Nominal short-term rate, LCY" r
     "Unconstrained nominal short-term rate, LCY" unc_r
     "Nominal household rate, LCY" rh
-    "Household credit risk" zh
 
     "Price of final domestic output, Rate of change" roc_py
     "Price of final domestic output, Rate of change, Point of reference" ref_roc_py
@@ -136,7 +135,7 @@
     "Stage T-2 input factor adjustment cost parameter" xi_y2
     "Stage T-1 input factor adjustment cost parameter" xi_y1
     "Pressure relief valve for interest rate lower bound" theta_3
-    "Lower bound on short-term rate" floor
+    "Switch for ower bound on short-term rate" floor
 
 
 !shocks
@@ -171,7 +170,8 @@
     rdf = beta*vh{+1}*pc{+1}/(vh*pc);
 
     "Risk adjusted household rate"
-    rh * (1 - zh) = r + theta_3*(unc_r - r);
+    % rh * (1 - zh) = r + theta_3*(unc_r - r);
+    rh = r + theta_3*(unc_r - r) + zh;
 
     "Current net worth of households"
     netw = kk + dg_to_ngdp*ngdp + nfa_to_ngdp*ngdp;

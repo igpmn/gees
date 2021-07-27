@@ -96,6 +96,7 @@ areaSeries = [
 	"u"
     "k"
     "mq"
+    "^nfa_to_ngdp"
 ];
 
 

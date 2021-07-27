@@ -54,7 +54,7 @@ ma.rho_nw = 0.9;
 ma.rho_nf = 0.5;
 
 ma.beta = 0.95;
-ma.ss_zk = 1;
+ma.ss_zk = 0.90;
 ma.ss_zy = 1;
 ma.delta = 0.15;
 ma.eta = 0;
@@ -69,9 +69,11 @@ ma.chi_ch = 0.3;
 
 ma.nu_0 = 0;
 ma.nu_1 = 0.07;
+ma.ss_zh_aut = 0;
+ma.rho_zh_aut = 0.7;
 ma.theta_0 = 0;
-ma.theta_1 = 0.05;
-ma.theta_2 = 0;
+ma.theta_1 = 0.10; 0.05;
+ma.theta_2 = 1;
 
 ma.mu_y3 = 1.3;
 

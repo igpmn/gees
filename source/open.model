@@ -19,39 +19,50 @@
     "Nominal exchange rate" e
     "Expectations of nominal exchange rate" exp_e
     "Nominal Exchange Rate, Rate of Change" roc_e
-    "Financial flows from corporate equity to GDP ratio" feq_to_ngdp
+    "BOP CA corporate equity primary income to GDP ratio" bpceq_to_ngdp
+    "BOP FA corporate equity transactions to GDP ratio" bpfeq_to_ngdp
     "Price of non-commodity exports, Reference currency" pxx_rcy
     "Value of non-commodity exports, Reference currency" nxx_rcy
     "Net claims of financial sector on households" bh_to_ngdp
     "Non-commodity imports to GDP ratio" nmm_to_ngdp
     "Non-commodity exports to GDP ratio" nxx_to_ngdp
 
+    "Country credit risk" zh
+    "Autonomous component in country credit risk" zh_aut
+
 
 !log-variables !all-but
 
     nfa_to_ngdp
     nfa_to_ngdp_checksum
-    feq_to_ngdp
+    bpfeq_to_ngdp
+    bpceq_to_ngdp
     bh_to_ngdp
     nmm_to_ngdp
     nxx_to_ngdp
+    zh_aut
 
 
 !parameters
 
     "Import intensity of non-commodity exports" alpha
     "Acceleration in exportable productivity" gamma_xx
-    "Intercept in household risk function" theta_0
+    theta_0
     "Elasticity of household risk function wrt NFA" theta_1
-    "Elasticity of household risk function wrt government debt held" theta_2
+    "Curvature of household risk function wrt NFA" theta_2
     "Weight on model-consistent expectations in exchange rate" zeta_e
     "Share of local commodity production in world commodity production" lambda
     "Adjustment cost parameter in stage t-3 production" xi_y3
+
+    rho_zh_aut
+    ss_zh_aut
 
 
 !shocks
 
     "Interest parity shock" shk_e
+    shk_zh
+    shk_zh_aut
 
 
 !substitutions
@@ -94,14 +105,26 @@
     "Balance of payments transactions"
     nfa_to_ngdp * ngdp = ...
         + rnfa * nfa_to_ngdp{-1}*ngdp{-1} ...
-        + feq_to_ngdp * ngdp ...
+        + bpfeq_to_ngdp * ngdp ...
+        + bpceq_to_ngdp * ngdp ...
         + pxx * xx ... Non-commodity exports
         - fob_pmm * mm ... Non-commodity imports, priced FOB destination
         + pq * (xq - mq) ... Net commodity exports
         + nfa_to_ngdp_checksum * ngdp;
 
-    "Household credit risk"
-    zh = theta_0 - theta_1 * nfa_to_ngdp - theta_2 * dg_to_ngdp;
+    "Country credit risk"
+    zh = ...
+        + zh_aut ...
+        + theta_1 * (1/theta_2)*[ exp(-theta_2*nfa_to_ngdp*ngdp/(pk*k)) - 1 ] ...
+        + shk_zh;
+
+    "Autonomous component in country credit risk"
+    zh_aut = ...
+        + rho_zh_aut * zh_aut{-1} ...
+        + (1 - rho_zh_aut) * ss_zh_aut ...
+        + shk_zh_aut ...
+    !! zh_aut = ss_zh_aut;
+
 
     "Net balance sheet of local financial sector"
     bh_to_ngdp + dg_to_ngdp + nfa_to_ngdp = 0;

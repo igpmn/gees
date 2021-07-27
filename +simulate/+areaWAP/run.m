@@ -1,22 +1,67 @@
-function [s, smc, m] = areaWAP(m, area, size)
+%% Simulate increase in an area's working age population share 
 
-T = 20;
-d = steadydb(m, 1:T);
+function [s, smc, d, modelAfter] = areaPopulation(model, area, range, size, stamp)
 
-m0 = m;
-m.(area+"_ss_nw_to_nn") = m.(area+"_ss_nw_to_nn") - size;
-m.(area+"_rho_nw") = 0.5;
-m = steady(m);
-checkSteady(m);
-m = solve(m);
+htmlFileNameTemplate = "area-wap-$(area)-$(stamp)";
+reportTitleTemplate = "Area $(area) change in working age population share";
+legend = string(100*size) + "%";
+
+thisDir = string(fileparts(mfilename("fullpath")));
+areaPrefix = utils.resolveArea(area, "prefix");
+allAreas = accessUserData(model, "areas");
+allPrefixes = utils.resolveArea(allAreas, "prefix");
+
+%
+% Create initial steady state databank
+%
+
+d0 = steadydb(model, range);
+
+
+%
+% Create economy with a new level of population
+%
+
+modelAfter = model;
+modelAfter.(areaPrefix+"ss_nw_to_nn") = model.(areaPrefix+"ss_nw_to_nn") + size;
+
+modelAfter = steady( ...
+    modelAfter ...
+    , "fixLevel", ["gg_a", "gg_nt", allPrefixes+"pc"] ...
+    , "blocks", false ...
+);
+checkSteady(modelAfter);
+modelAfter = solve(modelAfter);
+
+
+%
+% Simulate transition
+%
+
+d = d0;
 
 s = simulate( ...
-    m, d, 1:T ...
+    modelAfter, d, range ...
     , "prependInput", true ...
     , "method", "stacked" ...
 );
 
-smc = databank.minusControl(m, s, d);
+smc = databank.minusControl(model, s, d0, "range", range);
+
+
+%
+% Generate HTML reports
+%
+
+reportTitle = reportTitleTemplate;
+reportTitle = replace(reportTitle, "$(area)", upper(area));
+
+htmlFileName = htmlFileNameTemplate;
+htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+htmlFileName = fullfile(thisDir, htmlFileName);
+
+report.basic(model, smc, range, reportTitle, legend, htmlFileName);
 
 end%
 

@@ -1,29 +1,35 @@
-%% Simulate a permanent change in area govt debt 
+%% Simulate a permanent change in an area's govt debt 
 
-function [s, smc, d, modelAfter] = run(model, area, range, size, reportStamp)
+function [s, smc, d, modelAfter] = run(model, area, range, size, stamp)
+
+htmlFileNameTemplate = "area-govt-debt-$(area)-$(stamp)";
+reportTitleTemplate = "Area $(area) government debt expansion simulation";
+legend = string(100*size) + "%";
 
 thisDir = string(fileparts(mfilename("fullpath")));
-prefix = utils.resolveArea(area, "prefix");
+areaPrefix = utils.resolveArea(area, "prefix");
 allAreas = accessUserData(model, "areas");
 allPrefixes = utils.resolveArea(allAreas, "prefix");
+
 
 %
 % Create initial steady state databank
 %
 
-d = steadydb(model, range);
+d0 = steadydb(model, range);
 
 
 %
-% Create economy with higher debt and reaction function through consumption
+% Create an economy with a new level of govt debt
 %
 
 modelAfter = model;
-modelAfter.(prefix+"ss_dg_to_ngdp") = modelAfter.(prefix+"ss_dg_to_ngdp") + size;
-modelAfter.(prefix+"tau_cg") = 5;
-modelAfter.(prefix+"tau_txls1") = 0;
+modelAfter.(areaPrefix+"ss_dg_to_ngdp") = modelAfter.(areaPrefix+"ss_dg_to_ngdp") + size;
+modelAfter.(areaPrefix+"tau_cg") = 5;
+modelAfter.(areaPrefix+"tau_txls1") = 0;
 
-modelAfter = steady(modelAfter ...
+modelAfter = steady( ...
+    modelAfter ...
     , "fixLevel", ["gg_a", "gg_nt", allPrefixes+"pc"] ...
     , "blocks", false ...
 );
@@ -32,10 +38,13 @@ modelAfter = solve(modelAfter);
 
 
 %
-% Simulate government debt expansion from low to high
+% Simulate transition
 %
+
+d = d0;
+
 p = Plan.forModel(modelAfter, range);
-p = swap(p, range(1:2), [prefix+"txls1_to_nc", prefix+"shk_txls1"]);
+p = swap(p, range(1:2), [areaPrefix+"txls1_to_nc", areaPrefix+"shk_txls1"]);
 
 s = simulate( ...
     modelAfter, d, range ...
@@ -44,25 +53,20 @@ s = simulate( ...
     , "plan", p ...
 );
 
+smc = databank.minusControl(model, s, d0, "range", range);
 
-%
-% Simulate transition to the new level of debt; turn off reaction
-% in lump-sum taxes temporarily off
-%
-
-smc = databank.minusControl(model, s, "range", range);
 
 %
 % Generate HTML reports
 %
 
-htmlFileName = fullfile( ...
-    thisDir ...
-    , sprintf("area-govt-debt-%s-%s", upper(area), reportStamp) ...
-);
+reportTitle = reportTitleTemplate;
+reportTitle = replace(reportTitle, "$(area)", upper(area));
 
-reportTitle = "Area " + upper(area) + " government debt expansion simulation";
-legend = string(100*size) + "%";
+htmlFileName = htmlFileNameTemplate;
+htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+htmlFileName = fullfile(thisDir, htmlFileName);
 
 report.basic(model, smc, range, reportTitle, legend, htmlFileName);
 

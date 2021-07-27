@@ -1,7 +1,12 @@
-%% Simulate a permanent change in govt debt globally (in all areas) 
+%% Simulate a permanent change in govt debt globally 
 
-function [s, smc, d, modelAfter] = run(model, range, size, reportStamp)
+function [s, smc, d, modelAfter] = run(model, range, size, stamp)
 
+htmlFileNameTemplate = "global-govt-debt-$(stamp)";
+reportTitleTemplate = "Global change in government debt";
+legend = string(100*size) + "%";
+
+area = "";
 thisDir = string(fileparts(mfilename("fullpath")));
 allAreas = accessUserData(model, "areas");
 allPrefixes = utils.resolveArea(allAreas, "prefix");
@@ -10,12 +15,11 @@ allPrefixes = utils.resolveArea(allAreas, "prefix");
 % Create initial steady state databank
 %
 
-d = steadydb(model, range);
+d0 = steadydb(model, range);
 
 
 %
-% Create economy with higher debt and reaction function through consumption
-% in all areas
+% Create an economy with a new level of govt debt
 %
 
 modelAfter = model;
@@ -35,9 +39,10 @@ modelAfter = solve(modelAfter);
 
 
 %
-% Simulate transition to the new level of debt; turn off reaction
-% in lump-sum taxes temporarily off
+% Simulate transition 
 %
+
+d = d0;
 
 p = Plan.forModel(modelAfter, range);
 for a = allPrefixes
@@ -51,23 +56,20 @@ s = simulate( ...
     , "plan", p ...
 );
 
-%
-% Create simulation-minus-control databank
-%
-
 smc = databank.minusControl(model, s, "range", range);
+
 
 %
 % Generate HTML report 
 %
 
-htmlFileName = fullfile( ...
-    thisDir ...
-    , sprintf("global-govt-debt-%s", reportStamp) ...
-);
+reportTitle = reportTitleTemplate;
+reportTitle = replace(reportTitle, "$(area)", upper(area));
 
-reportTitle = "Global change in govt debt through govt consumption";
-legend = string(100*size) + "%";
+htmlFileName = htmlFileNameTemplate;
+htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+htmlFileName = fullfile(thisDir, htmlFileName);
 
 report.basic(model, smc, range, reportTitle, legend, htmlFileName);
 

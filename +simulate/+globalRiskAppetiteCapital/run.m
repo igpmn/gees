@@ -1,59 +1,70 @@
 %% Permanent change in global risk appetite for capital 
 
-function [s, smc, d, m1] = run(m, range, target, stamp)
+function [s, smc, d, modelAfter] = run(model, range, target, stamp)
 
+htmlFileNameTemplate = "global-risk-appetite-$(stamp)";
+reportTitleTemplate = "Global change in risk appetite for capital";
+legend = string(target);
+
+area = "";
 thisDir = string(fileparts(mfilename("fullpath")));
-allAreas = accessUserData(m, "areas");
+allAreas = accessUserData(model, "areas");
 allPrefixes = utils.resolveArea(allAreas, "prefix");
+
+
+%
+% Create initial steady state databank
+%
+
+d = steadydb(model, range);
+
 
 %
 % Create model with a new level of risk appetite for capital
 %
 
-m1 = m;
-m1.gg_ss_zk = target;
-m1 = steady( ...
-    m1 ...
+modelAfter = model;
+modelAfter.gg_ss_zk = target;
+
+modelAfter = steady( ...
+    modelAfter ...
     , "fix", ["gg_nt", "gg_a", allPrefixes+"pc"] ...
     , "blocks", false ...
 );
 
-checkSteady(m1);
-m1 = solve(m1);
+checkSteady(modelAfter);
+modelAfter = solve(modelAfter);
+
 
 %
 % Simulate dynamic response to a permanent change in risk appetite
 %
 
-d = steadydb(m, range(1)-1:range(end));
 d0 = d;
 
 s = simulate( ...
-    m1, d, range ...
+    modelAfter, d, range ...
     , "prependInput", true ...
     , "method", "stacked" ...
     , "blocks", false ...
-    , "startIter", "data" ...
 );
 
-s = postprocess(m, s, range(1)-1:range(end));
+smc = databank.minusControl(model, s, d0);
 
-smc = databank.minusControl(m, s, d0);
 
 %
-% Generate HTML reports
+% Generate HTML report 
 %
 
-reportTitle = "Permanent change in global risk appetite for capital";
+reportTitle = reportTitleTemplate;
+reportTitle = replace(reportTitle, "$(area)", upper(area));
 
-legends = "Risk appetite " + string(target);
+htmlFileName = htmlFileNameTemplate;
+htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+htmlFileName = fullfile(thisDir, htmlFileName);
 
-htmlFileName = fullfile( ...
-    thisDir ...
-    , sprintf("global-risk-appetite-capital-%s", stamp) ...
-);
-
-report.basic(m, smc, range, reportTitle, legends, htmlFileName);
+report.basic(model, smc, range, reportTitle, legend, htmlFileName);
 
 end%
 

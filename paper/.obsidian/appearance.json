@@ -1,0 +1,14 @@
+{
+  "baseFontSize": 18,
+  "theme": "moonstone",
+  "enabledCssSnippets": [
+    "obsidian",
+    "extra",
+    "clean-embeds",
+    "no_title",
+    "github-ogr-numbered",
+    "title",
+    "center_title"
+  ],
+  "cssTheme": ""
+}

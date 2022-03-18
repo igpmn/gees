@@ -1,9 +1,8 @@
-# Title
+---
+title: Production
+---
 
-![[math]]
-
-
-# Production
+# :fontawesome-solid-industry: Production
 
 * Several pairwise stages of production
   

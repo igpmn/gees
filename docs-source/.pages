@@ -1,0 +1,6 @@
+nav:
+    - index.md
+    - Theoretical foundations: theory
+    - Model source: model-source
+    - Infrastructure: infrastructure.md
+

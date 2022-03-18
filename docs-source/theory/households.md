@@ -1,24 +1,14 @@
+---
+title: Households
+---
 
-$$
-\newcommand{\tsum}{\textstyle\sum}
-\newcommand{\extern}[1]{\mathrm{\mathbf{{#1}}}}
-\newcommand{\local}{\mathrm{local}}
-\newcommand{\roc}[1]{\hat{#1{}}}
-\newcommand{\ss}{\mathrm{ss}}
-\newcommand{\E}{\mathbf{E}}
-\newcommand{\ref}{{\mathrm{ref}}}
-\newcommand{\blog}{\mathbf{log}\ }
-\newcommand{\bmax}{\mathbf{max}\ }
-\newcommand{\bDelta}{\mathbf{\Delta}}
-\newcommand{\bPi}{\mathbf{\Pi}}
-\newcommand{\bU}{\mathbf{U}}
-\newcommand{\newl}{\\[8pt]}
-\newcommand{\betak}{zk}
-\newcommand{\betay}{zy}
-\notag
-$$
+# :fontawesome-solid-house: Households
 
-## Households
+
+--8<-- "docs-source/theory/math.md"
+
+
+## Introduction
 
 Each area's household sector is modeled as a single representative
 household with an exogenous time-varying number of household members,
@@ -52,7 +42,7 @@ disutility from work, and utility from its wealth (net worth).
 
 ---
 
-### Household preferences
+## Household preferences
 
 The household preferences are described by a time-separable utility
 function over an infinite life horizon, $t=0,\dots,\infty$. The period
@@ -130,7 +120,7 @@ $$
 
 ---
 
-### Dynamic budget constraint
+## Dynamic budget constraint
 
 The dynamic budget constraint facing the household sector describes a
 stock-flow relationship between the household assets and liabilities
@@ -192,7 +182,7 @@ $vh_t$ (shadow value of nominal household wealth)
 
 ---
 
-### Real wage rigidities
+## Real wage rigidities
 
 The labor market exhibits real wage rigidities. These rigidities do not
 derive from explicit microfoundations in our model; they are introduced as
@@ -223,7 +213,7 @@ and $\rho_w\in[0,\,1)$ is an autoregression parameter.
 
 ---
 
-### Costs of short-term adjustment processes
+## Short-term adjustment costs
 
 The optimizing behavior of the representative household is subjected to
 two types of costly short-term adjustment processes:
@@ -268,7 +258,7 @@ $$
 
 ---
 
-### Capital accumulation
+## Capital accumulation
 
 The household purchases investment goods, converts them to newly installed
 production capital (paying the adjustment/installation cost in the process)
@@ -281,7 +271,7 @@ $$
 
 ---
 
-### Lagragian for the household optimization problem
+## Lagragian 
 
 The Lagrangian for the contrained optimization problem facing
 the representative household consists of the lifetime utility function and a
@@ -325,7 +315,7 @@ households.
 
 ---
 
-### Optimality conditions
+## Optimality conditions
 
 The optimal (utility maximizing) choices of the representative household
 are described by the following first-order conditions.
@@ -384,7 +374,7 @@ two characteristics of these NACs:
    houseshold discount factor. The actual shares are then calibrated and
    kept fixed in the baseline version of the model.
 
-1. Since we allow for cross-border holdings, each area's capital is subject
+2. Since we allow for cross-border holdings, each area's capital is subject
    to muliple AFCs, each relating to the household residing in a different
    area and exhibiting, in general, different preferences. We therefore
    create aggregate AFCs by taking the weighted average with the weights

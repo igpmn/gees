@@ -1,4 +1,10 @@
-# Demography
+---
+title: Demography
+---
+
+# :fontawesome-solid-user-group: Demography
+
+--8<-- "docs-source/theory/math.md"
 
 * Total population
 
@@ -20,7 +26,7 @@ $$
 \Delta \log nn^{gg}_t
 = \rho_{nn^{gg}} \Delta \log nn^{gg}_{t-1} 
 + (1-\rho_{nn^{gg}}) \Delta \log \kappa_{nn} \\[10pt]
-\kappa_{nn} = \frac{nn^{gg}\ss}{nn^{gg}\ssm}
+\kappa_{nn} = \frac{nn^{gg}_\ss}{nn^{gg}_\ssm}
 $$
 
 <br />
@@ -34,7 +40,7 @@ $$
 $$
 \log(nr_t) 
 = \rho_{nr} \log nr_{t-1}
-+ (1-\rho_{nr}) \log nr\ss
++ (1-\rho_{nr}) \log nr_\ss
 $$
 
 
@@ -50,7 +56,7 @@ $$
 \rho_{nw} \, \frac{nw_{t-1}}{nn_{t-1}}
 + (1-\rho_{nw}) \, \kappa_{nw}
 + \epsilon_{nw,t} \\[10pt]
-\kappa_{nw} = \frac{nw\ss}{nn\ss}
+\kappa_{nw} = \frac{nw_\ss}{nn_\ss}
 $$
 
 <br/>
@@ -62,6 +68,6 @@ $$
 \rho_{\xnf} \, \frac{\xnf_{t-1}}{nw_{t-1}}
 + (1-\rho_{\xnf}) \, \kappa_{\xnf}
 + \epsilon_{\xnf,t} \\[10pt]
-\kappa_{\xnf} = \frac{\xnf\ss}{nw\ss}
+\kappa_{\xnf} = \frac{\xnf_\ss}{nw_\ss}
 $$
 

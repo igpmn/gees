@@ -12,9 +12,10 @@ $$
 \newcommand{\bDelta}{\mathbf{\Delta}}
 \newcommand{\bPi}{\mathbf{\Pi}}
 \newcommand{\bU}{\mathbf{U}}
-\newcommand{\newl}{\\[8pt]}
+\newcommand{\newl}{\\\\[8pt]}
 \newcommand{\betak}{\mathit{zk}}
 \newcommand{\betay}{\mathit{zy}}
 \notag
 $$
+{ .math-definitions }
 

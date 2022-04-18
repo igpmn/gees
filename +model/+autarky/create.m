@@ -7,20 +7,22 @@ thisDir = string(fileparts(mfilename("fullpath")));
 %% Create model object 
 
 sourceFiles = [
-    "source/demography.model"
-    "source/local.model"
-    "source/open.model"
-    "source/fiscal.model"
-    "source/globals.model"
-    "source/commodity.model"
-    "source/wrapper-autarky.model"
+    "model-source/demography.md"
+    "model-source/households.md"
+    "model-source/production.md"
+    "model-source/monetary.md"
+    "model-source/fiscal.md"
+    "model-source/open.md"
+    "model-source/commodity.md"
+    "model-source/globals.md"
+    "model-source/wrapper-autarky.md"
 ];
 
 ma = Model.fromFile( ...
     sourceFiles ...
-    , "growth", true ...
-    , "comment", "Autarky economy" ...
-    , "savePreparsed", fullfile(thisDir, "preparsed.model") ...
+    , growth=true ...
+    , comment="Autarky economy" ...
+    , savePreparsed=fullfile(thisDir, "preparsed.md") ...
 );
 
 ma = assignUserData(ma, "areas", "");
@@ -58,6 +60,7 @@ ma.ss_zk = 0.90;
 ma.ss_zy = 1;
 ma.delta = 0.15;
 ma.eta = 0;
+ma.eta0 = 1;
 
 ma.rho_w = 0.50;
 ma.rho_zk = 0.90;
@@ -135,7 +138,7 @@ ma.theta_3 = 0;
 %% Calculate steady state 
 
 % Anchor the level of three independent stochastic trends
-ma.gg_a = 1;0.85;
+ma.gg_a = 1;
 ma.gg_nt = 1;
 ma.pc = 1;
 
@@ -144,12 +147,24 @@ ma.r = 1.05;
 ma.nch_to_netw_minus_nu_0 = 0;
 ma.upsilon_1_py_to_pu = 1;
 
-ma = steady(ma ...
-    , "fixLevel", ["gg_a", "gg_nt", "pc"] ...
-    , "exogenize", ["r", "nch_to_netw_minus_nu_0", "upsilon_1_py_to_pu"] ...
-    , "endogenize", ["gg_nu", "nu_0", "upsilon_0"] ...
-    , "blocks", false ...
-);
+homotopy = [
+    struct("gg_nt", 0.5), ...
+    struct("gg_nt", ma.gg_nt), ...
+];
+
+ma.eta = 0.5;
+ma.nh = 1;
+
+for h = homotopy
+    ma = assign(ma, h);
+
+    ma = steady(ma ...
+        , fixLevel=["gg_a", "gg_nt", "pc"] ...
+        , exogenize=["nh", "r", "nch_to_netw_minus_nu_0", "upsilon_1_py_to_pu"] ...
+        , endogenize=["eta0", "gg_nu", "nu_0", "upsilon_0"] ...
+        , blocks=false ...
+    );
+end
 
 checkSteady(ma);
 
@@ -162,8 +177,8 @@ ma = solve(ma);
 %% Report steady state
 
 ta = table( ...
-    ma, ["steadyLevel", "steadyChange", "form", "description"] ...
-    , "writeTable", fullfile(thisDir, "steady.xlsx") ...
+    ma, ["steady-level", "steady-change", "form", "description"] ...
+    , writeTable=fullfile(thisDir, "steady.xlsx") ...
 );
 
 

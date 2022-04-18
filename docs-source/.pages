@@ -1,6 +1,8 @@
 nav:
-    - index.md
-    - Theoretical foundations: theory
-    - Model source: model-source
-    - Infrastructure: infrastructure.md
+    - Home: index.md
+    - Setup: setup
+    - Model structure: model
+    - Model calibration: calibration
+    - Scenario building: scenarios
+    - Solution techniques: techniques
 

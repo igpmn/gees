@@ -1,0 +1,63 @@
+# GEES Commodity extraction module
+
+
+## Declare quantities
+
+```matlab
+
+!variables
+    "Long-run level of global commodity production" gg_qq
+    "Global commodity demand" gg_q
+    "Excess demand in global commodity market" gg_qexc
+    "Global price of commodities, Reference currency" gg_pq
+    "Global real price of commodities" gg_pq_to_pxx
+
+
+!log-variables !all-but
+
+
+!parameters
+
+    "S/S Long-run level of global commodity production" gg_ss_aq
+    "Autoregression in long-run level of global commodity production" gg_rho_aqq
+    "Excess demand elasticity of commodity prices" gg_iota_1
+
+
+!shocks
+
+    "Shock to long-run level of global commodity production" gg_shk_qq
+    "Shock to global price of commodities" gg_shk_pq
+
+```
+
+## Define equations
+
+
+```matlab
+
+!equations
+
+    "Long-run level of global commodity production"
+    log(gg_qq) = ...
+        + 0.9 * log(gg_ss_roc_a * gg_ss_roc_nt * gg_qq{-1}) ...
+        + (1 - 0.9) * log(gg_a * gg_nn * (&gg_q / &gg_a / &gg_nn)) ...
+        + gg_shk_qq ...
+    !! gg_qq = gg_q;
+    % gg_qq = (gg_a * gg_nn * (&gg_q / &gg_a / &gg_nn)) ...
+    % !! gg_qq = gg_q;
+
+    "Log excess demand in commodity market"
+    gg_qexc = gg_q / gg_qq ...
+    !! gg_qexc = 1;
+
+
+    "Commodity supply curve"
+    gg_pq = gg_pxx * gg_qexc^gg_iota_1 * exp(gg_shk_pq) ...
+    !! gg_pq = gg_pxx;
+
+
+    "Global real prices of commodities"
+    gg_pq_to_pxx = gg_pq / gg_pxx;
+
+```
+

@@ -4,6 +4,7 @@ function [m4, t4] = create()
 
 thisDir = string(fileparts(mfilename("fullpath")));
 
+
 areas = ["us", "ea", "cn", "rw"];
 numAreas = numel(areas);
 
@@ -11,6 +12,7 @@ numAreas = numel(areas);
 %% Calibrate population in autarky templates 
 
 ma = model.autarky.create();
+
 ma4 = alter(ma, numAreas);
 
 ma4.ss_nr = [0.331, 0.515, 1.439, NaN];
@@ -28,38 +30,40 @@ checkSteady(ma4);
 %% Clone names in model files for each area 
 
 sourceFiles = [
-    "source/demography.model"
-    "source/local.model"
-    "source/open.model"
-    "source/fiscal.model"
+    "model-source/demography.md"
+    "model-source/households.md"
+    "model-source/production.md"
+    "model-source/monetary.md"
+    "model-source/fiscal.md"
+    "model-source/open.md"
 ];
 
-template = model.File(sourceFiles);
+template = ModelSource(sourceFiles);
 template = preparse(template, "assign", struct("areas", areas));
 
 globalNames = collectAllNames(template, @(x) startsWith(x, "gg_"));
 
-modelFiles = model.File.empty(1, 0);
+modelSources = ModelSource.empty(1, 0);
 for n = areas
-    modelFiles(end+1) = ...
+    modelSources(end+1) = ...
         clone(template, [n + "_", ""], "namesToKeep", globalNames); %#ok<SAGROW>
 end
 
 
 %% Add multi-area global equations and create model object 
 
-modelFiles(end+1) = model.File("source/globals.model");
-modelFiles(end+1) = model.File("source/wrapper-multiarea.model");
-modelFiles(end+1) = model.File("source/commodity.model");
-modelFiles(end+1) = model.File("source/trade.model");
-modelFiles(end+1) = model.File("source/finance.model");
+modelSources(end+1) = ModelSource("model-source/globals.md");
+modelSources(end+1) = ModelSource("model-source/wrapper-multiarea.md");
+modelSources(end+1) = ModelSource("model-source/commodity.md");
+modelSources(end+1) = ModelSource("model-source/trade.md");
+modelSources(end+1) = ModelSource("model-source/finance.md");
 
-m4 = Model.fromFile( ...
-    modelFiles ...
+m4 = Model.fromSource( ...
+    modelSources ...
     , "growth", true ...
     , "assign", struct("areas", areas) ...
     , "comment", "Global four-area economy" ...
-    , "savePreparsed", fullfile(thisDir, "preparsed.model") ...
+    , "savePreparsed", fullfile(thisDir, "preparsed.md") ...
 );
 
 m4 = assignUserData(m4, "areas", areas);
@@ -122,7 +126,6 @@ for a = areas
     end
 end
 
-
 m4 = steady( ...
     m4 ...
     , "fix", ["gg_nt", "gg_a", areas+"_pc"] ...
@@ -153,6 +156,7 @@ m4.ea_lambda = 0.05;
 m4.cn_lambda = 0.30; %%%%%%%% FIXME
 m4.rw_lambda = 1 - m4.us_lambda - m4.ea_lambda - m4.cn_lambda;
 
+% {
 m4 = steady( ...
     m4 ...
     , "fixLevel", ["gg_nt", "gg_a", areas+"_pc"] ...
@@ -160,6 +164,7 @@ m4 = steady( ...
 );
 
 checkSteady(m4);
+% }
 
 
 %% Calibrate productivity differentials 
@@ -192,6 +197,22 @@ m4 = steady( ...
 
 checkSteady(m4);
 
+%{
+m4.us_eta = 0.5;
+m4.ea_eta = 0.5;
+m4.cn_eta = 0.5;
+m4.rw_eta = 0.5;
+
+m4 = steady( ...
+    m4 ...
+    , "fix", ["gg_nt", "gg_a", areas+"_pc"] ...
+    , "exogenize", [["ea", "cn", "rw"]+"_comp_ch_to_nn", ["us", "ea", "cn"]+"_nmm_to_ngdp"] ...
+    , "endogenize", [["ea", "cn", "rw"]+"_ss_ar", ["us", "ea", "cn"]+"_gamma_m"] ...
+    , "blocks", false ...
+);
+
+checkSteady(m4);
+%}
 
 %% Calculate first order solution
 

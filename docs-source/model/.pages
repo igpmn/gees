@@ -1,0 +1,14 @@
+nav:
+    - index.md
+    - "notation.md"
+    - "demography.md"
+    - "households.md"
+    - "production.md"
+    - "monetary.md"
+    - "fiscal.md"
+    - "open.md"
+    - "trade.md"
+    - "finance.md"
+    - "commodity.md"
+    - "wrappers.md"
+

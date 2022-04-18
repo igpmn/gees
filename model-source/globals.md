@@ -1,0 +1,66 @@
+# GEES Global trends module
+
+
+## Declare quantities
+
+    !variables
+
+        "Global productivity trend component" gg_a
+        "Global population trend component" gg_nt
+        "Global uncertainty discount factor on capital" gg_zk
+        "Global uncertainty discount factor on production cash flows" gg_zy
+
+
+    !log-variables !all-but
+
+
+    !shocks
+
+        "Shock to global productivity trend" gg_shk_a
+        "Shock to global population trend" gg_shk_nn
+        "Shock to global uncertainty discount factor on capital" gg_shk_zk
+        "Shock to global uncertainty discount factor on production cash flows" gg_shk_zy
+
+
+    !parameters
+
+        "S/S Global productivity trend, Rate of change" gg_ss_roc_a
+        "S/S Global population trend, Rate of change" gg_ss_roc_nt
+        "S/S Global uncertainty discount factor on capital" gg_ss_zk
+        "S/S Global uncertainty discount factor on production cash flows" gg_ss_zy
+
+        "Autoregression in global productivity trend" gg_rho_a
+        "Autoregression in global population trend" gg_rho_nt
+        "Autoregression uncertainty discount factor on capital" gg_rho_zk
+        "Autoregression uncertainty discount factor on production cash flows" gg_rho_zy
+
+        "Global intercept in Euler equation" gg_nu
+
+
+## Specify equations
+
+    !equations
+
+        "Global productivity trend"
+        difflog(gg_a) = ...
+            + gg_rho_a*difflog(gg_a{-1}) ...
+            + (1-gg_rho_a)*(log(gg_ss_roc_a) + gg_shk_a) ...
+        !! gg_a = gg_a{-1}*gg_ss_roc_a;
+
+
+        "Global population trend"
+        difflog(gg_nt) = ...
+            + gg_rho_a * difflog(gg_nt{-1}) ...
+            + (1-gg_rho_a) * (log(gg_ss_roc_nt) + gg_shk_nn) ...
+        !! gg_nt = gg_nt{-1} * gg_ss_roc_nt;
+
+
+        "Global uncertainty discount factor on capital"
+        log(gg_zk) = gg_rho_zk*log(gg_zk{-1}) + (1-gg_rho_zk)*log(gg_ss_zk) + gg_shk_zk ...
+        !! gg_zk = gg_ss_zk;
+
+
+        "Global uncertainty discount factor on production cash flows"
+        log(gg_zy) = gg_rho_zy*log(gg_zy{-1}) + (1-gg_rho_zy)*log(gg_ss_zy) + gg_shk_zy ...
+        !! gg_zy = gg_ss_zy;
+

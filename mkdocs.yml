@@ -1,18 +1,13 @@
 site_name: Global Economy Equilibrium Scenario Builder
+copyright: "&copy; 2020–2022 Global Projection Model Network"
 
 theme:
     name: material
     font: 
-        code: "PT Mono"
+        code: "Ubuntu Mono"
         text: "Open Sans"
-        # text: "Montserrat"
-        # text: "Work Sans"
-        # text: "Nunito"
-        # text: "Rubik"
     icon: 
-        # logo: octicons/globe-24
-        # logo: fontawesome/solid/globe
-        logo: fontawesome/solid/scale-balanced
+        logo: fontawesome/solid/infinity
         repo: fontawesome/brands/github
     favicon: "mkdocs/globe.ico"
     palette:
@@ -20,6 +15,8 @@ theme:
     features:
         - navigation.tabs
         - navigation.indexes
+        - navigation.top
+
 
 repo_url: https://github.com/Global-Projection-Model-Network/GEES
 repo_name: GEES on GitHub
@@ -27,35 +24,39 @@ edit_uri: ""
 
 extra:
   version: 2022
+  generator: false
 
 use_directory_urls: false
 docs_dir: ./docs-source
 site_dir: ./docs
 
-markdown_extensions:
-    - pymdownx.emoji:
-        emoji_index: !!python/name:materialx.emoji.twemoji
-        emoji_generator: !!python/name:materialx.emoji.to_svg
-    - pymdownx.critic
-    - pymdownx.highlight
-    - pymdownx.superfences
-    - footnotes
-    - meta
-    - pymdownx.arithmatex:
-          generic: true
-    - attr_list
-    - pymdownx.snippets
-    - md_in_html
-
-
 extra_javascript:
     - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
 
 extra_css:
     - mkdocs/extra.css
 
+markdown_extensions:
+    pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+    pymdownx.critic: {}
+    pymdownx.highlight: {}
+    pymdownx.superfences: {}
+    admonition: {}
+    pymdownx.details: {}
+    footnotes: {}
+    meta: {}
+    pymdownx.arithmatex:
+      generic: true
+    attr_list: {}
+    pymdownx.snippets: {"base_path": [".", "./docs-source"]}
+    md_in_html: {}
+    pymdownx.tabbed:
+      alternate_style: true
+
+
 plugins:
-    - search
-    - awesome-pages
+  - search
+  - awesome-pages
 

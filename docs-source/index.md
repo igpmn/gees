@@ -1,22 +1,29 @@
-# Home
+---
+title: Home
+---
 
-The :fontawesome-solid-scale-balanced: Global Economy Equilibrium
-cenario Builder (GEESr) is a practical macroeconomic scenario analysis framework built
-around a multi-area DSGE model. The framework is implemented in
+<a href="https://www.igpmn.org"><img src="mkdocs/gpmn.jpg" width="25%" align="right"></img></a>
+The Global Economy Equilibrium Scenario Builder (GEESr) is a practical macroeconomic scenario analysis framework built
+around a multi-area DSGE model. The framework is currently implemented in
 [Matlab&trade;](https://www.mathworks.com) with the use of the
 [Iris Toolbox](https://www.iris-toolbox.com).
 
-
-<a href="https://www.igpmn.org"><img src="mkdocs/gpmn.jpg" width="15%" align="right"></img></a>
 GEESr is being developed and maitained by a [Global Projection Model Network](https://www.igpmn.org)
 team of contributors:
 
-:fontawesome-solid-user-gear:   Jaromir Benes (chief model developer)
+??? quote "Jaromir Benes"
 
-:fontawesome-solid-user-graduate:   Jaromir Hurnik (director of GPMN)
+    Chief developer at GPMN
 
-:fontawesome-solid-user-shield:   Daniela Milucka (co-ordinator)
+??? quote "Jaromir Hurnik" 
 
-:fontawesome-solid-user-pen:   Victorie Petrenko (model developer)
+    Director of GPMN
 
+??? quote "Daniela Milucka" 
+
+    Chief operator at GPMN
+
+??? quote "Victoria Petrenko" 
+
+    Model developer at GPMN
 

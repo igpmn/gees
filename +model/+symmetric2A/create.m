@@ -13,33 +13,35 @@ numAreas = numel(areas);
 %% Clone model files from autarky 
 
 sourceFiles = [
-    "source/demography.model"
-    "source/local.model"
-    "source/open.model"
-    "source/fiscal.model"
+    "model-source/demography.md"
+    "model-source/households.md"
+    "model-source/production.md"
+    "model-source/monetary.md"
+    "model-source/fiscal.md"
+    "model-source/open.md"
 ];
 
-template = model.File(sourceFiles);
+template = ModelSource(sourceFiles);
 template = preparse(template, "assign", struct("areas", areas));
 
 globalNames = collectAllNames(template, @(x) startsWith(x, "gg_"));
 
-modelFiles = model.File.empty(1, 0);
+modelSources = ModelSource.empty(1, 0);
 for n = areas
-    modelFiles(end+1) = clone(template, [n + "_", ""], "namesToKeep", globalNames); %#ok<SAGROW>
+    modelSources(end+1) = clone(template, [n + "_", ""], "namesToKeep", globalNames); %#ok<SAGROW>
 end
 
 
 %% Add multi-area global equations and create model object 
 
-modelFiles(end+1) = model.File("source/globals.model");
-modelFiles(end+1) = model.File("source/wrapper-multiarea.model");
-modelFiles(end+1) = model.File("source/commodity.model");
-modelFiles(end+1) = model.File("source/trade.model");
-modelFiles(end+1) = model.File("source/finance.model");
+modelSources(end+1) = ModelSource("model-source/globals.md");
+modelSources(end+1) = ModelSource("model-source/wrapper-multiarea.md");
+modelSources(end+1) = ModelSource("model-source/commodity.md");
+modelSources(end+1) = ModelSource("model-source/trade.md");
+modelSources(end+1) = ModelSource("model-source/finance.md");
 
-m2 = Model.fromFile( ...
-    modelFiles ...
+m2 = Model( ...
+    modelSources ...
     , "growth", true ...
     , "assign", struct("areas", areas) ...
     , "comment", "Symmetric two-area economy" ...

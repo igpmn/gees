@@ -2,5 +2,7 @@
   "vimMode": true,
   "showLineNumber": true,
   "promptDelete": false,
-  "strictLineBreaks": true
+  "strictLineBreaks": true,
+  "legacyEditor": false,
+  "livePreview": true
 }

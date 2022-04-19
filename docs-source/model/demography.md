@@ -4,7 +4,6 @@ title: Demography
 
 # :fontawesome-solid-children:  Demography
 
---8<-- "docs-source/model/math.md"
 
 
 ## Overview

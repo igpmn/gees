@@ -1,41 +1,21 @@
 
-## Fiscal Budget Constraing
+## Dynamic fiscal budget
 
 $$
 dg_t = rg_{t-1} \cdot dg_{t-1}
-+ pcg_t \cdot cg_t + pig_t \cdot ig_t
-- trl1_t - trl2_t
++ pcg_t \cdot cg_t 
+- txl1_t - txl2_t
+- txm_t
 $$
 
 
-## Public Capital
+## Government expenditures on goods and services
 
 $$
-kg_t = (1-\delta) \ kg_{t-1} + ig_t
+\log cg_t =
+\rho_{cg} \, \log cg_{t-1}\  \roc{ag}^\gg_\ss
++ \left(1-\rho_{cg}\right) \, \log \frac{ngdp}{pc}\, \ratio{ncg}{ngdp}_\ss 
++ \tau_{cg} \, \left( \ratio{dg}{ngdp}_{t+1} - \ratio{dg}{ngdp}_\ss \right)
 $$
 
-Target level for public capital
-
-$$
-kg_t^\mathrm{tar} = \psi \cdot kh_t
-$$
-
-Investment rule
-$$
-\Delta \log ig_t = \log \kappa_{ig} + \tau_{ig} \left( \log 
-kg_t - kg_t^\mathrm{tar} \right) \\[10pt]
-\kappa_{ig} = \frac{ig\ss}{ig\ssm}
-$$
-
-
-## Government Consumption and Taxes
-
-* Stabilizing mechanism to keep debt at a target level as a ratio to
-  nominal GDP
-
-$$
-\frac{dg_t}{ngdp_t}
-$$
-
-* A wide range of mechanisms to stabilize debt
 

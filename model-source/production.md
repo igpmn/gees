@@ -111,8 +111,6 @@
         + shk_ar ...
     !! ar = ss_ar;
 
-%
-
 
 %% Stage T-3 production: Labor and intermediate imports 
 
@@ -129,8 +127,6 @@
     "Demand for labor"
     (1-gamma_m) * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
     !! (1-gamma_m) * py3 * y3 = mu_y3 * w * nv;
-
-%
 
 
 %% Stage T-2 production: Variable inputs and capital

@@ -6,15 +6,22 @@ title: Fiscal policy
 
 --8<-- "model/math.md"
 
-* Government consumpiton and investment
+The government manages the following fiscal policy quantities
 
-* Government debt placed locally
+* Government debt placed locally, $dg_t$
 
-* Lump-sum taxes
+* Government consumption, $cg_t$
 
-* Crowding-in in the short run
+* Two types of lump-sum taxes, $txl1_t$ and $txl2_t$
 
-* Crowding-out in the long run
+* Import tariffs, $txm_t$
+
+
+Household behavior (utility function) modified to induce
+
+* Fiscal crowding-in in the short run
+
+* Fiscal crowding-out in the long run
 
 
 === ":fontawesome-solid-square-root-variable:  Math equations"

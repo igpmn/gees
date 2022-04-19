@@ -4,5 +4,6 @@
   "promptDelete": false,
   "strictLineBreaks": true,
   "legacyEditor": false,
-  "livePreview": true
+  "livePreview": true,
+  "autoPairMarkdown": false
 }

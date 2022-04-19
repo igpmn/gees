@@ -1,19 +1,19 @@
 
 ## Total Population
 
+--8<-- "docs-source/model/math.md"
+
+![[math]]
+
 Global population trend, $nn_t$, is a unit root process common to all areas. The
 level of the global population trend does not correspond to any particular demographic
 indicator; rather, we can think of $nn$ as a driving force for population *growth*  
 
 $$
 \begin{gathered}
-%
 \Delta \log nn^\gg_t
-= \rho_{nn}^\gg \Delta \log nn^\gg_{t-1} 
-+ (1-\rho_{nn}^\gg)\, \Delta \log \kappa_{nn} \\[10pt]
-%
-\kappa_{nn} = \frac{nn^\gg_\ss}{nn^\gg_\ssm}
-%
+= \rho_{nn}^\gg\, \Delta \log nn^\gg_{t-1} 
++ (1-\rho_{nn}^\gg)\, \Delta \log \roc{nn}_\ss \\[10pt]
 \end{gathered}
 $$
 
@@ -42,9 +42,8 @@ Area's working age population
 $$
 \frac{nw_t}{nn_t} = 
 \rho_{nw} \, \frac{nw_{t-1}}{nn_{t-1}}
-+ (1-\rho_{nw}) \, \kappa_{nw}
-+ \epsilon_{nw,t} \\[10pt]
-\kappa_{nw} = \frac{nw_\ss}{nn_\ss}
++ (1-\rho_{nw}) \, \ratio{nw}{nn}_\ss
++ \epsilon_{nw,t}
 $$
 
 <br/>
@@ -54,8 +53,7 @@ Area's labor force (participation)
 $$
 \frac{\xnf_t}{nw_t} = 
 \rho_{\xnf} \, \frac{\xnf_{t-1}}{nw_{t-1}}
-+ (1-\rho_{\xnf}) \, \kappa_{\xnf}
-+ \epsilon_{\xnf,t} \\[10pt]
-\kappa_{\xnf} = \frac{\xnf_\ss}{nw_\ss}
++ (1-\rho_{\xnf}) \, \ratio{\xnf}{nw}_\ss
++ \epsilon_{\xnf,t}
 $$
 

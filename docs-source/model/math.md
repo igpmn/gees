@@ -17,6 +17,8 @@ $$
 \newcommand{\betay}{\mathit{zy}}
 \newcommand{\gg}{\mathrm{gg}}
 \newcommand{\tsum}{\textstyle{\sum}}
+\newcommand{\xnf}{\mathit{nf}}
+\newcommand{\ratio}[2]{\left[\textstyle{\frac{#1}{#2}}\right]}
 \notag
 $$
 { .math-definitions }

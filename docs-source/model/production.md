@@ -1,8 +1,8 @@
 ---
-title: Local production
+title: Local supply side
 ---
 
-# :fontawesome-solid-industry:  Local production
+# :fontawesome-solid-industry:  Local supply side
 
 --8<-- "model/math.md"
 
@@ -19,6 +19,13 @@ title: Local production
     * Roundabout production
 
 * Sticky prices
+
+
+<br/>
+
+![Local supply side](local-supply-side.png)
+
+<br/>
 
 
 === ":fontawesome-solid-file-code:  Model source code"

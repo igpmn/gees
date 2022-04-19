@@ -32,7 +32,7 @@ $$
 
 ## Production stages
 
-T-4: Combine imports from other areas
+#### $T-4$: Combine imports from other areas
 
 $$
 mm_t = F_4\left( mm_t^1, \dots, mm_t^A \right)
@@ -43,10 +43,13 @@ mm = my_t + mx_t
 $$
 
 where
+
 * $my_t$ is the intermediate import inputs into local production
+
 * $mx_t$ is the intermediate import inputs into export production (re-exports)
 
-T-3: Combine non-commodity variable factors
+
+#### $T-3$: Combine non-commodity variable factors
 
 $$
 \begin{gathered}
@@ -70,13 +73,13 @@ uk_t = u_t \, k_t
 \end{gathered}
 $$
 
-T-1: Add dependence on commodity inputs
+#### $T-1$: Add dependence on commodity inputs
 
 $$
 y_{1,t} = F_1\bigl( y_{2,t},\ mq_t \bigr)
 $$
 
-T-0: Add a roundabout production layer and sticky prices
+#### $T-0$: Add a roundabout production layer and sticky prices
 
 $$
 y_t = F_0\bigl(y_{1,t},\ yz_t\bigr) + yz_t
@@ -91,13 +94,15 @@ $$
 Total profits summed up across all production stages are given by
 
 $$
+\begin{multline}
 \Pi_{y,t}
 \equiv py_t \, y_{0,t}
 - pmm_t \, my_t 
 - w_t \, nh_t \, nl_t
 - pu_t \, u_t\, k_t 
-- pq_t \, mq_t
--\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi{py,t}
+- pq_t \, mq_t \ \cdots \\[10pt]
+\cdots -\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi_{py,t}
+\end{multline}
 $$
 
 ## Final goods

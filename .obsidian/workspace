@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docs-source/model/demography-math.md",
+            "file": "docs-source/model/index.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs-source/model/demography-math.md",
+                "file": "docs-source/model/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,7 +86,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs-source/model/demography-math.md"
+                "file": "docs-source/model/index.md"
               }
             }
           }
@@ -99,15 +99,15 @@
   },
   "active": "28f90f0fcc91d277",
   "lastOpenFiles": [
+    "docs-source/model/index.md",
+    "docs-source/model/fiscal-math.md",
     "docs-source/model/demography-math.md",
+    "docs-source/model/demography.md",
+    "docs-source/model/math.md",
     "docs-source/model/finance.md",
     "+april2022/docs/plan.md",
     "+april2022/docs/plan.md.md",
-    "docs-source/model/demography.md",
     "docs/production.md",
-    "docs/production-sticky-prices.md",
-    "docs/households.md",
-    "docs/financial.md",
-    "docs/export.md"
+    "docs/production-sticky-prices.md"
   ]
 }

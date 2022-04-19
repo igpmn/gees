@@ -1,9 +1,8 @@
 
 ## Total Population
 
-Global population trend, $nn$, is a unit root process common to all areas. The
-level of the
-global population trend does not correspond to any particular demographic
+Global population trend, $nn_t$, is a unit root process common to all areas. The
+level of the global population trend does not correspond to any particular demographic
 indicator; rather, we can think of $nn$ as a driving force for population *growth*  
 
 $$

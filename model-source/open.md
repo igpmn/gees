@@ -5,7 +5,7 @@
 
 ```matlab
 
-!variables
+!variables(:open)
 
     "Non-commodity imports" mm
     "Price of non-commodity imports" pmm
@@ -48,31 +48,34 @@
     zh_aut
 
 
-!parameters
+!parameters(:open :steady)
 
     "Import intensity of non-commodity exports" alpha
     "Acceleration in exportable productivity" gamma_xx
-    theta_0
     "Elasticity of household risk function wrt NFA" theta_1
     "Curvature of household risk function wrt NFA" theta_2
-    "Weight on model-consistent expectations in exchange rate" zeta_e
     "Share of local commodity production in world commodity production" lambda
+    "S/S Autonomous component in country credit risk" ss_zh_aut
+
+
+!parameters(:open :transition)
+
+    "A/R Autonomous component in country credit risk" rho_zh_aut
+    "Weight on model-consistent expectations in exchange rate" zeta_e
     "Adjustment cost parameter in stage t-3 production" xi_y3
 
-    rho_zh_aut
-    ss_zh_aut
 
-
-!shocks
+!shocks(:open)
 
     "Interest parity shock" shk_e
-    shk_zh
-    shk_zh_aut
+    "Shock to country credit risk" shk_zh
+    "Shock to autonoumous component in country credit risk" shk_zh_aut
 
 ```
 
 
 ## Define substitutions
+
 
 ```matlab
 
@@ -86,33 +89,37 @@
 
 ## Define equations
 
+
 ```matlab
 
-!equations
+!equations(:open)
 
 
-%% Distribution of non-commodity imports 
+%% Imports
 
+    "Distribution of non-commodity imports"
     mm = my + mxx;
 
-%
 
+%% Commodity sector
 
-%% Commodity Prices 
-
+    "Commodity endowment"
     xq = lambda * gg_q;
+
+    "Commodity prices in local currency"
     pq = gg_pq * e;
 
-%
 
+%% Non-commodity export production
 
-%% Export Production 
-
+    "Non-commodity export production function"
     xx = ar^gamma_xx * (yxx/(1-alpha))^(1-alpha) * (mxx/alpha)^alpha;
-    (1-alpha) * pxx * xx = py * yxx;
-    alpha * pxx * xx = pmm * mxx;
 
-%
+    "Demand for local content in export production"
+    (1-alpha) * pxx * xx = py * yxx;
+
+    "Demand for re-exports"
+    alpha * pxx * xx = pmm * mxx;
 
 
 %% Balance of payments and exchange rate 
@@ -171,6 +178,7 @@
 
 
 ## Postprocessing equations outside model 
+
 
 ```matlab
 

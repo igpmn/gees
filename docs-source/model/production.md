@@ -28,7 +28,7 @@ title: Local supply side
 <br/>
 
 
-=== ":fontawesome-solid-file-code:  Model source code"
+=== ":fontawesome-solid-square-root-variable:  Math equations"
 
     --8<-- "model/production-math.md"
 

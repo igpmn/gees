@@ -4,7 +4,11 @@ function [m2, t2] = create()
 
 thisDir = string(fileparts(mfilename("fullpath")));
 
+
+%% Create autarky model first
+
 ma = model.autarky.create();
+
 
 areas = ["aa", "bb"];
 numAreas = numel(areas);

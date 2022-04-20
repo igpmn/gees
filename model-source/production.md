@@ -5,7 +5,7 @@
 
 ```matlab
 
-!variables
+!variables(:production)
 
     "Area specific productivity component" ar
     "Shadow value of household budget constraing" vh
@@ -48,35 +48,39 @@
     zh, nch_to_netw_minus_nu_0
 
 
-!parameters
+!parameters(:production :steady)
 
     "S/S Area specific productivity component" ss_ar
-
-    "Autoregression in area specific productivity component" rho_ar
 
     "Share of overhead labor" gamma_n0
     "Share of intermediate imports in stage T-3 production" gamma_m
     "Share of capital services in stage T-2 production" gamma_uk
     "Share of commodity inputs in stage T-1 production" gamma_q
     "Share of roundabout intermediates in stage T-0 production" gamma_yz
-    "Price adjustment cost parameters" xi_py
-    "Monopoly power (markup) of local producers" mu_py
 
+    "Monopoly power (markup) of local producers" mu_py
     "Markup to cover overhead labor" mu_y3
 
-    "Weight on S/S inflation in inflation indexation" zeta_py
 
+!parameters(:production :transitory)
+
+    "Autoregression in area specific productivity component" rho_ar
+    "Weight on S/S inflation in inflation indexation" zeta_py
     "Stage T-2 input factor adjustment cost parameter" xi_y2
     "Stage T-1 input factor adjustment cost parameter" xi_y1
+    "Price adjustment cost parameters" xi_py
 
 
-!shocks
+!shocks(:production)
 
     "Shock to area specific productivity component" shk_ar
+    "Shock to final price setting" shk_py
 
 ```
 
+
 ## Define substitutions
+
 
 ```matlab
 
@@ -95,12 +99,13 @@
 
 ```
 
+
 ## Define equations
 
 
 ```matlab
 
-!equations
+!equations(:production)
 
 %% Productivity 
 
@@ -139,8 +144,6 @@
     (1-gamma_uk) * py2 * y2 = py3 * y3 * [1 + xi_y2*($adj_y3$)] ...
     !! (1-gamma_uk) * py2 * y2 = py3 * y3;
 
-%
-
 
 %% Stage T-1 Production: Add Commodity
 
@@ -153,21 +156,16 @@
     !! gamma_q * py1 * y1 = pq * mq;
 
 
-%
-
-
 %% Final stage production: Flatter marginal cost
 
     y + yz = (y1/(1-gamma_yz))^(1-gamma_yz) * (yz/gamma_yz)^gamma_yz;
     (1-gamma_yz) * py0 * (y + yz) = py1 * y1;
     gamma_yz * py0 * (y + yz) = py * yz;
 
-%
-
 
 %% Final price setting 
 
-    mu_py*py0 = py*[1 + (mu_py-1)*xi_py*($adj_py$)] ...
+    mu_py*py0*exp(shk_py) = py*[1 + (mu_py-1)*xi_py*($adj_py$)] ...
     !! py = mu_py * py0;
 
     ref_roc_py = roc_py{-1}^(1-zeta_py) * &roc_py^zeta_py;
@@ -175,14 +173,10 @@
     pc = py;
     pih = py;
 
-%
-
 
 %% Distribution of final goods 
 
     y = ch + cg + ih + yxx;
-
-%
 
 
 %% Rates of change 
@@ -191,7 +185,6 @@
         roc_? = ? / ?{-1};
     !end
 
-%
 
 %% Definitions 
 
@@ -223,12 +216,13 @@
 
 ```matlab
 
-!postprocessor
+!postprocessor(:production)
 
     nch_to_ngdp = pc * ch / ngdp;
     nih_to_ngdp = pih * ih / ngdp;
     nkh_to_ngdp = pk * k / ngdp;
     curr_to_ngdp = ($curr$) / ngdp;
+    gdp = gdp{-1} * roc_gdp;
 
 
 !log-variables !all-but

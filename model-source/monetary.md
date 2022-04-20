@@ -3,9 +3,10 @@
 
 ## Declare quantities
 
+
 ```matlab
 
-!variables
+!variables(:monetary)
 
     "Nominal short-term rate, LCY" r
     "Unconstrained nominal short-term rate, LCY" unc_r
@@ -14,27 +15,32 @@
 !log-variables !all-but
 
 
-!parameters
+!parameters(:monetary :steady)
 
     "S/S Price of private consumption, Rate of change" ss_roc_pc
+    "Switch for lower bound on short-term rate" floor
+
+
+!parameters(:monetary :transitory)
 
     "A/R in policy rate" rho_r 
     "Monetary policy reaction to CPI" psi_pc 
     "Monetary policy reaction to nominal exchange rate" psi_e
-    "Switch for lower bound on short-term rate" floor
 
 
-!shocks
+!shocks(:monetary)
 
     "Shock to monetary policy reaction function" shk_r
 
 ```
 
+
 ## Define equations
+
 
 ```matlab
 
-!equations
+!equations(:monetary)
 
     "Monetary policy reaction function"
     log(unc_r) ...

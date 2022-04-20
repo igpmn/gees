@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "28f90f0fcc91d277",
+        "id": "f7c0728cf0814ea2",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "docs-source/model/index.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -53,7 +49,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "189916a7a46d4161",
@@ -69,7 +66,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs-source/model/index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -85,9 +81,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "docs-source/model/index.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -97,17 +91,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "28f90f0fcc91d277",
+  "active": "f7c0728cf0814ea2",
   "lastOpenFiles": [
+    "+april2022/analyzeCostPush.md",
+    "+april2022/docs/plan.md",
     "docs-source/model/index.md",
     "docs-source/model/fiscal-math.md",
     "docs-source/model/demography-math.md",
     "docs-source/model/demography.md",
     "docs-source/model/math.md",
     "docs-source/model/finance.md",
-    "+april2022/docs/plan.md",
     "+april2022/docs/plan.md.md",
-    "docs/production.md",
-    "docs/production-sticky-prices.md"
+    "docs/production.md"
   ]
 }

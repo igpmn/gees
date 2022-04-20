@@ -98,7 +98,7 @@
 
 ## Postprocessing equations outside model 
 
-```
+```matlab
 
 !postprocessor
 

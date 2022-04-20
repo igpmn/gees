@@ -32,28 +32,18 @@ ma = assignUserData(ma, "areas", "");
 
 % Steady-state growth rates
 
-ma.gg_ss_roc_a = 1.02; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-ma.gg_ss_roc_nt = 1.01; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ma.gg_ss_roc_a = 1.02; 
+ma.gg_ss_roc_nt = 1.01;
 ma.ss_roc_pc = 1.03;
 ma.gg_ss_zk = 0.90;
 ma.gg_ss_zy = 1;
 
-ma.gg_rho_a = 0.5;
-ma.gg_rho_nt = 0.9;
-ma.gg_rho_zk = 0.90;
-ma.gg_rho_zy = 0.90;
-
 ma.gg_nu = 0;
-
 ma.ss_ar = 1;
 ma.ss_nr = 1;
 
 ma.ss_nw_to_nn = 0.65;
 ma.ss_nf_to_nw = 0.70;
-
-ma.rho_nr = 0.9;
-ma.rho_nw = 0.9;
-ma.rho_nf = 0.5;
 
 ma.beta = 0.95;
 ma.ss_zk = 0.90;
@@ -62,28 +52,37 @@ ma.delta = 0.15;
 ma.eta = 0;
 ma.eta0 = 1;
 
+ma.nu_0 = 0;
+ma.nu_1 = 0.07;
+ma.ss_zh_aut = 0;
+
+ma.gg_rho_a = 0.5;
+ma.gg_rho_nt = 0.9;
+ma.gg_rho_zk = 0.90;
+ma.gg_rho_zy = 0.90;
+
+ma.rho_nr = 0.9;
+ma.rho_nw = 0.9;
+ma.rho_nf = 0.5;
+
 ma.rho_w = 0.50;
 ma.rho_zk = 0.90;
 ma.rho_zy = 0.90;
 
 ma.chi = 1;
-ma.chi_curr = 0.6;
-ma.chi_ch = 0.3;
+ma.chi_curr = 0.60;
+ma.chi_ch = 0.30;
 
-ma.nu_0 = 0;
-ma.nu_1 = 0.07;
-ma.ss_zh_aut = 0;
-ma.rho_zh_aut = 0.7;
-ma.theta_0 = 0;
-ma.theta_1 = 0.10; 0.05;
+ma.rho_zh_aut = 0.70;
+ma.theta_1 = 0.10;
 ma.theta_2 = 1;
 
-ma.mu_y3 = 1.3;
+ma.mu_y3 = 1.30;
 
 ma.gamma_n0 = 1/3;
 ma.gamma_m = 0.15;
 ma.gamma_q = 0.05;
-ma.gamma_uk = 0.3;
+ma.gamma_uk = 0.30;
 ma.gamma_yz = 0.60;
 ma.gamma_xx = 0.50;
 
@@ -94,7 +93,7 @@ ma.upsilon_1 = 1/0.2;
 
 ma.xi_y3 = 0.5;
 ma.xi_y2 = 0.5;
-ma.xi_y1 = 2; %%%%%%%%%%%%%%%%%%%%%%%%%%
+ma.xi_y1 = 2;
 
 ma.xi_k = 0.5;
 ma.xi_ih1 = 0;
@@ -104,18 +103,18 @@ ma.rho_ar = 0.5;
 
 ma.zeta_e = 0.6;
 
-% Price Setting
+% Price setting
 ma.mu_py = 1.10;
 ma.xi_py = 25;
 ma.zeta_py = 0.5;
 
-% Monetary Policy
+% Monetary policy
 ma.rho_r = 0.50;
 ma.psi_pc = 2.5;
 ma.psi_e = 0;
 ma.floor = 1;
 
-% Fiscal Policy
+% Fiscal policy
 ma.ss_ncg_to_ngdp = 0.20;
 ma.ss_dg_to_ngdp = 0.40;
 ma.rho_cg = 0.5;
@@ -126,7 +125,7 @@ ma.rho_txls2 = 0.5;
 ma.ss_trm = 0;
 ma.rho_trm = 0;
 
-% Commodity Sector
+% Commodity sector
 ma.lambda = 1;
 ma.gg_rho_aqq = 0.7;
 ma.gg_iota_1 = 0.2;
@@ -138,6 +137,7 @@ ma.theta_3 = 0;
 %% Calculate steady state 
 
 % Anchor the level of three independent stochastic trends
+
 ma.gg_a = 1;
 ma.gg_nt = 1;
 ma.pc = 1;

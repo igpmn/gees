@@ -2,13 +2,14 @@
 
 ## Define quantities
 
+
 ```matlab
 
-!variables
+!variables(:households)
 
     "Private consumption" ch
     "Per-capita private consumption" ch_to_nn
-    "Private consumption, Point of reference" ref_ch
+    "Relative point of reference for private consumption" ref_ch_to_ch
     "Real discount factor" rdf
     "Per-worker labor supply" nh
     "Private investment" ih
@@ -33,8 +34,10 @@
 
 !log-variables !all-but
 
+    ref_ch_to_ch
 
-!parameters
+
+!parameters(:households :steady)
 
     "S/S Uncertainty discount factor on capital" ss_zk
     "S/S Uncertainty discount factor on production cash flows" ss_zy
@@ -42,24 +45,26 @@
     "Depreciation of production capital" delta
     "Inverse elasticity of labor supply" eta
     "Utility location parameter of labor supply" eta0
+    "Intercept in current wealth utility" nu_0
+    "Slope of current wealth utility" nu_1
+    "Level parameter in cost of utilization of production capital" upsilon_0
+    "Inverse elasticity of cost of utilization of production capital" upsilon_1
 
-    "Autoregression in real wage rate" rho_w
-    "Autoregression in uncertainty discount factor on capital" rho_zk
-    "Autoregression in uncertainty discount factor on production cash flows" rho_zy
 
+!parameters(:households :transitory)
+
+    "A/R in real wage rate" rho_w
+    "A/R in uncertainty discount factor on capital" rho_zk
+    "A/R in uncertainty discount factor on production cash flows" rho_zy
     "Point of reference in consuptions switch" chi
     "Past consumption in reference consumption parameter" chi_ch
     "Current income in reference consumption parameter" chi_curr
-    "Intercept in current wealth utility" nu_0
-    "Slope of current wealth utility" nu_1
     "Type 1 investment adjustment cost parameter" xi_ih1
     "Type 2 investment adjustment cost parameter" xi_ih2
-    "Level parameter in cost of utilization of production capital" upsilon_0
-    "Inverse elasticity of cost of utilization of production capital" upsilon_1
     "Pressure relief valve for interest rate lower bound" theta_3
 
 
-!shocks
+!shocks(:households)
 
     "Shock to wage rate" shk_w
     "Shock to current income" shk_curr
@@ -92,19 +97,19 @@
 
 ```matlab
 
-!equations
+!equations(:households)
 
 %% Household consumption-saving choice 
 
     "Optimal choice of household consumption"
-    vh*pc*(ch - chi*ref_ch) = nn*(1 - chi*&ref_ch/&ch) ...
+    vh*pc*(ch - chi*ref_ch_to_ch*ch) = nn*(1 - chi*&ref_ch_to_ch) ...
     !! vh*pc*ch = nn;
 
     "Point of reference in household consumption" 
-    ref_ch = chi_curr*($curr$)/pc + chi_ch*ch{-1};
+    ref_ch_to_ch = [ chi_curr*($curr$)/pc + chi_ch*ch{-1}*gg_ss_roc_a ] / ch;
 
     "Optimal choice of net position with local financial sector"
-    vh = beta*vh{+1}*rh + nn/(pc*ch)*[nu_1*(pc*ch/netw - nu_0) - gg_nu] ...
+    vh = beta*vh{+1}*rh + nn/(pc*ch)*[ nu_1*(pc*ch/netw - nu_0) - gg_nu ] ...
     !! 1 = beta*rh/gg_ss_roc_a/ss_roc_pc + nu_1*nch_to_netw_minus_nu_0 - gg_nu;
 
     "Auxiliary equation for steady-state calibration of nu_0"
@@ -164,6 +169,8 @@
     "Ex-post return on capital"
     rk*pk{-1} = u{-1}*pu{-1}*rh{-1} + (1-delta)*pk;
 
+
+%% Rates of change
 
     !for w, ih, k !do
         roc_? = ? / ?{-1};

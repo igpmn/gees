@@ -71,14 +71,14 @@ visual.hlegend("bottom", "Area AA", "Area BB");
 %% AA: Local prices -> export prices
 
 figure();
-plot(0:20, 100*([smc.aa_py, smc.aa_pxx, smc.aa_pmm]-1), marker="s");
+plot(0:20, 100*([smc.aa_py, smc.aa_pxx, smc.aa_pmm]-1), "marker", "s");
 legend("AA Local prices", "AA Export prices", "AA Import (reexport) prices");
 title(["AA Pass-through to export price", "Percent level deviations from steady state"]);
 
 m2.aa_alpha
 
 figure();
-plot(0:20, pct([smc.aa_py, smc.aa_pxx, smc.aa_pmm]), marker="s");
+plot(0:20, pct([smc.aa_py, smc.aa_pxx, smc.aa_pmm]), "marker", "s");
 legend("AA Local prices Y/Y", "AA Export prices Y/Y", "AA Import (reexport) prices Y/Y");
 title(["AA Pass-through to export price Y/Y", "Pp deviations from steady state"]);
 
@@ -86,7 +86,7 @@ title(["AA Pass-through to export price Y/Y", "Pp deviations from steady state"]
 %% BB: Import prices
 
 figure();
-plot(0:20, 100*([smc.aa_pxx, smc.bb_e, smc.bb_pmm]-1), marker="s");
+plot(0:20, 100*([smc.aa_pxx, smc.bb_e, smc.bb_pmm]-1), "marker", "s");
 legend("AA Export prices in AA currency", "BB Nominal exchange rate", "BB Import price");
 title(["BB Impact on import prices", "Percent level deviations from steady state"]);
 
@@ -95,7 +95,7 @@ title(["BB Impact on import prices", "Percent level deviations from steady state
 %% BB: T-3: Combine non-comm imports and labor -> y3
 
 figure();
-plot(0:20, 100*([smc.bb_pmm, smc.bb_w, smc.bb_py3]-1), marker="s");
+plot(0:20, 100*([smc.bb_pmm, smc.bb_w, smc.bb_py3]-1), "marker", "s");
 legend("BB Import prices", "BB Wages", "BB Stage T-3 output price");
 title(["BB Impact on T-3 production", "Percent level deviations from steady state"]);
 
@@ -103,7 +103,7 @@ title(["BB Impact on T-3 production", "Percent level deviations from steady stat
 %% BB: T-3: Import-labor substitution
 
 figure();
-plot(0:20, 100*([smc.bb_my, smc.bb_nv, smc.bb_y3]-1), marker="s");
+plot(0:20, 100*([smc.bb_my, smc.bb_nv, smc.bb_y3]-1), "marker", "s");
 legend("BB Imports", "BB Variable labor", "BB Stage T-3 output");
 title(["BB Impact on T-3 production", "Percent level deviations from steady state"]);
 

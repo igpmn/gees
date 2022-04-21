@@ -127,9 +127,11 @@ ma.rho_trm = 0;
 
 % Commodity sector
 ma.lambda = 1;
-ma.gg_rho_aqq = 0.7;
 ma.gg_iota_1 = 0.2;
-ma.gg_ss_aq = 1;
+ma.gg_rho_qq = 0.8;
+
+% ma.gg_rho_aqq = 0.7;
+% ma.gg_ss_aq = 1;
 
 ma.theta_3 = 0;
 
@@ -142,10 +144,14 @@ ma.gg_a = 1;
 ma.gg_nt = 1;
 ma.pc = 1;
 
-ma.r = 1.05;
 
+% Initialize some values to help numerical convergence
+
+ma.r = 1.05;
 ma.nch_to_netw_minus_nu_0 = 0;
 ma.upsilon_1_py_to_pu = 1;
+ma.nh = 1;
+
 
 homotopy = [
     struct("gg_nt", 0.5), ...
@@ -153,7 +159,6 @@ homotopy = [
 ];
 
 ma.eta = 0.5;
-ma.nh = 1;
 
 for h = homotopy
     ma = assign(ma, h);

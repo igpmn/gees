@@ -45,6 +45,15 @@
 
 !log-variables !all-but
 
+% * If a variables is growing at a nonzero rate in steady state
+% then it MUST be declared as a log-variable
+
+% * If a variables is changing by a constant in steady state
+% then it MUST NOT be declared as a log-variable
+
+% * If a variable can be negative,
+% then it MUST NOT be declared as a log-variable
+
     zh, nch_to_netw_minus_nu_0
 
 
@@ -147,6 +156,7 @@
 
 %% Stage T-1 Production: Add Commodity
 
+%{
     y1 = (y2/(1-gamma_q))^(1-gamma_q) * (mq/gamma_q)^gamma_q;
 
     (1-gamma_q) * py1 * y1 = py2 * y2 * [1 + xi_y1*($adj_y2$)] ...
@@ -154,13 +164,23 @@
 
     gamma_q * py1 * y1 = pq * mq * [1 + xi_y1*($adj_q$)] ...
     !! gamma_q * py1 * y1 = pq * mq;
+%}
+
+    y2 = (1 - gamma_q) * y1;
+    mq = gamma_q * y1;
+    py1 = (1 - gamma_q)*py2 + gamma_q*pq;
 
 
-%% Final stage production: Flatter marginal cost
 
-    y + yz = (y1/(1-gamma_yz))^(1-gamma_yz) * (yz/gamma_yz)^gamma_yz;
-    (1-gamma_yz) * py0 * (y + yz) = py1 * y1;
-    gamma_yz * py0 * (y + yz) = py * yz;
+%% T-0: Final stage production: Flatter marginal cost
+
+%     y + yz = (y1/(1-gamma_yz))^(1-gamma_yz) * (yz/gamma_yz)^gamma_yz;
+%     (1-gamma_yz) * py0 * (y + yz) = py1 * y1;
+%     gamma_yz * py0 * (y + yz) = py * yz;
+
+    y = y1;
+    py0 = py1;
+    yz = 1;
 
 
 %% Final price setting 

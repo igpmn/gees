@@ -110,7 +110,7 @@
     pq = gg_pq * e;
 
 
-%% Non-commodity export production
+%% Non-commodity export production 
 
     "Non-commodity export production function"
     xx = ar^gamma_xx * (yxx/(1-alpha))^(1-alpha) * (mxx/alpha)^alpha;

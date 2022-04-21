@@ -3,9 +3,11 @@
 
 ## Declare quantities
 
+
 ```matlab
 
-!variables
+!variables(:commodity)
+
     "Long-run level of global commodity production" gg_qq
     "Global commodity demand" gg_q
     "Excess demand in global commodity market" gg_qexc
@@ -16,36 +18,35 @@
 !log-variables !all-but
 
 
-!parameters
+!parameters(:commodity :transitory)
 
-    "S/S Long-run level of global commodity production" gg_ss_aq
-    "Autoregression in long-run level of global commodity production" gg_rho_aqq
     "Excess demand elasticity of commodity prices" gg_iota_1
+    "A/R Long-run trend in commodity supply" gg_rho_qq
 
 
-!shocks
+!shocks(:commodity)
 
-    "Shock to long-run level of global commodity production" gg_shk_qq
+    "Shock to long-run trend in global commodity supply" gg_shk_qq
     "Shock to global price of commodities" gg_shk_pq
 
 ```
+
 
 ## Define equations
 
 
 ```matlab
 
-!equations
+!equations(:commodity)
 
     "Long-run level of global commodity production"
     log(gg_qq) = ...
-        + 0.9 * log(gg_ss_roc_a * gg_ss_roc_nt * gg_qq{-1}) ...
-        + (1 - 0.9) * log(gg_a * gg_nn * (&gg_q / &gg_a / &gg_nn)) ...
+        + gg_rho_qq * log(gg_ss_roc_a * gg_ss_roc_nt * gg_qq{-1}) ...
+        + (1 - gg_rho_qq) * log(gg_a * gg_nn * (&gg_q / &gg_a / &gg_nn)) ...
         + gg_shk_qq ...
     !! gg_qq = gg_q;
-    % gg_qq = (gg_a * gg_nn * (&gg_q / &gg_a / &gg_nn)) ...
-    % !! gg_qq = gg_q;
 
+    
     "Log excess demand in commodity market"
     gg_qexc = gg_q / gg_qq ...
     !! gg_qexc = 1;

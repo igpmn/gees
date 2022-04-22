@@ -1,10 +1,11 @@
 ---
 title: Local supply side
----
+--
 
 # :fontawesome-solid-industry:  Local supply side
 
 --8<-- "model/math.md"
+
 
 * Several pairwise stages of production
   
@@ -32,6 +33,7 @@ title: Local supply side
 
     --8<-- "model/production-math.md"
 
+	![[production-math]]
 
 === ":fontawesome-solid-file-code:  Model source code"
 

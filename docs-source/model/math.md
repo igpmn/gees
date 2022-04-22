@@ -19,6 +19,7 @@ $$
 \newcommand{\tsum}{\textstyle{\sum}}
 \newcommand{\xnf}{\mathit{nf}}
 \newcommand{\ratio}[2]{\left[\textstyle{\frac{#1}{#2}}\right]}
+\newcommand{\unc}{\mathrm{unc}}
 \notag
 $$
 { .math-definitions }

@@ -42,17 +42,28 @@
     "Auxiliary variable for steady-state calibration of upsilon_0" upsilon_1_py_to_pu
     "Auxiliary equation for steady-state calibration of nu_0" nch_to_netw_minus_nu_0
 
+```
+
+
+## Control log-status of variables
+
+1. If a variable is growing at a nonzero rate in steady state then it
+__must__ be declared as a log-variable
+
+2. If a variables is changing by a constant in steady state then it __must
+not__ be declared as a log-variable
+
+3. If a variable can be negative, then it __must not__ be declared as a
+log-variable
+
+4. If there is conflict between rules 1 and 3, redefine the variable as
+ratio (so that the ratio is stable in steady state), and do not declare
+the ratio as a log-variable
+
+
+```matlab
 
 !log-variables !all-but
-
-% * If a variables is growing at a nonzero rate in steady state
-% then it MUST be declared as a log-variable
-
-% * If a variables is changing by a constant in steady state
-% then it MUST NOT be declared as a log-variable
-
-% * If a variable can be negative,
-% then it MUST NOT be declared as a log-variable
 
     zh, nch_to_netw_minus_nu_0
 
@@ -135,8 +146,8 @@
     y3 = (my/gamma_m)^gamma_m * ([ar * gg_a * nv]/(1-gamma_m))^(1-gamma_m);
 
     "Demand for intermediate imports"
-    gamma_m * py3 * y3 = pmm * my * [1 + xi_y3*($adj_mm$)] ...
-    !! gamma_m * py3 * y3 = pmm * my;
+    gamma_m * py3 * y3 = (pmm * gg_dmm) * my * [1 + xi_y3*($adj_mm$)] ...
+    !! gamma_m * py3 * y3 = (pmm * gg_dmm) * my;
 
     "Demand for labor"
     (1-gamma_m) * py3 * y3 = mu_y3 * w * nv * [1 + xi_y3*($adj_nv$)] ...
@@ -156,20 +167,29 @@
 
 %% Stage T-1 Production: Add Commodity
 
-%{
-    y1 = (y2/(1-gamma_q))^(1-gamma_q) * (mq/gamma_q)^gamma_q;
 
-    (1-gamma_q) * py1 * y1 = py2 * y2 * [1 + xi_y1*($adj_y2$)] ...
+    py1 = py2^(1 - gamma_q) * pq^gamma_q ...
+    !! y1 = (y2/(1-gamma_q))^(1-gamma_q) * (mq/gamma_q)^gamma_q;
+
+    % (1-gamma_q) * py1 * y1 = py2 * y2 * [1 + xi_y1*($adj_y2$)] ...
+
+    (1-gamma_q) * &py1 * y1 = &py2 * y2 ...
     !! (1-gamma_q) * py1 * y1 = py2 * y2;
 
-    gamma_q * py1 * y1 = pq * mq * [1 + xi_y1*($adj_q$)] ...
+    % gamma_q * py1 * y1 = pq * mq * [1 + xi_y1*($adj_q$)] ...
+
+    (gamma_q) * &py1 * y1 = &pq * mq ...
     !! gamma_q * py1 * y1 = pq * mq;
-%}
+
+
+
+%{
 
     y2 = (1 - gamma_q) * y1;
     mq = gamma_q * y1;
     py1 = (1 - gamma_q)*py2 + gamma_q*pq;
 
+%}
 
 
 %% T-0: Final stage production: Flatter marginal cost

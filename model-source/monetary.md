@@ -9,10 +9,9 @@
 !variables(:monetary)
 
     "Nominal short-term rate, LCY" r
+    "Monetary policy reaction term" react
     "Unconstrained nominal short-term rate, LCY" unc_r
 
-
-!log-variables !all-but
 
 
 !parameters(:monetary :steady)
@@ -26,11 +25,24 @@
     "A/R in policy rate" rho_r 
     "Monetary policy reaction to CPI" psi_pc 
     "Monetary policy reaction to nominal exchange rate" psi_e
+    "Monetary policy reaction to real economic activity" psi_nh
 
 
 !shocks(:monetary)
 
     "Shock to monetary policy reaction function" shk_r
+
+```
+
+## Control log-status of variables
+
+
+```matlab
+
+!log-variables !all-but
+
+    react
+
 
 ```
 
@@ -43,15 +55,19 @@
 !equations(:monetary)
 
     "Monetary policy reaction function"
-    log(unc_r) ...
-        = rho_r * log(unc_r{-1}) ...
-        + (1-rho_r) * [ ...
-            + log(&unc_r) ...
-            + psi_pc * (log(roc_pc{+1}) - log(ss_roc_pc)) ...
-            + psi_e * (log(roc_e) - log(&roc_e)) ...
-        ] ...
+    log(unc_r) = ...
+        + rho_r * log(r{-1}) ...
+        + (1 - rho_r) * [ log(&unc_r) + react ] ...
         + shk_r ...
     !! pc = pc{-1} * ss_roc_pc;
+
+
+    "Monetary policy reaction term"
+    react = ...
+        + psi_pc * (log(roc_pc{+1}) - log(ss_roc_pc)) ...
+        + psi_e * (log(roc_e) - log(&roc_e)) ...
+        + psi_nh * (log(nh) - log(&nh)) ...
+    !! react = 0;
 
 
     "Zero floor constraint on policy rate"

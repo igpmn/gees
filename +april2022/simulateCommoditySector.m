@@ -117,7 +117,7 @@ checkSteady(m2);
 m2 = solve(m2);
 
 d = steadydb(m2, 1:20);
-d.gg_shk_qq(3, :) = log(0.90) - 1i*log(0.90);
+d.gg_shk_qq(3, :) = log(0.90); % - 1i*log(0.90);
 
 s = simulate( ...
     m2, d, 1:20 ...

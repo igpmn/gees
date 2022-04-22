@@ -1,4 +1,8 @@
 # GEES Global trends module
+!ra
+log-variables !all-but
+
+
 
 
 ## Declare quantities
@@ -11,9 +15,7 @@
     "Global population trend component" gg_nt
     "Global uncertainty discount factor on capital" gg_zk
     "Global uncertainty discount factor on production cash flows" gg_zy
-
-
-!log-variables !all-but
+    "Global disruption to non-commodity trade" gg_dmm
 
 
 !shocks(:globals)
@@ -22,6 +24,7 @@
     "Shock to global population trend" gg_shk_nn
     "Shock to global uncertainty discount factor on capital" gg_shk_zk
     "Shock to global uncertainty discount factor on production cash flows" gg_shk_zy
+    "Shock to global disruption to non-commodity trade" gg_shk_dmm
 
 
 !parameters(:globals :steady)
@@ -30,6 +33,7 @@
     "S/S Global population trend, Rate of change" gg_ss_roc_nt
     "S/S Global uncertainty discount factor on capital" gg_ss_zk
     "S/S Global uncertainty discount factor on production cash flows" gg_ss_zy
+    "S/S Global disruption to non-commodity trade" gg_ss_dmm
 
     "Global intercept in Euler equation" gg_nu
 
@@ -40,6 +44,17 @@
     "A/R in global population trend" gg_rho_nt
     "A/R in uncertainty discount factor on capital" gg_rho_zk
     "A/R in uncertainty discount factor on production cash flows" gg_rho_zy
+    "A/R Global disruption to non-commodity trade" gg_rho_dmm
+
+```
+
+
+## Control log-status of variables
+
+
+```matlab
+
+!log-variables !all-but
 
 ```
 
@@ -73,6 +88,14 @@
     "Global uncertainty discount factor on production cash flows"
     log(gg_zy) = gg_rho_zy*log(gg_zy{-1}) + (1-gg_rho_zy)*log(gg_ss_zy) + gg_shk_zy ...
     !! gg_zy = gg_ss_zy;
+
+
+    "Global disruption to non-commodity trade"
+    log(gg_dmm) = ...
+        + gg_rho_dmm * log(gg_dmm{-1}) ...
+        + (1 - gg_rho_dmm) * log(gg_ss_dmm) ...
+        + gg_shk_dmm ...
+    !! gg_dmm = gg_ss_dmm;
 
 ```
 

@@ -30,15 +30,25 @@ ma = assignUserData(ma, "areas", "");
 
 %% Calibrate parameters 
 
-% Steady-state growth rates
+% Global parameters
 
 ma.gg_ss_roc_a = 1.02; 
 ma.gg_ss_roc_nt = 1.01;
 ma.ss_roc_pc = 1.03;
 ma.gg_ss_zk = 0.90;
 ma.gg_ss_zy = 1;
-
+ma.gg_ss_dmm = 1;
 ma.gg_nu = 0;
+
+ma.gg_rho_a = 0.5;
+ma.gg_rho_nt = 0.9;
+ma.gg_rho_zk = 0.90;
+ma.gg_rho_zy = 0.90;
+ma.gg_rho_dmm = 0.50;
+
+
+% Area specific parameters
+
 ma.ss_ar = 1;
 ma.ss_nr = 1;
 
@@ -55,11 +65,6 @@ ma.eta0 = 1;
 ma.nu_0 = 0;
 ma.nu_1 = 0.07;
 ma.ss_zh_aut = 0;
-
-ma.gg_rho_a = 0.5;
-ma.gg_rho_nt = 0.9;
-ma.gg_rho_zk = 0.90;
-ma.gg_rho_zy = 0.90;
 
 ma.rho_nr = 0.9;
 ma.rho_nw = 0.9;
@@ -112,6 +117,7 @@ ma.zeta_py = 0.5;
 ma.rho_r = 0.50;
 ma.psi_pc = 2.5;
 ma.psi_e = 0;
+ma.psi_nh = 0;
 ma.floor = 1;
 
 % Fiscal policy

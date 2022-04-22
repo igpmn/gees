@@ -1,7 +1,7 @@
 
 ## Total Population
 
---8<-- "docs-source/model/math.md"
+--8<-- "model/math.md"
 
 ![[math]]
 
@@ -11,9 +11,9 @@ indicator; rather, we can think of $nn$ as a driving force for population *growt
 
 $$
 \begin{gathered}
-\Delta \log nn^\gg_t
-= \rho_{nn}^\gg\, \Delta \log nn^\gg_{t-1} 
-+ (1-\rho_{nn}^\gg)\, \Delta \log \roc{nn}_\ss \\[10pt]
+\log \roc{nn}{}^\gg_t
+= \rho_{nn}^\gg\, \log \roc{nn}{}^\gg_{t-1} 
++ (1-\rho_{nn}^\gg)\, \log \roc{nn}{}^\gg_\ss \\[10pt]
 \end{gathered}
 $$
 

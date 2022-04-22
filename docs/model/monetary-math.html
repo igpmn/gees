@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#monetary-policy-reaction-function" class="md-skip">
+        <a href="#unconstrained-monetary-policy-reaction-function" class="md-skip">
           Skip to content
         </a>
       
@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -517,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -601,7 +617,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -825,8 +841,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#monetary-policy-reaction-function" class="md-nav__link">
-    Monetary policy reaction function
+  <a href="#unconstrained-monetary-policy-reaction-function" class="md-nav__link">
+    Unconstrained monetary policy reaction function
   </a>
   
 </li>
@@ -854,8 +870,50 @@
 
   <h1>Monetary math</h1>
 
-<h2 id="monetary-policy-reaction-function">Monetary policy reaction function</h2>
+<h2 id="unconstrained-monetary-policy-reaction-function">Unconstrained monetary policy reaction function</h2>
+<p class="math-definitions">$$
+\newcommand{\tsum}{\textstyle\sum}
+\newcommand{\extern}[1]{\mathrm{\mathbf{{#1}}}}
+\newcommand{\local}{\mathrm{local}}
+\newcommand{\roc}[1]{\overset{\scriptsize\Delta}{#1{}}}
+\newcommand{\ss}{\mathrm{ss}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\ref}{{\mathrm{ref}}}
+\newcommand{\blog}{\mathbf{log}\ }
+\newcommand{\bmax}{\mathbf{max}\ }
+\newcommand{\bDelta}{\mathbf{\Delta}}
+\newcommand{\bPi}{\mathbf{\Pi}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\newl}{\\[8pt]}
+\newcommand{\betak}{\mathit{zk}}
+\newcommand{\betay}{\mathit{zy}}
+\newcommand{\gg}{\mathrm{gg}}
+\newcommand{\tsum}{\textstyle{\sum}}
+\newcommand{\xnf}{\mathit{nf}}
+\newcommand{\ratio}[2]{\left[\textstyle{\frac{#1}{#2}}\right]}
+\newcommand{\unc}{\mathrm{unc}}
+\notag
+$$</p>
+<p>![[math]]</p>
+<p>The reaction function is given by</p>
+<div class="arithmatex">\[
+\log r_t^\unc = \rho_r \, \log r_{t-1}
++ \left(1-\rho_r\right) \bigl[\log r_\ss + \mathit{react}_t \bigr]
++ \epsilon_{r,t}
+\]</div>
+<p>with the following composition of the reaction term</p>
+<div class="arithmatex">\[
+react_{t}=
+\psi_{pc} \, \bigl( \log \roc{pc}_{t+1} - \log \roc{pc}_\ss\bigr)
++ \psi_{e} \, \bigl( \log \roc{e}_{t+1} - \log \roc{e}_\ss\bigr)
++ \psi_{nh} \, \bigl( \log {nh}_{t+1} - \log {nh}_\ss\bigr)
+\]</div>
 <h2 id="zero-lower-bound">Zero lower bound</h2>
+<p>The zero lower bound (floor) constraint chooses the higher of the unconstrained rate and 1 (i.e. a zero net rate of interest) but can be turned off by setting a <span class="arithmatex">\(\mathit{floor}\)</span> parameter to 0.</p>
+<div class="arithmatex">\[
+r_t = \mathit{floor} \, \max\{r_t^\unc, \, 1\}
++ \left(1-\mathit{floor}\right)\, r_t^\unc
+\]</div>
 
               
             </article>

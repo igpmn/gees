@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -517,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -642,7 +658,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -911,7 +927,7 @@ xx_t = F_{xx} \left( ar_t{}^{\gamma_{xx}} \cdot yxx_t, \ mxx_t \right)
 <div class="tabbed-block">
 <h1 id="gees-export-import-and-bop-module">GEES Export, import, and BOP module</h1>
 <h2 id="declare-quantities">Declare quantities</h2>
-<div class="highlight"><pre><span></span><code><span class="sx">!variables</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="sx">!variables(:open)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Non-commodity imports&quot;</span><span class="w"> </span><span class="n">mm</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Price of non-commodity imports&quot;</span><span class="w"> </span><span class="n">pmm</span><span class="w"></span>
@@ -954,26 +970,28 @@ xx_t = F_{xx} \left( ar_t{}^{\gamma_{xx}} \cdot yxx_t, \ mxx_t \right)
 <span class="w">    </span><span class="n">zh_aut</span><span class="w"></span>
 
 
-<span class="sx">!parameters</span><span class="w"></span>
+<span class="sx">!parameters(:open :steady)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Import intensity of non-commodity exports&quot;</span><span class="w"> </span><span class="nb">alpha</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Acceleration in exportable productivity&quot;</span><span class="w"> </span><span class="n">gamma_xx</span><span class="w"></span>
-<span class="w">    </span><span class="n">theta_0</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Elasticity of household risk function wrt NFA&quot;</span><span class="w"> </span><span class="n">theta_1</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Curvature of household risk function wrt NFA&quot;</span><span class="w"> </span><span class="n">theta_2</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Weight on model-consistent expectations in exchange rate&quot;</span><span class="w"> </span><span class="n">zeta_e</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Share of local commodity production in world commodity production&quot;</span><span class="w"> </span><span class="n">lambda</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;S/S Autonomous component in country credit risk&quot;</span><span class="w"> </span><span class="n">ss_zh_aut</span><span class="w"></span>
+
+
+<span class="sx">!parameters(:open :transition)</span><span class="w"></span>
+
+<span class="w">    </span><span class="s">&quot;A/R Autonomous component in country credit risk&quot;</span><span class="w"> </span><span class="n">rho_zh_aut</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Weight on model-consistent expectations in exchange rate&quot;</span><span class="w"> </span><span class="n">zeta_e</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Adjustment cost parameter in stage t-3 production&quot;</span><span class="w"> </span><span class="n">xi_y3</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">rho_zh_aut</span><span class="w"></span>
-<span class="w">    </span><span class="n">ss_zh_aut</span><span class="w"></span>
 
-
-<span class="sx">!shocks</span><span class="w"></span>
+<span class="sx">!shocks(:open)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Interest parity shock&quot;</span><span class="w"> </span><span class="n">shk_e</span><span class="w"></span>
-<span class="w">    </span><span class="n">shk_zh</span><span class="w"></span>
-<span class="w">    </span><span class="n">shk_zh_aut</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Shock to country credit risk&quot;</span><span class="w"> </span><span class="n">shk_zh</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Shock to autonoumous component in country credit risk&quot;</span><span class="w"> </span><span class="n">shk_zh_aut</span><span class="w"></span>
 </code></pre></div>
 <h2 id="define-substitutions">Define substitutions</h2>
 <div class="highlight"><pre><span></span><code><span class="sx">!substitutions</span><span class="w"></span>
@@ -982,31 +1000,34 @@ xx_t = F_{xx} \left( ar_t{}^{\gamma_{xx}} \cdot yxx_t, \ mxx_t \right)
 <span class="w">    </span><span class="n">adj_mm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="nb">log</span><span class="p">(</span><span class="n">my</span><span class="o">/</span><span class="n">y3</span><span class="p">)</span><span class="o">-</span><span class="nb">log</span><span class="p">(</span><span class="n">my</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">/</span><span class="n">y3</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}))</span><span class="o">-&amp;</span><span class="n">rdf</span><span class="o">*</span><span class="p">(</span><span class="nb">log</span><span class="p">(</span><span class="n">my</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span><span class="o">/</span><span class="n">y3</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">})</span><span class="o">-</span><span class="nb">log</span><span class="p">(</span><span class="n">my</span><span class="o">/</span><span class="n">y3</span><span class="p">));</span><span class="w"></span>
 </code></pre></div>
 <h2 id="define-equations">Define equations</h2>
-<div class="highlight"><pre><span></span><code><span class="sx">!equations</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="sx">!equations(:open)</span><span class="w"></span>
 
 
-<span class="c">%% Distribution of non-commodity imports </span><span class="w"></span>
+<span class="c">%% Imports</span><span class="w"></span>
 
+<span class="w">    </span><span class="s">&quot;Distribution of non-commodity imports&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="n">mm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">my</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">mxx</span><span class="p">;</span><span class="w"></span>
 
-<span class="c">%</span><span class="w"></span>
 
+<span class="c">%% Commodity sector</span><span class="w"></span>
 
-<span class="c">%% Commodity Prices </span><span class="w"></span>
-
+<span class="w">    </span><span class="s">&quot;Commodity endowment&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="n">xq</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gg_q</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="s">&quot;Commodity prices in local currency&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="n">pq</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">gg_pq</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"></span>
 
-<span class="c">%</span><span class="w"></span>
 
+<span class="c">%% Non-commodity export production </span><span class="w"></span>
 
-<span class="c">%% Export Production </span><span class="w"></span>
-
+<span class="w">    </span><span class="s">&quot;Non-commodity export production function&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="n">xx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ar</span>^<span class="n">gamma_xx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">yxx</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="nb">alpha</span><span class="p">))</span>^<span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="nb">alpha</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">mxx</span><span class="o">/</span><span class="nb">alpha</span><span class="p">)</span>^<span class="nb">alpha</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="nb">alpha</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pxx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">xx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">py</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">yxx</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nb">alpha</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pxx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">xx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">pmm</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mxx</span><span class="p">;</span><span class="w"></span>
 
-<span class="c">%</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Demand for local content in export production&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="nb">alpha</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pxx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">xx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">py</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">yxx</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="s">&quot;Demand for re-exports&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nb">alpha</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pxx</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">xx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">pmm</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mxx</span><span class="p">;</span><span class="w"></span>
 
 
 <span class="c">%% Balance of payments and exchange rate </span><span class="w"></span>

@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -517,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -564,8 +580,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#monetary-policy-reaction-function" class="md-nav__link">
-    Monetary policy reaction function
+  <a href="#unconstrained-monetary-policy-reaction-function" class="md-nav__link">
+    Unconstrained monetary policy reaction function
   </a>
   
 </li>
@@ -649,7 +665,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -875,8 +891,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#monetary-policy-reaction-function" class="md-nav__link">
-    Monetary policy reaction function
+  <a href="#unconstrained-monetary-policy-reaction-function" class="md-nav__link">
+    Unconstrained monetary policy reaction function
   </a>
   
 </li>
@@ -903,62 +919,115 @@
 
 
 <h1 id="monetary-policy"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M256 31.1C114.6 31.1.9 124.19.9 239.1c0 49.59 21.37 94.1 56.97 130.7-12.5 50.39-54.31 95.3-54.81 95.8-3.06 3.2-3.654 6.6-2.373 9.6.413 3 4.126 3.9 7.313 3.9 66.31 0 116-31.8 140.6-51.41C181.32 440 217.62 447.1 256 447.1c141.4 0 255.1-93.09 255.1-207.1S397.4 31.1 256 31.1zm61.8 251.2c-3.623 20.91-19.47 34.64-41.83 39.43V332c0 11.03-8.946 20-19.99 20S236 343 236 332v-10.77c-8.682-1.922-17.3-4.723-25.06-7.512l-4.266-1.5C196.3 308.5 190.8 297.1 194.5 286.7c3.688-10.41 15.11-15.81 25.52-12.22l4.469 1.625c7.844 2.812 16.72 6 23.66 7.031 13.72 2.125 28.94.187 30.31-7.625.875-5.094 1.359-7.906-27.92-16.28L244.7 257.5c-17.33-5.094-57.92-17-50.52-59.84C197.8 176.8 213.6 162.8 236 157.1V148c0-11.03 8.961-20 20.01-20S276 136.969 276 148v10.63c5.453 1.195 11.34 2.789 18.56 5.273 10.44 3.625 15.95 15.03 12.33 25.47-3.625 10.41-15.06 15.94-25.45 12.34-5.859-2.031-12-4-17.59-4.844-13.65-2.069-29.75-.169-30.25 7.631-.8 3.6-1.3 7.7 21.5 14.7l5.547 1.594C283.8 227.1 325.3 239 317.8 282.3z"/></svg></span>  Monetary policy</h1>
+<p>The central bank uses a short-term local-currency interest rate as its key policy instruments to steer inflation towards an explicit or implicit inflation target. The monetary policy reaction function includes responses to</p>
 <ul>
-<li>
-<p>Inflation targeting reaction function</p>
-</li>
-<li>
-<p>Exchange rate peg</p>
-</li>
-<li>
-<p>Inflation targeting with exchange rate management</p>
-</li>
+<li>deviations in the inflation forecast from the target</li>
+<li>deviations in nominal depreciation from its long-run sustainable level</li>
+<li>cycle in real economic activity measured by labor empoyed</li>
 </ul>
+<p>The reaction function is first defined for an "unconstrained" policy rate
+(i.e. an interest rate not bound to remain above its floor), and the actual
+policy rate is then derived as a maximum of its unconstrained level
+and the floor.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M576 32.01c0-17.69-14.33-31.1-32-31.1L320 .905c-14.69 0-27.48 10-31.05 24.25L197.9 388.3l-73.3-146.6C119.2 230.9 108.1 224 96 224H32c-17.67 0-32 14.31-32 31.1s14.33 32 32 32h44.22l103.2 206.3a32.027 32.027 0 0 0 28.61 17.68 32.73 32.73 0 0 0 3.495-.183c13.31-1.469 24.31-11.06 27.56-24.06l105.9-423.8H544c17.7.973 32-13.337 32-31.027zm-9.4 201.39c-12.5-12.5-32.75-12.5-45.25 0L480 274.8l-41.38-41.37c-12.5-12.5-32.75-12.5-45.25 0s-12.5 32.75 0 45.25l41.38 41.38-41.38 41.38c-12.5 12.5-12.5 32.75 0 45.25C399.6 412.9 407.8 416 416 416s16.38-3.125 22.62-9.375L480 365.3l41.38 41.38C527.6 412.9 535.8 416 544 416s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25l-41.38-41.38L566.6 278.6c12.5-12.5 12.5-32.7 0-45.2z"/></svg></span>  Math equations</label><label for="__tabbed_1_2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M224 128V0H48C21.49 0 0 21.49 0 48v416c0 26.5 21.49 48 48 48h288c26.51 0 48-21.49 48-48V160H256.9c-18.6 0-32.9-14.3-32.9-32zm-69.9 225.8c7.812 7.812 7.812 20.5 0 28.31-3.9 3.99-9 5.89-14.1 5.89s-10.23-1.938-14.14-5.844l-48-48c-7.812-7.812-7.812-20.5 0-28.31l48-48c7.812-7.812 20.47-7.812 28.28 0s7.812 20.5 0 28.31L120.3 320l33.8 33.8zm152-48c7.812 7.812 7.812 20.5 0 28.31l-48 48c-3.9 3.99-9 5.89-14.1 5.89s-10.23-1.938-14.14-5.844c-7.812-7.812-7.812-20.5 0-28.31L263.7 320l-33.86-33.84c-7.812-7.812-7.812-20.5 0-28.31s20.47-7.812 28.28 0l47.98 47.95zM256 0v128h128L256 0z"/></svg></span>  Model source code</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<h2 id="monetary-policy-reaction-function">Monetary policy reaction function</h2>
+<h2 id="unconstrained-monetary-policy-reaction-function">Unconstrained monetary policy reaction function</h2>
+<p class="math-definitions">$$
+\newcommand{\tsum}{\textstyle\sum}
+\newcommand{\extern}[1]{\mathrm{\mathbf{{#1}}}}
+\newcommand{\local}{\mathrm{local}}
+\newcommand{\roc}[1]{\overset{\scriptsize\Delta}{#1{}}}
+\newcommand{\ss}{\mathrm{ss}}
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\ref}{{\mathrm{ref}}}
+\newcommand{\blog}{\mathbf{log}\ }
+\newcommand{\bmax}{\mathbf{max}\ }
+\newcommand{\bDelta}{\mathbf{\Delta}}
+\newcommand{\bPi}{\mathbf{\Pi}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\newl}{\\[8pt]}
+\newcommand{\betak}{\mathit{zk}}
+\newcommand{\betay}{\mathit{zy}}
+\newcommand{\gg}{\mathrm{gg}}
+\newcommand{\tsum}{\textstyle{\sum}}
+\newcommand{\xnf}{\mathit{nf}}
+\newcommand{\ratio}[2]{\left[\textstyle{\frac{#1}{#2}}\right]}
+\newcommand{\unc}{\mathrm{unc}}
+\notag
+$$</p>
+<p>![[math]]</p>
+<p>The reaction function is given by</p>
+<div class="arithmatex">\[
+\log r_t^\unc = \rho_r \, \log r_{t-1}
++ \left(1-\rho_r\right) \bigl[\log r_\ss + \mathit{react}_t \bigr]
++ \epsilon_{r,t}
+\]</div>
+<p>with the following composition of the reaction term</p>
+<div class="arithmatex">\[
+react_{t}=
+\psi_{pc} \, \bigl( \log \roc{pc}_{t+1} - \log \roc{pc}_\ss\bigr)
++ \psi_{e} \, \bigl( \log \roc{e}_{t+1} - \log \roc{e}_\ss\bigr)
++ \psi_{nh} \, \bigl( \log {nh}_{t+1} - \log {nh}_\ss\bigr)
+\]</div>
 <h2 id="zero-lower-bound">Zero lower bound</h2>
+<p>The zero lower bound (floor) constraint chooses the higher of the unconstrained rate and 1 (i.e. a zero net rate of interest) but can be turned off by setting a <span class="arithmatex">\(\mathit{floor}\)</span> parameter to 0.</p>
+<div class="arithmatex">\[
+r_t = \mathit{floor} \, \max\{r_t^\unc, \, 1\}
++ \left(1-\mathit{floor}\right)\, r_t^\unc
+\]</div>
 </div>
 <div class="tabbed-block">
 <h1 id="gees-monetary-policy-module">GEES Monetary policy module</h1>
 <h2 id="declare-quantities">Declare quantities</h2>
-<div class="highlight"><pre><span></span><code><span class="sx">!variables</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="sx">!variables(:monetary)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Nominal short-term rate, LCY&quot;</span><span class="w"> </span><span class="n">r</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Monetary policy reaction term&quot;</span><span class="w"> </span><span class="n">react</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Unconstrained nominal short-term rate, LCY&quot;</span><span class="w"> </span><span class="n">unc_r</span><span class="w"></span>
 
 
-<span class="sx">!log-variables !all-but</span><span class="w"></span>
 
-
-<span class="sx">!parameters</span><span class="w"></span>
+<span class="sx">!parameters(:monetary :steady)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;S/S Price of private consumption, Rate of change&quot;</span><span class="w"> </span><span class="n">ss_roc_pc</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Switch for lower bound on short-term rate&quot;</span><span class="w"> </span><span class="nb">floor</span><span class="w"></span>
+
+
+<span class="sx">!parameters(:monetary :transitory)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;A/R in policy rate&quot;</span><span class="w"> </span><span class="n">rho_r</span><span class="w"> </span>
 <span class="w">    </span><span class="s">&quot;Monetary policy reaction to CPI&quot;</span><span class="w"> </span><span class="n">psi_pc</span><span class="w"> </span>
 <span class="w">    </span><span class="s">&quot;Monetary policy reaction to nominal exchange rate&quot;</span><span class="w"> </span><span class="n">psi_e</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Switch for lower bound on short-term rate&quot;</span><span class="w"> </span><span class="nb">floor</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Monetary policy reaction to real economic activity&quot;</span><span class="w"> </span><span class="n">psi_nh</span><span class="w"></span>
 
 
-<span class="sx">!shocks</span><span class="w"></span>
+<span class="sx">!shocks(:monetary)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Shock to monetary policy reaction function&quot;</span><span class="w"> </span><span class="n">shk_r</span><span class="w"></span>
 </code></pre></div>
+<h2 id="control-log-status-of-variables">Control log-status of variables</h2>
+<div class="highlight"><pre><span></span><code><span class="sx">!log-variables !all-but</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">react</span><span class="w"></span>
+</code></pre></div>
 <h2 id="define-equations">Define equations</h2>
-<div class="highlight"><pre><span></span><code><span class="sx">!equations</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="sx">!equations(:monetary)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Monetary policy reaction function&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nb">log</span><span class="p">(</span><span class="n">unc_r</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
-<span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="n">rho_r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="n">unc_r</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">})</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
-<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">rho_r</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
-<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="o">&amp;</span><span class="n">unc_r</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
-<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">psi_pc</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">log</span><span class="p">(</span><span class="n">roc_pc</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">})</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="n">ss_roc_pc</span><span class="p">))</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
-<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">psi_e</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">log</span><span class="p">(</span><span class="n">roc_e</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="o">&amp;</span><span class="n">roc_e</span><span class="p">))</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
-<span class="w">        </span><span class="p">]</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span><span class="nb">log</span><span class="p">(</span><span class="n">unc_r</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">rho_r</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="n">r</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">})</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rho_r</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="o">&amp;</span><span class="n">unc_r</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">react</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
 <span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">shk_r</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
 <span class="w">    </span>!!<span class="w"> </span><span class="n">pc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">pc</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ss_roc_pc</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="w">    </span><span class="s">&quot;Monetary policy reaction term&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">react</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">psi_pc</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">log</span><span class="p">(</span><span class="n">roc_pc</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">})</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="n">ss_roc_pc</span><span class="p">))</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">psi_e</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">log</span><span class="p">(</span><span class="n">roc_e</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="o">&amp;</span><span class="n">roc_e</span><span class="p">))</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">psi_nh</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nb">log</span><span class="p">(</span><span class="n">nh</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">log</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nh</span><span class="p">))</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span>!!<span class="w"> </span><span class="n">react</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 
 
 <span class="w">    </span><span class="s">&quot;Zero floor constraint on policy rate&quot;</span><span class="w"></span>
@@ -985,7 +1054,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="production.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Local production" rel="prev">
+        <a href="production.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Production" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -994,7 +1063,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Local production
+              Production
             </div>
           </div>
         </a>

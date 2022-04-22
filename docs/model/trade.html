@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -517,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -656,7 +672,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -1050,17 +1066,17 @@ pmm_t^{k} = \frac{e_t}{e_t^k} \ pxx_t^k \ (1 + trm_t + trm_t^k)
 <span class="sx">!end</span><span class="w"></span>
 </code></pre></div>
 <h2 id="postprocessing-equations-outside-model">Postprocessing equations outside model</h2>
-<div class="highlight"><pre><span></span><code>!postprocessor
+<div class="highlight"><pre><span></span><code><span class="sx">!postprocessor</span><span class="w"></span>
 
-    !for ?M=&lt;areas&gt; !do
-        !for ?X=&lt;setdiff(areas, &quot;?M&quot;)&gt; !do
-            &quot;Imports from [?X] to [?M]&quot;
-            ?M_mm_?X = ?M_mm_sh_?X * ?M_mm;
-        !end
-    !end
+<span class="w">    </span>!<span class="k">for</span><span class="w"> </span>?<span class="n">M</span><span class="p">=</span><span class="o">&lt;</span><span class="n">areas</span><span class="o">&gt;</span><span class="w"> </span>!<span class="n">do</span><span class="w"></span>
+<span class="w">        </span>!<span class="k">for</span><span class="w"> </span>?<span class="n">X</span><span class="p">=</span><span class="o">&lt;</span><span class="nb">setdiff</span><span class="p">(</span><span class="n">areas</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;?M&quot;</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span>!<span class="n">do</span><span class="w"></span>
+<span class="w">            </span><span class="s">&quot;Imports from [?X] to [?M]&quot;</span><span class="w"></span>
+<span class="w">            </span>?<span class="n">M_mm_</span>?<span class="n">X</span><span class="w"> </span><span class="p">=</span><span class="w"> </span>?<span class="n">M_mm_sh_</span>?<span class="n">X</span><span class="w"> </span><span class="o">*</span><span class="w"> </span>?<span class="n">M_mm</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span>!<span class="k">end</span><span class="w"></span>
+<span class="w">    </span>!<span class="k">end</span><span class="w"></span>
 
 
-!log-variables !all-but
+<span class="sx">!log-variables !all-but</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>

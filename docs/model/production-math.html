@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -517,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -601,7 +617,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -843,6 +859,40 @@
     Production stages
   </a>
   
+    <nav class="md-nav" aria-label="Production stages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#t-4-combine-imports-from-other-areas" class="md-nav__link">
+    \(T-4\): Combine imports from other areas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t-3-combine-non-commodity-variable-factors" class="md-nav__link">
+    \(T-3\): Combine non-commodity variable factors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t-1-add-dependence-on-commodity-inputs" class="md-nav__link">
+    \(T-1\): Add dependence on commodity inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#t-0-add-a-roundabout-production-layer-and-sticky-prices" class="md-nav__link">
+    \(T-0\): Add a roundabout production layer and sticky prices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -943,17 +993,23 @@ adjustment costs)</p>
 - \beta \, \beta_{y} \, \bDelta \blog \frac{b_{t+1}}{y_{t+1}} \right) \right]
 \]</div>
 <h2 id="production-stages">Production stages</h2>
-<p>T-4: Combine imports from other areas</p>
+<h4 id="t-4-combine-imports-from-other-areas"><span class="arithmatex">\(T-4\)</span>: Combine imports from other areas</h4>
 <div class="arithmatex">\[
 mm_t = F_4\left( mm_t^1, \dots, mm_t^A \right)
 \]</div>
 <div class="arithmatex">\[
 mm = my_t + mx_t
 \]</div>
-<p>where
-* <span class="arithmatex">\(my_t\)</span> is the intermediate import inputs into local production
-* <span class="arithmatex">\(mx_t\)</span> is the intermediate import inputs into export production (re-exports)</p>
-<p>T-3: Combine non-commodity variable factors</p>
+<p>where</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(my_t\)</span> is the intermediate import inputs into local production</p>
+</li>
+<li>
+<p><span class="arithmatex">\(mx_t\)</span> is the intermediate import inputs into export production (re-exports)</p>
+</li>
+</ul>
+<h4 id="t-3-combine-non-commodity-variable-factors"><span class="arithmatex">\(T-3\)</span>: Combine non-commodity variable factors</h4>
 <div class="arithmatex">\[
 \begin{gathered}
 y_{3,t} = F_3\bigl( mm_t, nv_t\bigr) \newl
@@ -973,11 +1029,11 @@ y_{2,t} = F_2\bigl( uk_t\, y_{3,t} \bigr) \newl
 uk_t = u_t \, k_t
 \end{gathered}
 \]</div>
-<p>T-1: Add dependence on commodity inputs</p>
+<h4 id="t-1-add-dependence-on-commodity-inputs"><span class="arithmatex">\(T-1\)</span>: Add dependence on commodity inputs</h4>
 <div class="arithmatex">\[
 y_{1,t} = F_1\bigl( y_{2,t},\ mq_t \bigr)
 \]</div>
-<p>T-0: Add a roundabout production layer and sticky prices</p>
+<h4 id="t-0-add-a-roundabout-production-layer-and-sticky-prices"><span class="arithmatex">\(T-0\)</span>: Add a roundabout production layer and sticky prices</h4>
 <div class="arithmatex">\[
 y_t = F_0\bigl(y_{1,t},\ yz_t\bigr) + yz_t
 \]</div>
@@ -1038,13 +1094,15 @@ p_{y,t} \, \Bigl\{
 <h2 id="total-profits">Total profits</h2>
 <p>Total profits summed up across all production stages are given by</p>
 <div class="arithmatex">\[
+\begin{multline}
 \Pi_{y,t}
 \equiv py_t \, y_{0,t}
 - pmm_t \, my_t 
 - w_t \, nh_t \, nl_t
 - pu_t \, u_t\, k_t 
-- pq_t \, mq_t
--\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi{py,t}
+- pq_t \, mq_t \ \cdots \\[10pt]
+\cdots -\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi_{py,t}
+\end{multline}
 \]</div>
 <h2 id="final-goods">Final goods</h2>
 <p>The final goods produced domestically are demanded as one of the following

@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -517,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -578,22 +594,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#fiscal-budget-constraing" class="md-nav__link">
-    Fiscal Budget Constraing
+  <a href="#dynamic-fiscal-budget" class="md-nav__link">
+    Dynamic fiscal budget
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#public-capital" class="md-nav__link">
-    Public Capital
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#government-consumption-and-taxes" class="md-nav__link">
-    Government Consumption and Taxes
+  <a href="#government-expenditures-on-goods-and-services" class="md-nav__link">
+    Government expenditures on goods and services
   </a>
   
 </li>
@@ -656,7 +665,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -882,22 +891,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#fiscal-budget-constraing" class="md-nav__link">
-    Fiscal Budget Constraing
+  <a href="#dynamic-fiscal-budget" class="md-nav__link">
+    Dynamic fiscal budget
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#public-capital" class="md-nav__link">
-    Public Capital
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#government-consumption-and-taxes" class="md-nav__link">
-    Government Consumption and Taxes
+  <a href="#government-expenditures-on-goods-and-services" class="md-nav__link">
+    Government expenditures on goods and services
   </a>
   
 </li>
@@ -935,137 +937,138 @@
 \newcommand{\betay}{\mathit{zy}}
 \newcommand{\gg}{\mathrm{gg}}
 \newcommand{\tsum}{\textstyle{\sum}}
+\newcommand{\xnf}{\mathit{nf}}
+\newcommand{\ratio}[2]{\left[\textstyle{\frac{#1}{#2}}\right]}
+\newcommand{\unc}{\mathrm{unc}}
 \notag
 $$</p>
+<p>The government manages the following fiscal policy quantities</p>
 <ul>
 <li>
-<p>Government consumpiton and investment</p>
+<p>Government debt placed locally, <span class="arithmatex">\(dg_t\)</span></p>
 </li>
 <li>
-<p>Government debt placed locally</p>
+<p>Government consumption, <span class="arithmatex">\(cg_t\)</span></p>
 </li>
 <li>
-<p>Lump-sum taxes</p>
+<p>Two types of lump-sum taxes, <span class="arithmatex">\(txl1_t\)</span> and <span class="arithmatex">\(txl2_t\)</span></p>
 </li>
 <li>
-<p>Crowding-in in the short run</p>
+<p>Import tariffs, <span class="arithmatex">\(txm_t\)</span></p>
+</li>
+</ul>
+<p>Household behavior (utility function) modified to induce</p>
+<ul>
+<li>
+<p>Fiscal crowding-in in the short run</p>
 </li>
 <li>
-<p>Crowding-out in the long run</p>
+<p>Fiscal crowding-out in the long run</p>
 </li>
 </ul>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M576 32.01c0-17.69-14.33-31.1-32-31.1L320 .905c-14.69 0-27.48 10-31.05 24.25L197.9 388.3l-73.3-146.6C119.2 230.9 108.1 224 96 224H32c-17.67 0-32 14.31-32 31.1s14.33 32 32 32h44.22l103.2 206.3a32.027 32.027 0 0 0 28.61 17.68 32.73 32.73 0 0 0 3.495-.183c13.31-1.469 24.31-11.06 27.56-24.06l105.9-423.8H544c17.7.973 32-13.337 32-31.027zm-9.4 201.39c-12.5-12.5-32.75-12.5-45.25 0L480 274.8l-41.38-41.37c-12.5-12.5-32.75-12.5-45.25 0s-12.5 32.75 0 45.25l41.38 41.38-41.38 41.38c-12.5 12.5-12.5 32.75 0 45.25C399.6 412.9 407.8 416 416 416s16.38-3.125 22.62-9.375L480 365.3l41.38 41.38C527.6 412.9 535.8 416 544 416s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25l-41.38-41.38L566.6 278.6c12.5-12.5 12.5-32.7 0-45.2z"/></svg></span>  Math equations</label><label for="__tabbed_1_2"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M224 128V0H48C21.49 0 0 21.49 0 48v416c0 26.5 21.49 48 48 48h288c26.51 0 48-21.49 48-48V160H256.9c-18.6 0-32.9-14.3-32.9-32zm-69.9 225.8c7.812 7.812 7.812 20.5 0 28.31-3.9 3.99-9 5.89-14.1 5.89s-10.23-1.938-14.14-5.844l-48-48c-7.812-7.812-7.812-20.5 0-28.31l48-48c7.812-7.812 20.47-7.812 28.28 0s7.812 20.5 0 28.31L120.3 320l33.8 33.8zm152-48c7.812 7.812 7.812 20.5 0 28.31l-48 48c-3.9 3.99-9 5.89-14.1 5.89s-10.23-1.938-14.14-5.844c-7.812-7.812-7.812-20.5 0-28.31L263.7 320l-33.86-33.84c-7.812-7.812-7.812-20.5 0-28.31s20.47-7.812 28.28 0l47.98 47.95zM256 0v128h128L256 0z"/></svg></span>  Model source code</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<h2 id="fiscal-budget-constraing">Fiscal Budget Constraing</h2>
+<h2 id="dynamic-fiscal-budget">Dynamic fiscal budget</h2>
 <div class="arithmatex">\[
 dg_t = rg_{t-1} \cdot dg_{t-1}
-+ pcg_t \cdot cg_t + pig_t \cdot ig_t
-- trl1_t - trl2_t
++ pcg_t \cdot cg_t 
+- txl1_t - txl2_t
+- txm_t
 \]</div>
-<h2 id="public-capital">Public Capital</h2>
+<h2 id="government-expenditures-on-goods-and-services">Government expenditures on goods and services</h2>
 <div class="arithmatex">\[
-kg_t = (1-\delta) \ kg_{t-1} + ig_t
+\log cg_t =
+\rho_{cg} \, \log cg_{t-1}\  \roc{ag}^\gg_\ss
++ \left(1-\rho_{cg}\right) \, \log \frac{ngdp}{pc}\, \ratio{ncg}{ngdp}_\ss 
++ \tau_{cg} \, \left( \ratio{dg}{ngdp}_{t+1} - \ratio{dg}{ngdp}_\ss \right)
 \]</div>
-<p>Target level for public capital</p>
-<div class="arithmatex">\[
-kg_t^\mathrm{tar} = \psi \cdot kh_t
-\]</div>
-<p>Investment rule
-$$
-\Delta \log ig_t = \log \kappa_{ig} + \tau_{ig} \left( \log 
-kg_t - kg_t^\mathrm{tar} \right) \[10pt]
-\kappa_{ig} = \frac{ig\ss}{ig\ssm}
-$$</p>
-<h2 id="government-consumption-and-taxes">Government Consumption and Taxes</h2>
-<ul>
-<li>Stabilizing mechanism to keep debt at a target level as a ratio to
-  nominal GDP</li>
-</ul>
-<div class="arithmatex">\[
-\frac{dg_t}{ngdp_t}
-\]</div>
-<ul>
-<li>A wide range of mechanisms to stabilize debt</li>
-</ul>
 </div>
 <div class="tabbed-block">
 <h1 id="gees-fiscal-policy-module">GEES Fiscal policy module</h1>
 <h2 id="define-quantities">Define quantities</h2>
-<div class="highlight"><pre><span></span><code>!variables
+<div class="highlight"><pre><span></span><code><span class="sx">!variables</span><span class="w"></span>
 
-    &quot;Government debt interest rate&quot; rg
-    &quot;Government consumption&quot; cg
-    &quot;Government debt to GDP ratio&quot; dg_to_ngdp
-    &quot;Net lump-sum tax on wealthy consumers to consumption ratio&quot; txls1_to_nc
-    &quot;Net lump-sum tax on poor consumers to consumption ratio&quot; txls2_to_nc
-    &quot;Government consumption, Rate of Change&quot; roc_cg
-    &quot;Import tariff rate&quot; trm
+<span class="w">    </span><span class="s">&quot;Government debt interest rate&quot;</span><span class="w"> </span><span class="n">rg</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Government consumption&quot;</span><span class="w"> </span><span class="n">cg</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Government debt to GDP ratio&quot;</span><span class="w"> </span><span class="n">dg_to_ngdp</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Net lump-sum tax on wealthy consumers to consumption ratio&quot;</span><span class="w"> </span><span class="n">txls1_to_nc</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Net lump-sum tax on poor consumers to consumption ratio&quot;</span><span class="w"> </span><span class="n">txls2_to_nc</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Government consumption, Rate of Change&quot;</span><span class="w"> </span><span class="n">roc_cg</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Import tariff rate&quot;</span><span class="w"> </span><span class="n">trm</span><span class="w"></span>
 
-!log-variables !all-but
 
-    txls1_to_nc, txls2_to_nc, dg_to_ngdp, trm
+<span class="sx">!log-variables !all-but</span><span class="w"></span>
 
-!parameters
+<span class="w">    </span><span class="n">txls1_to_nc</span><span class="p">,</span><span class="w"> </span><span class="n">txls2_to_nc</span><span class="p">,</span><span class="w"> </span><span class="n">dg_to_ngdp</span><span class="p">,</span><span class="w"> </span><span class="n">trm</span><span class="w"></span>
 
-    &quot;S/S Government debt to GDP ratio&quot; ss_dg_to_ngdp
-    &quot;S/S Government consumption to GDP ratio&quot; ss_ncg_to_ngdp
-    &quot;S/S General import tariff rate&quot; ss_trm
 
-    &quot;Response in government consumption to government debt&quot; tau_cg
-    &quot;Response in type 1 lump-sum tax rate to government debt&quot; tau_txls1
-    &quot;Autoregression in government consumption&quot; rho_cg
-    &quot;Autoregression in type 1 lump-sum tax rate&quot; rho_txls2
-    &quot;Autoregression in type 2 lump-sum tax rate&quot; rho_txls1
-    &quot;Autoregression in generate import tariff rate&quot; rho_trm
+<span class="sx">!parameters</span><span class="w"></span>
 
-!shocks
+<span class="w">    </span><span class="s">&quot;S/S Government debt to GDP ratio&quot;</span><span class="w"> </span><span class="n">ss_dg_to_ngdp</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;S/S Government consumption to GDP ratio&quot;</span><span class="w"> </span><span class="n">ss_ncg_to_ngdp</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;S/S General import tariff rate&quot;</span><span class="w"> </span><span class="n">ss_trm</span><span class="w"></span>
 
-    &quot;Shock to government consumption&quot; shk_cg
-    &quot;Shock to type 1 lump-sum taxes&quot; shk_txls1
-    &quot;Shock to type 2 lump-sum taxes&quot; shk_txls2
-    &quot;Shock to general import tariff rate&quot; shk_trm
+<span class="w">    </span><span class="s">&quot;Response in government consumption to government debt&quot;</span><span class="w"> </span><span class="n">tau_cg</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Response in type 1 lump-sum tax rate to government debt&quot;</span><span class="w"> </span><span class="n">tau_txls1</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Autoregression in government consumption&quot;</span><span class="w"> </span><span class="n">rho_cg</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Autoregression in type 1 lump-sum tax rate&quot;</span><span class="w"> </span><span class="n">rho_txls2</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Autoregression in type 2 lump-sum tax rate&quot;</span><span class="w"> </span><span class="n">rho_txls1</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Autoregression in generate import tariff rate&quot;</span><span class="w"> </span><span class="n">rho_trm</span><span class="w"></span>
+
+
+<span class="sx">!shocks</span><span class="w"></span>
+
+<span class="w">    </span><span class="s">&quot;Shock to government consumption&quot;</span><span class="w"> </span><span class="n">shk_cg</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Shock to type 1 lump-sum taxes&quot;</span><span class="w"> </span><span class="n">shk_txls1</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Shock to type 2 lump-sum taxes&quot;</span><span class="w"> </span><span class="n">shk_txls2</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Shock to general import tariff rate&quot;</span><span class="w"> </span><span class="n">shk_trm</span><span class="w"></span>
 </code></pre></div>
-<h2 id="specify-equations">Specify equations</h2>
-<div class="highlight"><pre><span></span><code>!equations
+<h2 id="define-equations">Define equations</h2>
+<div class="highlight"><pre><span></span><code><span class="sx">!equations</span><span class="w"></span>
 
-    rg = r;
+<span class="w">    </span><span class="n">rg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
 
-    &quot;Dynamic fiscal budget constraint&quot;
-    dg_to_ngdp*ngdp = ...
-        + rg{-1}*dg_to_ngdp{-1}*ngdp{-1} ...
-        + pc*cg ...
-        - (txls1_to_nc + txls2_to_nc) * pc*ch ...
-        - (pmm - fob_pmm) * mm;
 
-    &quot;Fiscal reaction function for government consumption&quot;
-    log(cg) = ...
-        + rho_cg*log(cg{-1}*&amp;roc_cg) ...
-        + (1-rho_cg)*log(ss_ncg_to_ngdp*ngdp/pc) ...
-        - tau_cg*(dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
-        + shk_cg ...
-    !! pc*cg = ss_ncg_to_ngdp*ngdp;
+<span class="w">    </span><span class="s">&quot;Dynamic fiscal budget constraint&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">dg_to_ngdp</span><span class="o">*</span><span class="n">ngdp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">rg</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">*</span><span class="n">dg_to_ngdp</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">*</span><span class="n">ngdp</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">pc</span><span class="o">*</span><span class="n">cg</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">txls1_to_nc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">txls2_to_nc</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pc</span><span class="o">*</span><span class="n">ch</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">pmm</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">fob_pmm</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mm</span><span class="p">;</span><span class="w"></span>
 
-    &quot;Fiscal reaction function for type 1 net lump-sum taxes&quot;
-    txls1_to_nc = ...
-        + rho_txls1 * txls1_to_nc{-1} ...
-        + (1-rho_txls1) * &amp;txls1_to_nc ...
-        + tau_txls1 * (dg_to_ngdp{+1} - ss_dg_to_ngdp) ...
-        + shk_txls1 ...
-    !! dg_to_ngdp = ss_dg_to_ngdp;
 
-    &quot;Fiscal reaction function for type 2 net lump-sum taxes&quot;
-    txls2_to_nc = ...
-        + rho_txls2*txls2_to_nc{-1} ...
-        + shk_txls2 ...
-    !! txls2_to_nc = 0;
+<span class="w">    </span><span class="s">&quot;Fiscal reaction function for government consumption&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nb">log</span><span class="p">(</span><span class="n">cg</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">rho_cg</span><span class="o">*</span><span class="nb">log</span><span class="p">(</span><span class="n">cg</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">*&amp;</span><span class="n">roc_cg</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">rho_cg</span><span class="p">)</span><span class="o">*</span><span class="nb">log</span><span class="p">(</span><span class="n">ss_ncg_to_ngdp</span><span class="o">*</span><span class="n">ngdp</span><span class="o">/</span><span class="n">pc</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">-</span><span class="w"> </span><span class="n">tau_cg</span><span class="o">*</span><span class="p">(</span><span class="n">dg_to_ngdp</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ss_dg_to_ngdp</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">shk_cg</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span>!!<span class="w"> </span><span class="n">pc</span><span class="o">*</span><span class="n">cg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ss_ncg_to_ngdp</span><span class="o">*</span><span class="n">ngdp</span><span class="p">;</span><span class="w"></span>
 
-    &quot;Fiscal reaction function for import tariffs rate&quot;
-    trm = ...
-        + rho_trm * trm{-1} ...
-        + (1 - rho_trm) * ss_trm ...
-        + shk_trm ...
-    !! trm = ss_trm;
+
+<span class="w">    </span><span class="s">&quot;Fiscal reaction function for type 1 net lump-sum taxes&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">txls1_to_nc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">rho_txls1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">txls1_to_nc</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">rho_txls1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">&amp;</span><span class="n">txls1_to_nc</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">tau_txls1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">dg_to_ngdp</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ss_dg_to_ngdp</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">shk_txls1</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span>!!<span class="w"> </span><span class="n">dg_to_ngdp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ss_dg_to_ngdp</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="w">    </span><span class="s">&quot;Fiscal reaction function for type 2 net lump-sum taxes&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">txls2_to_nc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">rho_txls2</span><span class="o">*</span><span class="n">txls2_to_nc</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">shk_txls2</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span>!!<span class="w"> </span><span class="n">txls2_to_nc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="w">    </span><span class="s">&quot;Fiscal reaction function for import tariffs rate&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">trm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">rho_trm</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">trm</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rho_trm</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ss_trm</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">shk_trm</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span>!!<span class="w"> </span><span class="n">trm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ss_trm</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>

@@ -61,7 +61,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#fiscal-budget-constraing" class="md-skip">
+        <a href="#dynamic-fiscal-budget" class="md-skip">
           Skip to content
         </a>
       
@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -517,7 +533,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -601,7 +617,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -825,22 +841,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#fiscal-budget-constraing" class="md-nav__link">
-    Fiscal Budget Constraing
+  <a href="#dynamic-fiscal-budget" class="md-nav__link">
+    Dynamic fiscal budget
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#public-capital" class="md-nav__link">
-    Public Capital
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#government-consumption-and-taxes" class="md-nav__link">
-    Government Consumption and Taxes
+  <a href="#government-expenditures-on-goods-and-services" class="md-nav__link">
+    Government expenditures on goods and services
   </a>
   
 </li>
@@ -861,37 +870,20 @@
 
   <h1>Fiscal math</h1>
 
-<h2 id="fiscal-budget-constraing">Fiscal Budget Constraing</h2>
+<h2 id="dynamic-fiscal-budget">Dynamic fiscal budget</h2>
 <div class="arithmatex">\[
 dg_t = rg_{t-1} \cdot dg_{t-1}
-+ pcg_t \cdot cg_t + pig_t \cdot ig_t
-- trl1_t - trl2_t
++ pcg_t \cdot cg_t 
+- txl1_t - txl2_t
+- txm_t
 \]</div>
-<h2 id="public-capital">Public Capital</h2>
+<h2 id="government-expenditures-on-goods-and-services">Government expenditures on goods and services</h2>
 <div class="arithmatex">\[
-kg_t = (1-\delta) \ kg_{t-1} + ig_t
+\log cg_t =
+\rho_{cg} \, \log cg_{t-1}\  \roc{ag}^\gg_\ss
++ \left(1-\rho_{cg}\right) \, \log \frac{ngdp}{pc}\, \ratio{ncg}{ngdp}_\ss 
++ \tau_{cg} \, \left( \ratio{dg}{ngdp}_{t+1} - \ratio{dg}{ngdp}_\ss \right)
 \]</div>
-<p>Target level for public capital</p>
-<div class="arithmatex">\[
-kg_t^\mathrm{tar} = \psi \cdot kh_t
-\]</div>
-<p>Investment rule
-$$
-\Delta \log ig_t = \log \kappa_{ig} + \tau_{ig} \left( \log 
-kg_t - kg_t^\mathrm{tar} \right) \[10pt]
-\kappa_{ig} = \frac{ig\ss}{ig\ssm}
-$$</p>
-<h2 id="government-consumption-and-taxes">Government Consumption and Taxes</h2>
-<ul>
-<li>Stabilizing mechanism to keep debt at a target level as a ratio to
-  nominal GDP</li>
-</ul>
-<div class="arithmatex">\[
-\frac{dg_t}{ngdp_t}
-\]</div>
-<ul>
-<li>A wide range of mechanisms to stabilize debt</li>
-</ul>
 
               
             </article>

@@ -375,7 +375,7 @@
   
     <li class="md-nav__item">
       <a href="../setup/download.html" class="md-nav__link">
-        Technical requirements
+        Download
       </a>
     </li>
   
@@ -446,6 +446,8 @@
         
           
         
+          
+        
       
       
         
@@ -466,6 +468,20 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="flowcharts.html" class="md-nav__link">
+        Flowcharts
+      </a>
+    </li>
+  
+
             
           
             
@@ -607,7 +623,7 @@
   
     <li class="md-nav__item">
       <a href="production.html" class="md-nav__link">
-        Local production
+        Production
       </a>
     </li>
   
@@ -691,7 +707,7 @@
   
     <li class="md-nav__item">
       <a href="commodity.html" class="md-nav__link">
-        Commodity extraction
+        Commodity supply
       </a>
     </li>
   
@@ -1005,6 +1021,9 @@
 \newcommand{\betay}{\mathit{zy}}
 \newcommand{\gg}{\mathrm{gg}}
 \newcommand{\tsum}{\textstyle{\sum}}
+\newcommand{\xnf}{\mathit{nf}}
+\newcommand{\ratio}[2]{\left[\textstyle{\frac{#1}{#2}}\right]}
+\newcommand{\unc}{\mathrm{unc}}
 \notag
 $$</p>
 <h2 id="overview">Overview</h2>
@@ -1350,11 +1369,11 @@ two characteristics of these NACs: </p>
 <div class="tabbed-block">
 <h1 id="gees-households-module">GEES Households module</h1>
 <h2 id="define-quantities">Define quantities</h2>
-<div class="highlight"><pre><span></span><code><span class="sx">!variables</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="sx">!variables(:households)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Private consumption&quot;</span><span class="w"> </span><span class="n">ch</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Per-capita private consumption&quot;</span><span class="w"> </span><span class="n">ch_to_nn</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Private consumption, Point of reference&quot;</span><span class="w"> </span><span class="n">ref_ch</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Relative point of reference for private consumption&quot;</span><span class="w"> </span><span class="n">ref_ch_to_ch</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Real discount factor&quot;</span><span class="w"> </span><span class="n">rdf</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Per-worker labor supply&quot;</span><span class="w"> </span><span class="n">nh</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Private investment&quot;</span><span class="w"> </span><span class="n">ih</span><span class="w"></span>
@@ -1379,8 +1398,10 @@ two characteristics of these NACs: </p>
 
 <span class="sx">!log-variables !all-but</span><span class="w"></span>
 
+<span class="w">    </span><span class="n">ref_ch_to_ch</span><span class="w"></span>
 
-<span class="sx">!parameters</span><span class="w"></span>
+
+<span class="sx">!parameters(:households :steady)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;S/S Uncertainty discount factor on capital&quot;</span><span class="w"> </span><span class="n">ss_zk</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;S/S Uncertainty discount factor on production cash flows&quot;</span><span class="w"> </span><span class="n">ss_zy</span><span class="w"></span>
@@ -1388,24 +1409,26 @@ two characteristics of these NACs: </p>
 <span class="w">    </span><span class="s">&quot;Depreciation of production capital&quot;</span><span class="w"> </span><span class="n">delta</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Inverse elasticity of labor supply&quot;</span><span class="w"> </span><span class="n">eta</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Utility location parameter of labor supply&quot;</span><span class="w"> </span><span class="n">eta0</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Intercept in current wealth utility&quot;</span><span class="w"> </span><span class="n">nu_0</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Slope of current wealth utility&quot;</span><span class="w"> </span><span class="n">nu_1</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Level parameter in cost of utilization of production capital&quot;</span><span class="w"> </span><span class="n">upsilon_0</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;Inverse elasticity of cost of utilization of production capital&quot;</span><span class="w"> </span><span class="n">upsilon_1</span><span class="w"></span>
 
-<span class="w">    </span><span class="s">&quot;Autoregression in real wage rate&quot;</span><span class="w"> </span><span class="n">rho_w</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Autoregression in uncertainty discount factor on capital&quot;</span><span class="w"> </span><span class="n">rho_zk</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Autoregression in uncertainty discount factor on production cash flows&quot;</span><span class="w"> </span><span class="n">rho_zy</span><span class="w"></span>
 
+<span class="sx">!parameters(:households :transitory)</span><span class="w"></span>
+
+<span class="w">    </span><span class="s">&quot;A/R in real wage rate&quot;</span><span class="w"> </span><span class="n">rho_w</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;A/R in uncertainty discount factor on capital&quot;</span><span class="w"> </span><span class="n">rho_zk</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;A/R in uncertainty discount factor on production cash flows&quot;</span><span class="w"> </span><span class="n">rho_zy</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Point of reference in consuptions switch&quot;</span><span class="w"> </span><span class="n">chi</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Past consumption in reference consumption parameter&quot;</span><span class="w"> </span><span class="n">chi_ch</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Current income in reference consumption parameter&quot;</span><span class="w"> </span><span class="n">chi_curr</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Intercept in current wealth utility&quot;</span><span class="w"> </span><span class="n">nu_0</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Slope of current wealth utility&quot;</span><span class="w"> </span><span class="n">nu_1</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Type 1 investment adjustment cost parameter&quot;</span><span class="w"> </span><span class="n">xi_ih1</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Type 2 investment adjustment cost parameter&quot;</span><span class="w"> </span><span class="n">xi_ih2</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Level parameter in cost of utilization of production capital&quot;</span><span class="w"> </span><span class="n">upsilon_0</span><span class="w"></span>
-<span class="w">    </span><span class="s">&quot;Inverse elasticity of cost of utilization of production capital&quot;</span><span class="w"> </span><span class="n">upsilon_1</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Pressure relief valve for interest rate lower bound&quot;</span><span class="w"> </span><span class="n">theta_3</span><span class="w"></span>
 
 
-<span class="sx">!shocks</span><span class="w"></span>
+<span class="sx">!shocks(:households)</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Shock to wage rate&quot;</span><span class="w"> </span><span class="n">shk_w</span><span class="w"></span>
 <span class="w">    </span><span class="s">&quot;Shock to current income&quot;</span><span class="w"> </span><span class="n">shk_curr</span><span class="w"></span>
@@ -1424,19 +1447,19 @@ two characteristics of these NACs: </p>
 <span class="w">    </span><span class="n">adj_ih2</span><span class="w"> </span><span class="s">:=</span><span class="w"> </span><span class="s">log(ih/ih{-1}/&amp;roc_ih)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">beta</span><span class="o">*</span><span class="nb">log</span><span class="p">(</span><span class="n">ih</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span><span class="o">/</span><span class="n">ih</span><span class="o">/&amp;</span><span class="n">roc_ih</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <h2 id="define-equations">Define equations</h2>
-<div class="highlight"><pre><span></span><code><span class="sx">!equations</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="sx">!equations(:households)</span><span class="w"></span>
 
 <span class="c">%% Household consumption-saving choice </span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Optimal choice of household consumption&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">vh</span><span class="o">*</span><span class="n">pc</span><span class="o">*</span><span class="p">(</span><span class="n">ch</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">chi</span><span class="o">*</span><span class="n">ref_ch</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nn</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">chi</span><span class="o">*&amp;</span><span class="n">ref_ch</span><span class="o">/&amp;</span><span class="n">ch</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span><span class="n">vh</span><span class="o">*</span><span class="n">pc</span><span class="o">*</span><span class="p">(</span><span class="n">ch</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">chi</span><span class="o">*</span><span class="n">ref_ch_to_ch</span><span class="o">*</span><span class="n">ch</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nn</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">chi</span><span class="o">*&amp;</span><span class="n">ref_ch_to_ch</span><span class="p">)</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
 <span class="w">    </span>!!<span class="w"> </span><span class="n">vh</span><span class="o">*</span><span class="n">pc</span><span class="o">*</span><span class="n">ch</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nn</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Point of reference in household consumption&quot;</span><span class="w"> </span>
-<span class="w">    </span><span class="n">ref_ch</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">chi_curr</span><span class="o">*</span><span class="p">(</span>$<span class="n">curr</span>$<span class="p">)</span><span class="o">/</span><span class="n">pc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">chi_ch</span><span class="o">*</span><span class="n">ch</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">ref_ch_to_ch</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">chi_curr</span><span class="o">*</span><span class="p">(</span>$<span class="n">curr</span>$<span class="p">)</span><span class="o">/</span><span class="n">pc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">chi_ch</span><span class="o">*</span><span class="n">ch</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">*</span><span class="n">gg_ss_roc_a</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ch</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Optimal choice of net position with local financial sector&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="n">vh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">beta</span><span class="o">*</span><span class="n">vh</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span><span class="o">*</span><span class="n">rh</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nn</span><span class="o">/</span><span class="p">(</span><span class="n">pc</span><span class="o">*</span><span class="n">ch</span><span class="p">)</span><span class="o">*</span><span class="p">[</span><span class="n">nu_1</span><span class="o">*</span><span class="p">(</span><span class="n">pc</span><span class="o">*</span><span class="n">ch</span><span class="o">/</span><span class="n">netw</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">nu_0</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">gg_nu</span><span class="p">]</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
+<span class="w">    </span><span class="n">vh</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">beta</span><span class="o">*</span><span class="n">vh</span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">}</span><span class="o">*</span><span class="n">rh</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nn</span><span class="o">/</span><span class="p">(</span><span class="n">pc</span><span class="o">*</span><span class="n">ch</span><span class="p">)</span><span class="o">*</span><span class="p">[</span><span class="w"> </span><span class="n">nu_1</span><span class="o">*</span><span class="p">(</span><span class="n">pc</span><span class="o">*</span><span class="n">ch</span><span class="o">/</span><span class="n">netw</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">nu_0</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">gg_nu</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="k">...</span><span class="w"></span>
 <span class="w">    </span>!!<span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">beta</span><span class="o">*</span><span class="n">rh</span><span class="o">/</span><span class="n">gg_ss_roc_a</span><span class="o">/</span><span class="n">ss_roc_pc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nu_1</span><span class="o">*</span><span class="n">nch_to_netw_minus_nu_0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">gg_nu</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">    </span><span class="s">&quot;Auxiliary equation for steady-state calibration of nu_0&quot;</span><span class="w"></span>
@@ -1497,6 +1520,8 @@ two characteristics of these NACs: </p>
 <span class="w">    </span><span class="n">rk</span><span class="o">*</span><span class="n">pk</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">u</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">*</span><span class="n">pu</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="o">*</span><span class="n">rh</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">delta</span><span class="p">)</span><span class="o">*</span><span class="n">pk</span><span class="p">;</span><span class="w"></span>
 
 
+<span class="c">%% Rates of change</span><span class="w"></span>
+
 <span class="w">    </span>!<span class="k">for</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">ih</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="w"> </span>!<span class="n">do</span><span class="w"></span>
 <span class="w">        </span><span class="n">roc_</span>?<span class="w"> </span><span class="p">=</span><span class="w"> </span>?<span class="w"> </span><span class="o">/</span><span class="w"> </span>?<span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">};</span><span class="w"></span>
 <span class="w">    </span>!<span class="k">end</span><span class="w"></span>
@@ -1538,13 +1563,13 @@ two characteristics of these NACs: </p>
       
       
         
-        <a href="production.html" class="md-footer__link md-footer__link--next" aria-label="Next: Local production" rel="next">
+        <a href="production.html" class="md-footer__link md-footer__link--next" aria-label="Next: Production" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Local production
+              Production
             </div>
           </div>
           <div class="md-footer__button md-icon">

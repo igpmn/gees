@@ -137,7 +137,7 @@ the ratio as a log-variable
     !! ar = ss_ar;
 
 
-%% Stage T-3 production: Labor and intermediate imports 
+%% Stage T-3 production: Labor and intermediate non-commodity imports 
 
     "Definition of variable labor input"
     nv = (nh - gamma_n0*&nh) * nf;

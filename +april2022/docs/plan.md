@@ -15,4 +15,11 @@
 # Thursday, April 21
 - [x] Conclude the pass-through analysis
 - [x] Disruptions in global supply side: commodity supply 
-- [ ] Disruptions in global supply side: trade linkage
+- [ ] Disruptions to global supply side: trade linkage
+
+# Friday, April 22
+- [ ] Conclude disruptions to global supply side
+- [ ] Disruptions to global financial system: flight to quality
+- [ ] Monetary policy and intertemporal substitution
+- [ ] Fiscal policy reaction functions
+- [ ] Review folders and files in the repository

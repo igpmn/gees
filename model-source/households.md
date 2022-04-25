@@ -66,6 +66,7 @@
 
 !shocks(:households)
 
+    "Shock to private consumption" shk_ch
     "Shock to wage rate" shk_w
     "Shock to current income" shk_curr
     "Shock to uncertainty discount factor on capital" shk_zk
@@ -102,7 +103,7 @@
 %% Household consumption-saving choice 
 
     "Optimal choice of household consumption"
-    vh*pc*(ch - chi*ref_ch_to_ch*ch) = nn*(1 - chi*&ref_ch_to_ch) ...
+    vh*pc*(ch - chi*ref_ch_to_ch*ch)*exp(-shk_ch) = nn*(1 - chi*&ref_ch_to_ch) ...
     !! vh*pc*ch = nn;
 
     "Point of reference in household consumption" 

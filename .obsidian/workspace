@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "614b389f2c4fcca0",
+        "id": "01d552bcde81513f",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "docs-source/model/monetary-math.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -69,7 +65,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs-source/model/monetary-math.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -85,9 +80,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "docs-source/model/monetary-math.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -97,17 +90,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "614b389f2c4fcca0",
+  "active": "01d552bcde81513f",
   "lastOpenFiles": [
+    "Untitled.md",
+    "+april2022/docs/plan.md",
     "docs-source/model/monetary-math.md",
     "docs-source/model/math.md",
     "docs-source/model/commodity-math.md",
     "docs-source/model/commodity.md",
     "docs-source/model/monetary.md",
     "docs-source/model/production.md",
-    "+april2022/docs/plan.md",
     "+april2022/analyzeCostPush.md",
-    "docs-source/model/index.md",
-    "docs-source/model/fiscal-math.md"
+    "docs-source/model/index.md"
   ]
 }

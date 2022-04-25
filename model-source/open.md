@@ -119,7 +119,7 @@
     (1-alpha) * pxx * xx = py * yxx;
 
     "Demand for re-exports"
-    alpha * pxx * xx = pmm * mxx;
+    alpha * pxx * xx = (pmm * gg_dmm) * mxx;
 
 
 %% Balance of payments and exchange rate 

@@ -21,7 +21,7 @@ team of contributors:
 
 ??? quote "Daniela Milucka" 
 
-    Chief operator at GPMN
+    Chief economist at GPMN
 
 ??? quote "Victoria Petrenko" 
 

@@ -28,7 +28,7 @@ extra:
 
 use_directory_urls: false
 docs_dir: ./docs-source
-site_dir: ./docs
+site_dir: ./docs-site
 
 extra_javascript:
     - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

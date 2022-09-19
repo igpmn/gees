@@ -18,10 +18,10 @@
 !log-variables !all-but
 
 
-!parameters(:commodity :transitory)
+!parameters(:commodity :dynamic)
 
-    "Excess demand elasticity of commodity prices" gg_iota_1
-    "A/R Long-run trend in commodity supply" gg_rho_qq
+    "Excess demand elasticity of commodity prices !! $\iota_1^\gg$" gg_iota_1
+    "A/R Long-run trend in commodity supply !! $\rho_\mathit{qq}^\gg$" gg_rho_qq
 
 
 !shocks(:commodity)
@@ -46,7 +46,7 @@
         + gg_shk_qq ...
     !! gg_qq = gg_q;
 
-    
+
     "Log excess demand in commodity market"
     gg_qexc = gg_q / gg_qq ...
     !! gg_qexc = 1;

@@ -1,3 +1,4 @@
+
 # GEES Households module
 
 ## Define quantities
@@ -39,29 +40,29 @@
 
 !parameters(:households :steady)
 
-    "S/S Uncertainty discount factor on capital" ss_zk
-    "S/S Uncertainty discount factor on production cash flows" ss_zy
-    "Household discount factor" beta
-    "Depreciation of production capital" delta
-    "Inverse elasticity of labor supply" eta
-    "Utility location parameter of labor supply" eta0
-    "Intercept in current wealth utility" nu_0
-    "Slope of current wealth utility" nu_1
-    "Level parameter in cost of utilization of production capital" upsilon_0
-    "Inverse elasticity of cost of utilization of production capital" upsilon_1
+    "S/S Uncertainty discount factor on capital !! $\mathit{zk}_\mathrm{ss}$" ss_zk
+    "S/S Uncertainty discount factor on production cash flows !! $\mathit{zy}_\mathrm{ss}$" ss_zy
+    "Household discount factor !! $\beta$" beta
+    "Depreciation of production capital !! $\delta$" delta
+    "Inverse elasticity of labor supply !! $\eta$" eta
+    "Utility location parameter of labor supply !! $\eta_0$" eta0
+    "Intercept in current wealth utility !! $\nu_0$" nu_0
+    "Slope of current wealth utility !! $\nu_1$" nu_1
+    "Level parameter in cost of utilization of production capital !! $\upsilon_0$" upsilon_0
+    "Inverse elasticity of cost of utilization of production capital !! $\upsilon_1$" upsilon_1
 
 
-!parameters(:households :transitory)
+!parameters(:households :dynamic)
 
-    "A/R in real wage rate" rho_w
-    "A/R in uncertainty discount factor on capital" rho_zk
-    "A/R in uncertainty discount factor on production cash flows" rho_zy
-    "Point of reference in consuptions switch" chi
-    "Past consumption in reference consumption parameter" chi_ch
-    "Current income in reference consumption parameter" chi_curr
-    "Type 1 investment adjustment cost parameter" xi_ih1
-    "Type 2 investment adjustment cost parameter" xi_ih2
-    "Pressure relief valve for interest rate lower bound" theta_3
+    "A/R in real wage rate !! $\rho_w$" rho_w
+    "A/R in uncertainty discount factor on capital !! $\rho_\mathit{zk}$" rho_zk
+    "A/R in uncertainty discount factor on production cash flows !! $\rho_\mathit{zy}$" rho_zy
+    "Point of reference in consuptions switch !! $\chi$" chi
+    "Past consumption in reference consumption parameter !! $\chi_\mathit{ch}$" chi_ch
+    "Current income in reference consumption parameter !! $\chi_\mathit{curr}$" chi_curr
+    "Type 1 investment adjustment cost parameter !! $\xi_\mathit{ih,1}$" xi_ih1
+    "Type 2 investment adjustment cost parameter !! $\xi_\mathit{ih,2}$" xi_ih2
+    "Pressure relief valve for interest rate lower bound !! $\theta_3$" theta_3
 
 
 !shocks(:households)

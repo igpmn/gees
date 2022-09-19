@@ -1,0 +1,6 @@
+
+div.internal-embed[src*="math"],
+.markdown-source-view.mod-cm6 .cm-content div.internal-embed[src*="math"] {
+    display: none;
+}
+

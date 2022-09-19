@@ -22,5 +22,4 @@ $$
 \newcommand{\unc}{\mathrm{unc}}
 \notag
 $$
-{ .math-definitions }
-
+{ .hide }

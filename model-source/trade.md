@@ -9,7 +9,7 @@
 !variables
     !for ?M=<areas> !do
         !for ?X=<setdiff(areas, "?M")> !do
-            "Share of imports from [?X] in total imports to [?]"
+            "Share of real imports from [?X] in total real imports to [?]"
             ?M_mm_sh_?X
         !end
     !end
@@ -28,11 +28,11 @@
 !parameters
 
     !for ?M=<areas> !do
-        "Point of origination import adjustment costs"
+        "Point of origination import adjustment costs !! $\xi_\mathit{mm}$"
         ?M_xi_mm
 
         !for ?X=<setdiff(areas, "?M")> !do
-            "Share of imports from [?X] in total [?M] imports"
+            "Share of nominal imports from [?X] in total [?M] nominal imports !! $\omega_\mathrm{?X}$"
             ?M_omega_?X
         !end
     !end
@@ -80,9 +80,11 @@
         !shocks
             "Shock to area specific import tariff rate" ?M_shk_trm_?X
 
-        !parameters
-            "S/S Area specific import tariff rate" ?M_ss_trm_?X
-            "S/S Autoregression in area specific import tariff rate" ?M_rho_trm_?X
+        !parameters(:trade :steady)
+            "S/S Area specific import tariff rate !! $\mathit{trm}_{\mathrm{?X},\ss}$" ?M_ss_trm_?X
+
+        !parameters(:trade :dynamic)
+            "A/E Area specific import tariff rate !! $\rho_{trm,\mathrm{?X}}$" ?M_rho_trm_?X
 
         !equations
             ?M_trm_?X ...

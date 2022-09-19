@@ -1,5 +1,8 @@
+# Price settings
 
-## Sticky prices
+--8<-- "model/math.md"
+![[model/math.md]]
+{ .hide }
 
 Downward sloping demand curve
 

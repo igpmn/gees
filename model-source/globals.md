@@ -9,7 +9,7 @@ log-variables !all-but
 
 ```matlab
 
-!variables(:globals)
+!variables(:global)
 
     "Global productivity trend component" gg_a
     "Global population trend component" gg_nt
@@ -18,7 +18,7 @@ log-variables !all-but
     "Global disruption to non-commodity trade" gg_dmm
 
 
-!shocks(:globals)
+!shocks(:global)
 
     "Shock to global productivity trend" gg_shk_a
     "Shock to global population trend" gg_shk_nn
@@ -27,24 +27,24 @@ log-variables !all-but
     "Shock to global disruption to non-commodity trade" gg_shk_dmm
 
 
-!parameters(:globals :steady)
+!parameters(:global :steady)
 
-    "S/S Global productivity trend, Rate of change" gg_ss_roc_a
-    "S/S Global population trend, Rate of change" gg_ss_roc_nt
-    "S/S Global uncertainty discount factor on capital" gg_ss_zk
-    "S/S Global uncertainty discount factor on production cash flows" gg_ss_zy
-    "S/S Global disruption to non-commodity trade" gg_ss_dmm
+    "S/S Global productivity trend, Rate of change !! $\roc{a}^\gg_\ss$" gg_ss_roc_a
+    "S/S Global population trend, Rate of change !! $\roc{\mathit{nt}}^\gg_\ss$" gg_ss_roc_nt
+    "S/S Global uncertainty discount factor on capital !! $\mathit{zk}^\gg_\ss$" gg_ss_zk
+    "S/S Global uncertainty discount factor on production cash flows !! $\mathit{zy}^\gg_\ss$" gg_ss_zy
+    "S/S Global disruption to non-commodity trade !! $\mathit{dmm}^\gg_\ss$" gg_ss_dmm
 
-    "Global intercept in Euler equation" gg_nu
+    "Global intercept in Euler equation !! $\nu^\gg$" gg_nu
 
 
-!parameters(:globals :transitory)
+!parameters(:global :dynamic)
 
-    "A/R in global productivity trend" gg_rho_a
-    "A/R in global population trend" gg_rho_nt
-    "A/R in uncertainty discount factor on capital" gg_rho_zk
-    "A/R in uncertainty discount factor on production cash flows" gg_rho_zy
-    "A/R Global disruption to non-commodity trade" gg_rho_dmm
+    "A/R in global productivity trend !! $\rho_a^\gg$" gg_rho_a
+    "A/R in global population trend !! $\rho_\mathit{nt}^\gg$" gg_rho_nt
+    "A/R in uncertainty discount factor on capital !! $\rho_\mathit{zk}^\gg$" gg_rho_zk
+    "A/R in uncertainty discount factor on production cash flows !! $\rho_\mathit{zy}^\gg$" gg_rho_zy
+    "A/R Global disruption to non-commodity trade !! $\rho_\mathit{dmm}^\gg$" gg_rho_dmm
 
 ```
 
@@ -64,7 +64,7 @@ log-variables !all-but
 
 ```matlab
 
-!equations(:globals)
+!equations(:global)
 
     "Global productivity trend"
     difflog(gg_a) = ...

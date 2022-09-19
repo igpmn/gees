@@ -1,17 +1,22 @@
-# GEES International finance linkages module
 
+# GEES: International finance linkages module
 
 ## Declare quantities
 
 ```matlab
 
-!parameters
+!parameters(:finance :steady)
 
     !for ?H=<areas> !do
-        "Forward capital adjustment cost parameter" ?H_xi_k
         !for ?K=<areas> !do
-            "Corporate equity portfolio share" ?H_phi_?K
+            "Corporate equity portfolio share !! $\phi_\mathrm{?K}$" ?H_phi_?K
         !end
+    !end
+
+!parameters(:finance :dynamic)
+
+    !for ?H=<areas> !do
+        "Forward capital adjustment cost parameter !! $\xi_k$" ?H_xi_k
     !end
 
 ```

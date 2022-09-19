@@ -1,26 +1,27 @@
-# Nonlinear Simulations
+# nonlinear simulations
 
----
 
-## System of Nonlinear Equations with Model-Consistent Expectations
+## System of nonlinear equations with model-consistent expectations
 
 
 
 $$
+\begin{gathered}
 \newcommand{\Et}{\mathrm{E}_t}
-\Et \left[ f_1\left( x_{t-1}, x_t, x_{t+1}, \epsilon_t \ \middle| \ \theta \right) \right] = 0 \\[10pt]
-\vdots \\[10pt]
-\Et \left[ f_k\left( x_{t-1}, x_t, x_{t+1}, \epsilon_t \ \middle| \ \theta \right) \right] = 0 \\[40pt]
+\Et \left[ f_1\left( x_{t-1}, x_t, x_{t+1}, \epsilon_t \ \middle| \ \theta \right) \right] = 0 \\[5pt]
+\vdots \\[5pt]
+\Et \left[ f_k\left( x_{t-1}, x_t, x_{t+1}, \epsilon_t \ \middle| \ \theta \right) \right] = 0 \\[10pt]
 \mathrm E \ \epsilon_t \epsilon_t' = \Omega
+\end{gathered}
 $$
 
 ---
 
-## Methods for Nonlinear Simulations
+## Methods for nonlinear simulations
 
 Characteristics | Local Approximation | Global Approximation | Stacked Time 
 ---|---|---|---
-Solution form | Function | Function | Sequence of Numbers
+Solution form | Function | Function | Sequence of numbers
 Terminal condition problem | No | No | Yes
 Global nonlinearity | No | Yes | Yes
 Stochastic uncertainty | Yes | Yes | No
@@ -29,7 +30,7 @@ Large scale models | Yes | No | Yes
 
 ---
 
-## Local Approximation
+## Local approximation
 
 Deviations from non-stochastic steady state
 
@@ -97,14 +98,16 @@ expectations operator
 <br/>
 
 $$
-f_1\left( x_{-1}, x_1, x_{2}, \epsilon_1 \ \middle| \ \theta \right) = 0 \\[10pt]
-\vdots \\[10pt]
-f_k\left( x_{t-1}, x_t, x_{2}, \epsilon_1 \ \middle| \ \theta \right) = 0 \\[10pt]
-\vdots \\[10pt]
-\vdots \\[10pt]
-f_1\left( x_{T-1}, x_T, x_{T+1}, \epsilon_T \ \middle| \ \theta \right) = 0 \\[10pt]
-\vdots \\[10pt]
-f_k\left( x_{T-1}, x_T, x_{T+1}, \epsilon_T \ \middle| \ \theta \right) = 0 \\[40pt]
+\begin{gathered}
+f_1\left( x_{-1}, x_1, x_{2}, \epsilon_1 \ \middle| \ \theta \right) = 0 \\[5pt]
+\vdots \\[5pt]
+f_k\left( x_{t-1}, x_t, x_{2}, \epsilon_1 \ \middle| \ \theta \right) = 0 \\[5pt]
+\vdots \\[5pt]
+\vdots \\[5pt]
+f_1\left( x_{T-1}, x_T, x_{T+1}, \epsilon_T \ \middle| \ \theta \right) = 0 \\[5pt]
+\vdots \\[5pt]
+f_k\left( x_{T-1}, x_T, x_{T+1}, \epsilon_T \ \middle| \ \theta \right) = 0 \\[10pt]
+\end{gathered}
 $$
 
 Initial condition $x_{-1}$

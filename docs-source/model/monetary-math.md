@@ -1,7 +1,8 @@
-
-## Unconstrained monetary policy reaction function
+# Monetary policy
 
 --8<-- "model/math.md"
+
+## Unconstrained monetary policy reaction function
 
 ![[math]]
 

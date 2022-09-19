@@ -48,9 +48,14 @@ blockquote {
     line-height: 1.2;
 }
 
+.md-typeset__table td {
+    white-space: nowrap;
+}
+
 .md-typeset__table code {
     font-size: 95%;
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .md-typeset h1 {
@@ -70,6 +75,7 @@ blockquote {
 }
 
 
+.hide,
 .math-definitions {
     display: none;
 }
@@ -98,5 +104,9 @@ blockquote {
 
 .md-footer__inner {
     display: none;
+}
+
+.md-typeset hr {
+    margin-top: 10em;
 }
 

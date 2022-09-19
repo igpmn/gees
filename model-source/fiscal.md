@@ -21,18 +21,21 @@
     txls1_to_nc, txls2_to_nc, dg_to_ngdp, trm
 
 
-!parameters
+!parameters(:fiscal :steady)
 
-    "S/S Government debt to GDP ratio" ss_dg_to_ngdp
-    "S/S Government consumption to GDP ratio" ss_ncg_to_ngdp
-    "S/S General import tariff rate" ss_trm
+    "S/S Government debt to GDP ratio !! $\tratio{\mathit{dg}}{\mathit{ngdp}}_\ss$" ss_dg_to_ngdp
+    "S/S Government consumption to GDP ratio !! $\tratio{\mathit{ncg}}{\mathit{ngdp}}_\ss$" ss_ncg_to_ngdp
+    "S/S General import tariff rate !! $\mathit{trm}_\ss$" ss_trm
 
-    "Response in government consumption to government debt" tau_cg
-    "Response in type 1 lump-sum tax rate to government debt" tau_txls1
-    "Autoregression in government consumption" rho_cg
-    "Autoregression in type 1 lump-sum tax rate" rho_txls2
-    "Autoregression in type 2 lump-sum tax rate" rho_txls1
-    "Autoregression in generate import tariff rate" rho_trm
+
+!parameters(:fiscal :dynamic)
+
+    "Response in government consumption to government debt !! $\tau_\mathit{cg}$" tau_cg
+    "Response in type 1 lump-sum tax rate to government debt !! $\tau_{\mathit{txls},1}$" tau_txls1
+    "Autoregression in government consumption !! $\rho_\mathit{cg}$" rho_cg
+    "Autoregression in type 1 lump-sum tax rate !! $\rho_{\mathit{txls},1}$" rho_txls1
+    "Autoregression in type 2 lump-sum tax rate !! $\rho_{\mathit{txls},2}$" rho_txls2
+    "Autoregression in generate import tariff rate !! $\rho_\mathit{trm}$" rho_trm
 
 
 !shocks

@@ -26,7 +26,7 @@
 
 ## Key modules
 
-[:fontawesome-solid-user-group: Demography](#){ .md-button }
+[:fontawesome-solid-user-group: Demography](demograph.md){ .md-button }
 [:fontawesome-solid-house: Households](households.md){ .md-button }
 [:fontawesome-solid-industry: Production](production.md){ .md-button }
 

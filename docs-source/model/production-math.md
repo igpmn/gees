@@ -1,4 +1,9 @@
 
+![[math.md]]
+{ .math-definitions }
+--8<-- "math.md"
+
+
 ## Productivity
 
 Global productivity component
@@ -26,13 +31,11 @@ a_t = a^{gg}_t\, ar_t
 $$
 
 
---8<-- "model/production-time-varying-elasticity.md"
-
-
-
 ## Production stages
 
-#### $T-4$: Combine imports from other areas
+#### $T-4$: Combine imports from the rest of the world
+
+[Production function with input adjustment costs](production-time-varying-elasticity.md)
 
 $$
 mm_t = F_4\left( mm_t^1, \dots, mm_t^A \right)
@@ -50,6 +53,8 @@ where
 
 
 #### $T-3$: Combine non-commodity variable factors
+
+[Production function with input adjustment costs](production-time-varying-elasticity.md)
 
 $$
 \begin{gathered}
@@ -79,14 +84,10 @@ $$
 y_{1,t} = F_1\bigl( y_{2,t},\ mq_t \bigr)
 $$
 
-#### $T-0$: Add a roundabout production layer and sticky prices
 
-$$
-y_t = F_0\bigl(y_{1,t},\ yz_t\bigr) + yz_t
-$$
+#### $T-0$: Sticky prices
 
-
---8<-- "model/production-sticky-prices.md"
+[Sticky price setting](production-sticky-prices.md)
 
 
 ## Total profits 

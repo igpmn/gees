@@ -1,29 +1,33 @@
 {
   "main": {
-    "id": "ff477b32f641491a",
+    "id": "084bdc913168d8ed",
     "type": "split",
     "children": [
       {
-        "id": "01d552bcde81513f",
+        "id": "a30437d8562695ee",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "docs-source/model/production-sticky-prices.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "8c8b6b56e5f7e559",
+    "id": "288f06df34e58552",
     "type": "split",
     "children": [
       {
-        "id": "f4377fc6f3f5eeb0",
+        "id": "3c19b0359c9529f6",
         "type": "tabs",
         "children": [
           {
-            "id": "2cbc567904223822",
+            "id": "86ddfdd0f0789a98",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -31,7 +35,7 @@
             }
           },
           {
-            "id": "35fc539211f8695e",
+            "id": "5e47aa6cb0b731fc",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -44,6 +48,14 @@
                 "sortOrder": "alphabetical"
               }
             }
+          },
+          {
+            "id": "ba264a629620d340",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
           }
         ]
       }
@@ -52,19 +64,20 @@
     "width": 300
   },
   "right": {
-    "id": "189916a7a46d4161",
+    "id": "ed92ddaf6a793922",
     "type": "split",
     "children": [
       {
-        "id": "8d1d91f4ffc3b510",
+        "id": "11e71656ec2a3ef2",
         "type": "tabs",
         "children": [
           {
-            "id": "b475d4a217d4b411",
+            "id": "659052eb48d87b6c",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "docs-source/model/production-sticky-prices.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -76,11 +89,36 @@
             }
           },
           {
-            "id": "63f65bdf0deb71ad",
+            "id": "1ceea038a13431d3",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "docs-source/model/production-sticky-prices.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "212a7f886a3b4214",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "45dbf34ab9716596",
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "docs-source/model/production-sticky-prices.md"
+              }
             }
           }
         ]
@@ -90,17 +128,14 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "01d552bcde81513f",
+  "active": "a30437d8562695ee",
   "lastOpenFiles": [
-    "Untitled.md",
-    "+april2022/docs/plan.md",
+    "xxx.md",
+    "docs-source/model/production-sticky-prices.md",
     "docs-source/model/monetary-math.md",
-    "docs-source/model/math.md",
-    "docs-source/model/commodity-math.md",
-    "docs-source/model/commodity.md",
     "docs-source/model/monetary.md",
-    "docs-source/model/production.md",
-    "+april2022/analyzeCostPush.md",
-    "docs-source/model/index.md"
+    "docs-source/model/math.md",
+    "docs-source/model/production-math.md",
+    "docs-source/model/production.md"
   ]
 }

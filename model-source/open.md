@@ -50,19 +50,19 @@
 
 !parameters(:open :steady)
 
-    "Import intensity of non-commodity exports" alpha
-    "Acceleration in exportable productivity" gamma_xx
-    "Elasticity of household risk function wrt NFA" theta_1
-    "Curvature of household risk function wrt NFA" theta_2
-    "Share of local commodity production in world commodity production" lambda
-    "S/S Autonomous component in country credit risk" ss_zh_aut
+    "Import intensity of non-commodity exports !! $\alpha$" alpha
+    "Acceleration in exportable productivity !! $\gamma_\mathit{xx}$" gamma_xx
+    "Elasticity of household risk function wrt NFA !! $\theta_1$" theta_1
+    "Curvature of household risk function wrt NFA !! $\theta_2$" theta_2
+    "Share of local commodity production in world commodity production !! $\lambda$" lambda
+    "S/S Autonomous component in country credit risk !! $\mathit{zh}^\mathrm{aut}_\ss$" ss_zh_aut
 
 
-!parameters(:open :transition)
+!parameters(:open :dynamic)
 
-    "A/R Autonomous component in country credit risk" rho_zh_aut
-    "Weight on model-consistent expectations in exchange rate" zeta_e
-    "Adjustment cost parameter in stage t-3 production" xi_y3
+    "A/R Autonomous component in country credit risk !! $\rho_{\mathit{zh}}^\mathrm{aut}$" rho_zh_aut
+    "Weight on model-consistent expectations in exchange rate !! $\zeta_e$" zeta_e
+    "Adjustment cost parameter in stage t-3 production !! $\xi_{y3}$" xi_y3
 
 
 !shocks(:open)

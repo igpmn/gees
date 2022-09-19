@@ -55,7 +55,7 @@ m2 = Model( ...
 m2 = assignUserData(m2, "areas", areas);
 
 
-%% Reassign Parameters from Autarky
+%% Reassign parameters from autarky
 
 % Reassign autarky parameters to each area
 for i = 1 : numAreas

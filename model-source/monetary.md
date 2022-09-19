@@ -16,16 +16,16 @@
 
 !parameters(:monetary :steady)
 
-    "S/S Price of private consumption, Rate of change" ss_roc_pc
-    "Switch for lower bound on short-term rate" floor
+    "S/S Price of private consumption, Rate of change !! $\roc{\mathit{pc}}_\ss$" ss_roc_pc
+    "Switch for lower bound on short-term rate !! $\mathit{floor}$" floor
 
 
-!parameters(:monetary :transitory)
+!parameters(:monetary :dynamic)
 
-    "A/R in policy rate" rho_r 
-    "Monetary policy reaction to CPI" psi_pc 
-    "Monetary policy reaction to nominal exchange rate" psi_e
-    "Monetary policy reaction to real economic activity" psi_nh
+    "A/R in policy rate !! $\rho_r$" rho_r 
+    "Monetary policy reaction to CPI !! $\psi_\mathit{pc}$" psi_pc 
+    "Monetary policy reaction to nominal exchange rate !! $\psi_e$" psi_e
+    "Monetary policy reaction to real economic activity !! $\psi_\mathit{nh}$" psi_nh
 
 
 !shocks(:monetary)

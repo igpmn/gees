@@ -1,9 +1,3 @@
 {
-  "vimMode": true,
-  "showLineNumber": true,
-  "promptDelete": false,
-  "strictLineBreaks": true,
-  "legacyEditor": false,
-  "livePreview": true,
-  "autoPairMarkdown": false
+  "vimMode": true
 }

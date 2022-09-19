@@ -1,4 +1,6 @@
 nav:
     - index.md
     - steady.md
+    - calibration-global.md
+    - calibration-area.md
 

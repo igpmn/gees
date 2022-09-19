@@ -16,15 +16,18 @@
 !log-variables !all-but
 
 
-!parameters
+!parameters(:demography :steady)
 
-    "S/S Population, Relative to Global Population Component" ss_nr
-    "S/S Share of Working Age Population in Total Population" ss_nw_to_nn
-    "S/S Labor Participation Rate" ss_nf_to_nw
+    "S/S Population, Relative to global population component !! $\mathit{nr}_\ss$" ss_nr
+    "S/S Share of working age population in total population !! $\tratio{\mathit{nw}}{\mathit{nn}}_\ss$" ss_nw_to_nn
+    "S/S Labor participation rate !! $\tratio{\mathit{nf}}{\mathit{nw}}_\ss$" ss_nf_to_nw
 
-    "A/R Total Population Relative to Global Population Component" rho_nr
-    "A/R Share of Working Age Population in Total Population" rho_nw
-    "A/R Labor Participation Rate" rho_nf
+
+!parameters(:demography :dynamic)
+
+    "A/R Total population relative to global population component !! $\rho_\mathit{nr}$" rho_nr
+    "A/R Share of working age population in total population !! $\rho_\mathit{nw}$" rho_nw
+    "A/R Labor participation rate !! $\rho_\mathit{nf}$" rho_nf
 
 
 !shocks

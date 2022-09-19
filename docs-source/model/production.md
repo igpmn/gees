@@ -1,6 +1,6 @@
 ---
 title: Local supply side
---
+---
 
 # :fontawesome-solid-industry:  Local supply side
 
@@ -33,9 +33,12 @@ title: Local supply side
 
     --8<-- "model/production-math.md"
 
-	![[production-math]]
+    ![[model/production-math]]
+
 
 === ":fontawesome-solid-file-code:  Model source code"
 
     --8<-- "model-source/production.md"
+
+    ![[model-source/production.md]]
 

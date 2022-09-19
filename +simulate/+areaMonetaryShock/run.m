@@ -16,7 +16,7 @@ allPrefixes = utils.resolveArea(allAreas, "prefix");
 % Create initial steady state databank
 %
 
-d0 = steadydb(model, range);
+d0 = databank.forModel(model, range);
 
 
 %
@@ -45,6 +45,8 @@ smc = databank.minusControl(model, s, d0, "range", range);
 %
 % Generate HTML reports
 %
+
+return
 
 reportTitle = reportTitleTemplate;
 reportTitle = replace(reportTitle, "$(area)", upper(area));

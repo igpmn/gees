@@ -70,25 +70,25 @@ the ratio as a log-variable
 
 !parameters(:production :steady)
 
-    "S/S Area specific productivity component" ss_ar
+    "S/S Area specific productivity component !! $\mathit{ar}_\ss$" ss_ar
 
-    "Share of overhead labor" gamma_n0
-    "Share of intermediate imports in stage T-3 production" gamma_m
-    "Share of capital services in stage T-2 production" gamma_uk
-    "Share of commodity inputs in stage T-1 production" gamma_q
-    "Share of roundabout intermediates in stage T-0 production" gamma_yz
+    "Share of overhead labor !! $\gamma_\mathit{n0}$" gamma_n0
+    "Share of intermediate imports in stage T-3 production !! $\gamma_m$" gamma_m
+    "Share of capital services in stage T-2 production !! $\gamma_\mathit{uk}$" gamma_uk
+    "Share of commodity inputs in stage T-1 production !! $\gamma_q$" gamma_q
+    "Share of roundabout intermediates in stage T-0 production !! $\gamma_\mathit{yz}$" gamma_yz
 
-    "Monopoly power (markup) of local producers" mu_py
-    "Markup to cover overhead labor" mu_y3
+    "Monopoly power (markup) of local producers !! $\mu_\mathit{py}$" mu_py
+    "Markup to cover overhead labor !! $\mu_{y3}$" mu_y3
 
 
-!parameters(:production :transitory)
+!parameters(:production :dynamic)
 
-    "Autoregression in area specific productivity component" rho_ar
-    "Weight on S/S inflation in inflation indexation" zeta_py
-    "Stage T-2 input factor adjustment cost parameter" xi_y2
-    "Stage T-1 input factor adjustment cost parameter" xi_y1
-    "Price adjustment cost parameters" xi_py
+    "Autoregression in area specific productivity component !! $\rho_\mathit{ar}$" rho_ar
+    "Weight on S/S inflation in inflation indexation !! $\zeta_\mathit{py}$" zeta_py
+    "Stage T-2 input factor adjustment cost parameter !! $\xi_{y2}$" xi_y2
+    "Stage T-1 input factor adjustment cost parameter !! $\xi_{y1}$" xi_y1
+    "Price adjustment cost parameters !! $\xi_\mathit{py}$" xi_py
 
 
 !shocks(:production)

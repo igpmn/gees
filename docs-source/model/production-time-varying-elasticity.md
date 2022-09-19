@@ -1,5 +1,5 @@
 
-## Time-varying elasticity of input factors
+# Time-varying elasticity of input factors
 
 --8<-- "model/math.md"
 

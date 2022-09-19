@@ -1,6 +1,8 @@
 
 ## Time-varying elasticity of input factors
 
+--8<-- "model/math.md"
+
 Production technogy based on a unit-elasticity (Cobb-Douglas) production
 function
 

@@ -1,0 +1,16 @@
+!variables
+    a, y 
+
+!parameters
+    ss_roc_a, k 
+
+
+!log-variables !all-but
+
+
+!equations
+
+    a = a{-1} * ss_roc_a;
+
+    y = k * a;
+

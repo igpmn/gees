@@ -3,9 +3,12 @@
 
 ## Setting up computers
 
-* Git
-* IrisT
-* GEES repository
+* Git: git-scm.com
+
+* IrisT: https://github.com/IRIS-Solutions-Team/IRIS-Toolbox
+
+* GEES repository: https://github.com/Global-Projection-Model-Network/GEES
+
 
 ## Review of the model structure
 

@@ -10,7 +10,7 @@ thisDir = string(fileparts(mfilename("fullpath")));
 ma = model.autarky.create();
 
 
-areas = ["aa", "bb"];
+areas = ["us", "ea"];
 numAreas = numel(areas);
 
 

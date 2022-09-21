@@ -1,13 +1,20 @@
 
+%% Clear workspace
 
 clear all
 close
+
+
+%% Load model
 
 load +model/+symmetric2A/model.mat m2
 
 areas = accessUserData(m2, "areas");
 
 set(0, "defaultAxesFontSize", 22);
+
+
+%% Set up simulation
 
 range = 1:10;
 
@@ -18,7 +25,8 @@ d0 = databank.forModel(m2, range);
 d = d0;
 d.us_shk_py(1) = 0.10;
 
-% Simulate the model
+%% Run simulations
+
 s0 = simulate( ...
     m2, d, range ...
     , "prependInput", true ...
@@ -36,7 +44,8 @@ smc1 = databank.minusControl(m2, s1, d0);
 smc = databank.merge("horzcat", smc0, smc1);
 
 %% Report results
-areaList = ["roc_py", "r", "e", "rh", "ch", "ih"];
+
+areaList = ["roc_pc", "r", "e", "rh", "ch", "ih", "pc"];
 
 databank.plot( ...
     smc1, [areas(1)+"_"+areaList, areas(2)+"_"+areaList] ...

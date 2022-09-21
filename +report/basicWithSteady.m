@@ -1,21 +1,21 @@
-function basicWithSteady(m, simDb, steadyDb, simulationRange, reportTitle, legends, fileName)
+function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, legends, fileName)
 
 %% Preparation
 
     thisDir = string(fileparts(mfilename("fullpath")));
 
-%     if dater.getFrequency(simulationRange(1))==0
-%         simDb = databank.redate(simDb, simulationRange(1), yy(1));
+%     if dater.getFrequency(range(1))==0
+%         simulationDb = databank.redate(simulationDb, range(1), yy(1));
 %     end
 
     % Round all numbers to 8 decimals (for reporting only)
-    simDb = databank.apply(simDb, @(x) round(x, 8));
+    simulationDb = databank.apply(simulationDb, @(x) round(x, 8));
     steadyDb = databank.apply(steadyDb, @(x) round(x, 8));
 
     % Dates and ranges for charts and tables
-    numPeriods = numel(simulationRange);
+    numPeriods = numel(range);
     % startDate = yy(0);
-    startDate = dater.plus(simulationRange(1), -1);
+    startDate = dater.plus(range(1), -1);
     endDate = startDate + numPeriods - 1;
     tableDates = startDate : startDate+min(10, numPeriods);
 
@@ -23,7 +23,7 @@ function basicWithSteady(m, simDb, steadyDb, simulationRange, reportTitle, legen
 
 
     % List of areas from model object
-    areas = accessUserData(m, "areas");
+    areas = accessUserData(model, "areas");
 
     % Transformation function
     func = @(x) 100*(x - 1);
@@ -75,7 +75,7 @@ function basicWithSteady(m, simDb, steadyDb, simulationRange, reportTitle, legen
 
     % Loop over time series 
     for n = reshape(globalSeries, 1, [])
-        series = simDb.(n);
+        series = simulationDb.(n);
         steadyLine = steadyDb.(n);
         grid = local_seriesToChart(grid, "", series, steadyLine, startDate, endDate, legends, func);
         table = local_seriesToTable(table, "", series, legends, func);
@@ -105,6 +105,8 @@ function basicWithSteady(m, simDb, steadyDb, simulationRange, reportTitle, legen
     ];
 
 
+    pager = rephrase.Pager("");
+
     % Loop over areas
     for a = reshape(areas, 1, [])
 
@@ -121,18 +123,19 @@ function basicWithSteady(m, simDb, steadyDb, simulationRange, reportTitle, legen
                 thisFunc = altFunc;
             end
             name = utils.resolveArea(a, "prefix") + name;
-            series = simDb.(name);
+            series = simulationDb.(name);
             steadyLine = steadyDb.(name);
             grid = local_seriesToChart(grid, upper(a), series, steadyLine, startDate, endDate, legends, thisFunc);
             table = local_seriesToTable(table, "", series, legends, thisFunc);
         end
 
-        report + grid;
+        pager + grid;
 
     end
 
     % Add table to report 
 
+    report + pager;
     report + table;
 
 

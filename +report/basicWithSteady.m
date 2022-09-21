@@ -1,12 +1,40 @@
 function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, legends, fileName)
 
+%% List of global and are series to report
+
+    globalSeries = [
+        "gg_a"
+        "gg_nt"
+        "gg_nn"
+        "gg_roc_gdp"
+        "gg_roc_gdp_to_nn"
+        "gg_pq_to_pxx"
+        "gg_qq"
+    ];
+
+    areaSeries = [
+        "ar"
+        "roc_gdp"
+        "ch"
+        "ih"
+        "cg"
+        "^txls1_to_nc"
+        "xx"
+        "mm"
+        "roc_pc"
+        "r"
+        "pk"
+        "u"
+        "k"
+        "mq"
+        "^nfa_to_ngdp"
+    ];
+
+
+
 %% Preparation
 
     thisDir = string(fileparts(mfilename("fullpath")));
-
-%     if dater.getFrequency(range(1))==0
-%         simulationDb = databank.redate(simulationDb, range(1), yy(1));
-%     end
 
     % Round all numbers to 8 decimals (for reporting only)
     simulationDb = databank.apply(simulationDb, @(x) round(x, 8));
@@ -54,16 +82,6 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
 
 %% Chart global variables 
 
-    globalSeries = [
-        "gg_a"
-        "gg_nt"
-        "gg_nn"
-        "gg_roc_gdp"
-        "gg_roc_gdp_to_nn"
-        "gg_pq_to_pxx"
-        "gg_qq"
-    ];
-
     % Initialize grid element for global series
     heading = "Global";
     numRows = [];
@@ -85,25 +103,6 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
 
 
 %% Chart each area
-
-    areaSeries = [
-        "ar"
-        "roc_gdp"
-        "ch"
-        "ih"
-        "cg"
-        "^txls1_to_nc"
-        "xx"
-        "mm"
-        "roc_pc"
-        "r"
-        "pk"
-        "u"
-        "k"
-        "mq"
-        "^nfa_to_ngdp"
-    ];
-
 
     pager = rephrase.Pager("");
 

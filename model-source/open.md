@@ -31,6 +31,7 @@
     "Net claims of financial sector on households" bh_to_ngdp
     "Non-commodity imports to GDP ratio" nmm_to_ngdp
     "Non-commodity exports to GDP ratio" nxx_to_ngdp
+    "Net commodity exports to GDP ratio" netxq_to_ngdp
 
     "Country credit risk" zh
     "Autonomous component in country credit risk" zh_aut
@@ -45,6 +46,7 @@
     bh_to_ngdp
     nmm_to_ngdp
     nxx_to_ngdp
+    netxq_to_ngdp
     zh_aut
 
 
@@ -81,6 +83,7 @@
 
 !substitutions
 
+    % xq = (lambda * gg_q);
     adj_nv = (log(nv/y3)-log(nv{-1}/y3{-1})-log(&roc_nv/&roc_y3))-&rdf*(log(nv{+1}/y3{+1})-log(nv/y3)-log(&roc_nv/&roc_y3));
     adj_mm = (log(my/y3)-log(my{-1}/y3{-1}))-&rdf*(log(my{+1}/y3{+1})-log(my/y3));
 
@@ -131,7 +134,7 @@
         + bpceq_to_ngdp * ngdp ...
         + pxx * xx ... Non-commodity exports
         - fob_pmm * mm ... Non-commodity imports, priced FOB destination
-        + pq * (xq - mq) ... Net commodity exports
+        + netxq_to_ngdp * ngdp ... Net commodity exports
         + nfa_to_ngdp_checksum * ngdp;
 
     "Country credit risk"
@@ -173,6 +176,7 @@
     "Total imports to GDP ratio"
     nmm_to_ngdp = fob_pmm*mm / ngdp;
     nxx_to_ngdp = pxx*xx / ngdp;
+    netxq_to_ngdp = pq*(xq - mq) / ngdp;
 
 ```
 
@@ -185,7 +189,6 @@
 !postprocessor
 
     nmxx_to_ngdp = fob_pmm * mxx / ngdp;
-    netxq_to_ngdp = pq*(xq - mq) / ngdp;
 
 
 !log-variables !all-but
@@ -193,7 +196,6 @@
     nmm_to_ngdp
     nxx_to_ngdp
     nmxx_to_ngdp
-    netxq_to_ngdp
 
 ```
 

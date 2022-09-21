@@ -85,6 +85,7 @@ d = d0;
 d.us_shk_py(1) = 0.10;
 
 p6 = Plan.forModel(m2, range);
+p6 = anticipate(p6, false, ["us_shk_r"]);
 p6 = exogenize(p6, range(1:2), "us_r");
 p6 = endogenize(p6, range(1:2), "us_shk_r");
 
@@ -99,6 +100,7 @@ smc6 = databank.minusControl(m2, s6, d0);
 
 
 %% Report results
+%#ok<*CLARRSTR> 
 
 areaList = ["roc_pc", "r", "e", "rh", "ch", "ih", "pc", "w_to_pc"];
 
@@ -113,7 +115,7 @@ databank.plot( ...
     , "yline", 0 ...
     , "highlight", 1:2 ...
     , "plotSettings", {"marker", "s"} ...
-);
+); 
 
 
 

@@ -4,5 +4,6 @@ nav:
     - Model structure: model
     - Model calibration: calibration
     - Scenario building: scenarios
+    - Utilities: utilities
     - Solution techniques: techniques
 

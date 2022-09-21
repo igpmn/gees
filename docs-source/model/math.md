@@ -5,6 +5,8 @@ $$
 \newcommand{\local}{\mathrm{local}}
 \newcommand{\roc}[1]{\overset{\scriptsize\Delta}{#1{}}}
 \newcommand{\ss}{\mathrm{ss}}
+\newcommand{\aa}{\mathrm{aa}}
+\newcommand{\bb}{\mathrm{bb}}
 \newcommand{\E}{\mathrm{E}}
 \newcommand{\ref}{{\mathrm{ref}}}
 \newcommand{\blog}{\mathbf{log}\ }

@@ -38,13 +38,15 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
 
     % Round all numbers to 8 decimals (for reporting only)
     simulationDb = databank.apply(simulationDb, @(x) round(x, 8));
-    steadyDb = databank.apply(steadyDb, @(x) round(x, 8));
+    if ~isempty(steadyDb)
+        steadyDb = databank.apply(steadyDb, @(x) round(x, 8));
+    end
 
     % Dates and ranges for charts and tables
     numPeriods = numel(range);
     % startDate = yy(0);
     startDate = dater.plus(range(1), -1);
-    endDate = startDate + numPeriods - 1;
+    endDate = startDate + numPeriods;
     tableDates = startDate : startDate+min(10, numPeriods);
 
     legends = textual.stringify(legends);
@@ -94,9 +96,11 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
     % Loop over time series 
     for n = reshape(globalSeries, 1, [])
         series = simulationDb.(n);
-        steadyLine = steadyDb.(n);
-        grid = local_seriesToChart(grid, "", series, steadyLine, startDate, endDate, legends, func);
-        table = local_seriesToTable(table, "", series, legends, func);
+        if ~isempty(steadyDb)
+            steadyLine = steadyDb.(n);
+        end
+        local_seriesToChart(grid, "", series, steadyLine, startDate, endDate, legends, func);
+        local_seriesToTable(table, "", series, legends, func);
     end
 
     report + grid;
@@ -108,11 +112,9 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
 
     % Loop over areas
     for a = reshape(areas, 1, [])
-
         heading = "Area " + upper(a);
         grid = rephrase.Grid(heading, numRows, numColumns, "ShowTitle", true);
         table + rephrase.Heading(heading);
-
         % Loop over time series 
         for n = reshape(areaSeries, 1, [])
             thisFunc = func;
@@ -123,16 +125,35 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
             end
             name = utils.resolveArea(a, "prefix") + name;
             series = simulationDb.(name);
-            steadyLine = steadyDb.(name);
-            grid = local_seriesToChart(grid, upper(a), series, steadyLine, startDate, endDate, legends, thisFunc);
-            table = local_seriesToTable(table, "", series, legends, thisFunc);
+            if ~isempty(steadyDb)
+                steadyLine = steadyDb.(name);
+            end
+            local_seriesToChart(grid, upper(a), series, steadyLine, startDate, endDate, legends, thisFunc);
+            local_seriesToTable(table, "", series, legends, thisFunc);
         end
-
         pager + grid;
-
     end
 
-    % Add table to report 
+    % Add charts with all areas together
+    for column = 1 : numel(legends)
+        heading = "All areas (" + legends(column) + ")";
+        grid = rephrase.Grid(heading, numRows, numColumns, "ShowTitle", true);
+
+        % Loop over time series 
+        for n = reshape(areaSeries, 1, [])
+            thisFunc = func;
+            name = n;
+            if startsWith(name, "^")
+                name = extractAfter(name, 1);
+                thisFunc = altFunc;
+            end
+            temp = comment(simulationDb.(areas(1)+"_"+name));
+            series = databank.toSeries(simulationDb, areas+"_"+name, Inf, column);
+            series = comment(series, temp);
+            local_seriesToChart(grid, "", series, [], startDate, endDate, upper(areas), thisFunc);
+        end
+        pager + grid;
+    end
 
     report + pager;
     report + table;
@@ -152,8 +173,7 @@ end%
 % Local functions
 %
 
-function grid = local_seriesToChart(grid, area, series, steadyLine, startDate, endDate, legends, func)
-
+function local_seriesToChart(grid, area, series, steadyLine, startDate, endDate, legends, func)
     % Create title from the time series comment
     title = comment(series);
     title = title(1);
@@ -167,16 +187,17 @@ function grid = local_seriesToChart(grid, area, series, steadyLine, startDate, e
         steadyLine = func(steadyLine);
     end
 
-    % Create chart and add it to grid
-    grid + rephrase.Chart.fromSeries( ...
-        {title, startDate, endDate, "DateFormat", "YY"}, {legends, series}, {"Steady", steadyLine, "lineWidth", 0} ...
-    );
-
+    % Create chart with series and steady lines and add it to grid
+    chart = rephrase.SeriesChart(title, startDate:endDate, "dateFormat", "YY");
+    chart + rephrase.Series.fromMultivariate(legends, series);
+    if ~isempty(steadyLine)
+        chart + rephrase.Series.fromMultivariate("Steady", steadyLine, "lineWidth", 0);
+    end
+    grid + chart;
 end%
 
 
-function table = local_seriesToTable(table, area, series, legends, func)
-
+function local_seriesToTable(table, area, series, legends, func)
     % Create title from the time series comment
     title = comment(series);
     if strlength(area)>0
@@ -195,6 +216,5 @@ function table = local_seriesToTable(table, area, series, legends, func)
     else
         table + rephrase.Series.fromMultivariate(title+legends, series);
     end
-
 end%
 

@@ -26,18 +26,18 @@
     "Variable labor input into production" nv
 
     "Nominal GDP" ngdp
-    "Real GDP index, Rate of change" roc_gdp
-    "Per-capita real GDP index, Rate of change" roc_gdp_to_nn
+    "Real GDP index, Y/Y" roc_gdp
+    "Per-capita real GDP index, Y/Y" roc_gdp_to_nn
 
     "Price of domestic production" py
     "Nominal household rate, LCY" rh
 
-    "Price of final domestic output, Rate of change" roc_py
-    "Price of final domestic output, Rate of change, Point of reference" ref_roc_py
-    "Price of consumer goods, Rate of change" roc_pc
+    "Price of final domestic output, Y/Y" roc_py
+    "Price of final domestic output, Y/Y, Point of reference" ref_roc_py
+    "Price of consumer goods, Y/Y" roc_pc
     "Utilization rate of production capital" u
-    "Stage T-3 output, Rate of change" roc_y3
-    "Variable labor, Rate of change" roc_nv
+    "Stage T-3 output, Y/Y" roc_y3
+    "Variable labor, Y/Y" roc_nv
 
     "Auxiliary variable for steady-state calibration of upsilon_0" upsilon_1_py_to_pu
     "Auxiliary equation for steady-state calibration of nu_0" nch_to_netw_minus_nu_0
@@ -234,7 +234,7 @@ the ratio as a log-variable
     "Nominal GDP"
     ngdp = pc*ch + pih*ih + pc*cg + pxx*xx - pmm*mm + pq*(xq - mq);
 
-    "Real GDP index, Rate of change"
+    "Real GDP index, Y/Y"
     roc_gdp = ...
         + (pc*ch/ngdp + pc{-1}*ch{-1}/ngdp{-1})/2 * roc(ch) ...
         + (pih*ih/ngdp + pih{-1}*ih{-1}/ngdp{-1})/2 * roc(ih) ...
@@ -245,7 +245,7 @@ the ratio as a log-variable
         - (pq*mq/ngdp + pq{-1}*mq{-1}/ngdp{-1})/2 * roc(mq) ...
     !! roc_gdp = gg_ss_roc_a * gg_ss_roc_nt;
 
-    "Per-capita real GDP index, Rate of change"
+    "Per-capita real GDP index, Y/Y"
     roc_gdp_to_nn = roc_gdp / roc_nn;
 
 ```

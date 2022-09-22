@@ -9,9 +9,9 @@
 
     "Non-commodity imports" mm
     "Price of non-commodity imports" pmm
-    "Price of non-commodity imports, Free on board at destinatin point" fob_pmm
-    "Import content of non-commodity exports" mxx
-    "Intermediate import inputs into domestic production" my
+    "Price of non-commodity imports, FOB" fob_pmm
+    "Imports for non-commodity exports" mxx
+    "Imports for domestic production" my
 
     "Domestic content of non-commodity exports" yxx
     "Non-commodity exports" xx
@@ -23,11 +23,11 @@
     "Checksum for net foreign assets to GDP ratio" nfa_to_ngdp_checksum
     "Nominal exchange rate" e
     "Expectations of nominal exchange rate" exp_e
-    "Nominal Exchange Rate, Rate of Change" roc_e
+    "Nominal Exchange Rate, Y/Y" roc_e
     "BOP CA corporate equity primary income to GDP ratio" bpceq_to_ngdp
     "BOP FA corporate equity transactions to GDP ratio" bpfeq_to_ngdp
-    "Price of non-commodity exports, Reference currency" pxx_rcy
-    "Value of non-commodity exports, Reference currency" nxx_rcy
+    "Price of non-commodity exports, Reference ccy" pxx_rcy
+    "Value of non-commodity exports, Reference ccy" nxx_rcy
     "Net claims of financial sector on households" bh_to_ngdp
     "Non-commodity imports to GDP ratio" nmm_to_ngdp
     "Non-commodity exports to GDP ratio" nxx_to_ngdp

@@ -10,9 +10,9 @@
     "Government debt interest rate" rg
     "Government consumption" cg
     "Government debt to GDP ratio" dg_to_ngdp
-    "Net lump-sum tax on wealthy consumers to consumption ratio" txls1_to_nc
-    "Net lump-sum tax on poor consumers to consumption ratio" txls2_to_nc
-    "Government consumption, Rate of Change" roc_cg
+    "Net lump-sum tax 1 to consumption ratio" txls1_to_nc
+    "Net lump-sum tax 2 to consumption ratio" txls2_to_nc
+    "Government consumption, Y/Y" roc_cg
     "Import tariff rate" trm
 
 

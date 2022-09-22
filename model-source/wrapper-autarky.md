@@ -6,11 +6,11 @@
     !variables
 
         "Global population" gg_nn
-        "Global population, Rate of change" gg_roc_nn
+        "Global population, Y/Y" gg_roc_nn
         "Global index of non-commodity export prices" gg_pxx
         "Global nominal GDP" gg_ngdp
-        "Global real GDP index, Rate of change" gg_roc_gdp
-        "Global per-capita real GDP index, Rate of change" gg_roc_gdp_to_nn
+        "Global real GDP index, Y/Y" gg_roc_gdp
+        "Global per-capita real GDP index, Y/Y" gg_roc_gdp_to_nn
 
 
     !substitutions
@@ -42,7 +42,7 @@
         "Global population"
         gg_nn = nn;
 
-        "Global population, Rate of change" 
+        "Global population, Y/Y" 
         gg_roc_nn = nn / nn{-1};
 
         - beta*vh{+1}*rh*pk - vh*xi_k*pk*log(k/($ref_k$)) ...
@@ -70,10 +70,10 @@
 
     %% Global GDP 
 
-        "Global real GDP, Rate of change"
+        "Global real GDP, Y/Y"
         gg_roc_gdp = roc_gdp;
 
-        "Global per-capita real GDP, Rate of change"
+        "Global per-capita real GDP, Y/Y"
         gg_roc_gdp_to_nn = roc_gdp_to_nn;
 
         "Global nominal GDP"

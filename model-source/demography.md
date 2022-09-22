@@ -7,8 +7,8 @@
 !variables
 
     "Total population" nn
-    "Total population, Rate of change" roc_nn
-    "Total population relative to global population component" nr
+    "Total population, Y/Y" roc_nn
+    "Area specific component in total population" nr
     "Working age population" nw
     "Labor force" nf
 
@@ -54,7 +54,7 @@
     nn = nr * gg_nt;
 
 
-    "Total population, Rate of change"
+    "Total population, Y/Y"
     roc_nn = nn / nn{-1} ...
     !! roc_nn = gg_ss_roc_nt;
 

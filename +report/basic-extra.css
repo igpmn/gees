@@ -22,3 +22,12 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: right;
 }
 
+.report-header {
+    padding-top: 1%;
+    padding-left: 1%;
+}
+
+.rephrase-table-data-row-title {
+    font-weight: 400;
+}
+

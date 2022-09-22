@@ -10,12 +10,12 @@
 
     "Private consumption" ch
     "Per-capita private consumption" ch_to_nn
-    "Relative point of reference for private consumption" ref_ch_to_ch
+    "Private consumption reference level" ref_ch_to_ch
     "Real discount factor" rdf
     "Per-worker labor supply" nh
     "Private investment" ih
-    "Uncertainty discount factor on capital" zk
-    "Uncertainty discount factor on production cash flows" zy
+    "Uncertainty in capital" zk
+    "Uncertainty in profits" zy
     "Ex-post return on capital" rk
     "Production capital" k
     "Production capital services" uk
@@ -26,11 +26,11 @@
     "Price of production capital" pk
     "Price of production capital services" pu
     "Real consumer wage rate" w_to_pc
-    "Nominal wage rate absent labor market rigidities" ww
+    "Flexible nominal wage rate" ww
 
-    "Nominal wage rate, Rate of change" roc_w
-    "Household investment, Rate of change" roc_ih
-    "Production capital, Rate of change" roc_k
+    "Nominal wage rate, Y/Y" roc_w
+    "Household investment, Y/Y" roc_ih
+    "Production capital, Y/Y" roc_k
 
 
 !log-variables !all-but

@@ -16,7 +16,7 @@
 
 !parameters(:monetary :steady)
 
-    "S/S Price of private consumption, Rate of change !! $\roc{\mathit{pc}}_\ss$" ss_roc_pc
+    "S/S Price of private consumption, Y/Y !! $\roc{\mathit{pc}}_\ss$" ss_roc_pc
     "Switch for lower bound on short-term rate !! $\mathit{floor}$" floor
 
 

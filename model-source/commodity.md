@@ -8,10 +8,10 @@
 
 !variables(:commodity)
 
-    "Long-run level of global commodity production" gg_qq
+    "Long-run level of commodity supply" gg_qq
     "Global commodity demand" gg_q
-    "Excess demand in global commodity market" gg_qexc
-    "Global price of commodities, Reference currency" gg_pq
+    "Global excess demand in commodity market" gg_qexc
+    "Global price of commodities" gg_pq
     "Global real price of commodities" gg_pq_to_pxx
 
 
@@ -26,8 +26,8 @@
 
 !shocks(:commodity)
 
-    "Shock to long-run trend in global commodity supply" gg_shk_qq
-    "Shock to global price of commodities" gg_shk_pq
+    "Shock to long-run level in commodity supply" gg_shk_qq
+    "Shock to price of commodities" gg_shk_pq
 
 ```
 

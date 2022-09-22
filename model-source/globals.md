@@ -13,8 +13,8 @@ log-variables !all-but
 
     "Global productivity trend component" gg_a
     "Global population trend component" gg_nt
-    "Global uncertainty discount factor on capital" gg_zk
-    "Global uncertainty discount factor on production cash flows" gg_zy
+    "Global uncertainty in capital" gg_zk
+    "Global uncertainty in profits" gg_zy
     "Global disruption to non-commodity trade" gg_dmm
 
 
@@ -22,15 +22,15 @@ log-variables !all-but
 
     "Shock to global productivity trend" gg_shk_a
     "Shock to global population trend" gg_shk_nn
-    "Shock to global uncertainty discount factor on capital" gg_shk_zk
-    "Shock to global uncertainty discount factor on production cash flows" gg_shk_zy
+    "Shock to global uncertainty in capital" gg_shk_zk
+    "Shock to global uncertainty in profits" gg_shk_zy
     "Shock to global disruption to non-commodity trade" gg_shk_dmm
 
 
 !parameters(:global :steady)
 
-    "S/S Global productivity trend, Rate of change !! $\roc{a}^\gg_\ss$" gg_ss_roc_a
-    "S/S Global population trend, Rate of change !! $\roc{\mathit{nt}}^\gg_\ss$" gg_ss_roc_nt
+    "S/S Global productivity trend, Y/Y !! $\roc{a}^\gg_\ss$" gg_ss_roc_a
+    "S/S Global population trend, Y/Y !! $\roc{\mathit{nt}}^\gg_\ss$" gg_ss_roc_nt
     "S/S Global uncertainty discount factor on capital !! $\mathit{zk}^\gg_\ss$" gg_ss_zk
     "S/S Global uncertainty discount factor on production cash flows !! $\mathit{zy}^\gg_\ss$" gg_ss_zy
     "S/S Global disruption to non-commodity trade !! $\mathit{dmm}^\gg_\ss$" gg_ss_dmm

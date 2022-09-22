@@ -3,8 +3,6 @@
 function [m4, t4] = create()
 
 thisDir = string(fileparts(mfilename("fullpath")));
-
-
 areas = ["us", "ea", "cn", "rw"];
 numAreas = numel(areas);
 
@@ -83,7 +81,7 @@ end
 m4 = assign(m4, ma, globalNames);
 
 
-% Calibrate multi-area parameters and steady-state values
+%% Calibrate multi-area parameters and steady-state values
 
 % Sum up global population and demand for commodities
 m4.gg_nn = 0;
@@ -143,10 +141,25 @@ m4.ea_ss_nw_to_nn = 0.64;
 m4.cn_ss_nw_to_nn = 0.70;
 m4.rw_ss_nw_to_nn = 0.64;
 
+
 m4.us_ss_nf_to_nw = 0.73;
 m4.ea_ss_nf_to_nw = 0.74;
 m4.cn_ss_nf_to_nw = 0.76;
 m4.rw_ss_nf_to_nw = 0.66; %0.93???
+
+
+%% Government debt
+m4.us_ss_dg_to_ngdp = 0.90;
+m4.ea_ss_dg_to_ngdp = 0.90;
+m4.cn_ss_dg_to_ngdp = 0.50;
+m4.rw_ss_dg_to_ngdp = 0.40;
+
+
+%% Inflation rates
+m4.us_ss_roc_pc = 1.025;
+m4.ea_ss_roc_pc = 1.01;
+m4.cn_ss_roc_pc = 1.025;
+m4.rw_ss_roc_pc = 1.05;
 
 
 %% Calibrate distribution of commodity extraction 

@@ -1,10 +1,10 @@
 %% Simulate a permanent change in an area's steady-state inflation a
 
-function [s, smc, d, modelAfter] = areaDisinflation(model, area, range, size, stamp)
+function [s, smc, d, modelAfter] = areaDisinflation(model, area, range, size, htmlFileName)
 
-htmlFileNameTemplate = "area-disinflation-$(area)-$(stamp)";
+%htmlFileNameTemplate = "area-disinflation-$(area)-$(stamp)";
 reportTitleTemplate = "Area $(area) disinflation";
-legend = string(100*size) + "%";
+legend = upper(area) + "@" + string(100*size) + "%";
 
 thisDir = string(fileparts(mfilename("fullpath")));
 areaPrefix = utils.resolveArea(area, "prefix");
@@ -48,6 +48,8 @@ s = simulate( ...
 );
 
 smc = databank.minusControl(model, s, d0, "range", range);
+steadyDb = databank.forModel(modelAfter, range);
+steadyDb = databank.minusControl(model, steadyDb, d0, "range", range);
 
 
 %
@@ -57,12 +59,12 @@ smc = databank.minusControl(model, s, d0, "range", range);
 reportTitle = reportTitleTemplate;
 reportTitle = replace(reportTitle, "$(area)", upper(area));
 
-htmlFileName = htmlFileNameTemplate;
+%htmlFileName = htmlFileNameTemplate;
 htmlFileName = replace(htmlFileName, "$(area)", upper(area));
-htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
-htmlFileName = fullfile(thisDir, htmlFileName);
+% htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+% htmlFileName = fullfile(thisDir, htmlFileName);
 
-report.basic(model, smc, range, reportTitle, legend, htmlFileName);
+report.basicWithSteady(model, smc, steadyDb, range, reportTitle, legend, htmlFileName);
 
 end%
 

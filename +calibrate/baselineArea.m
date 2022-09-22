@@ -94,5 +94,7 @@ function p = baselineArea(p)
 
     p.theta_3 = 0;
 
+    p.zeta_r = 1;
+
 end%
 

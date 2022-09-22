@@ -16,6 +16,12 @@
 
 ```
 
+```matlab
+!parameters
+    !for ?A=<areas(2:end)> !do
+        "Forex market functioning" ?A_zeta_r
+    !end
+```
 
 ## Define equations
 
@@ -35,7 +41,7 @@
 
     !for ?A=<areas(2:end)> !do
         "Interest parity"
-        ?A_r = <areas(1)>_r * ?A_exp_e / ?A_e * exp(?A_shk_e);
+        ?A_r = <areas(1)>_r * (?A_exp_e / ?A_e * exp(?A_shk_e))^(1/?A_zeta_r) * (&?A_roc_e)^(1-1/?A_zeta_r);
 
         "Effective NFA rate"
         ?A_rnfa = <areas(1)>_r{-1} * ?A_e / ?A_e{-1};
@@ -92,7 +98,7 @@ __International comparison__
 
 !for ?A=<areas> !do
     !variables
-        "Nominal GDP, Reference currency" ?A_ngdp_rcy
+        "Nominal GDP, Reference currency [?A]" ?A_ngdp_rcy
         "Per-capita private consumption" ?A_comp_ch_to_nn
         "Per-capita gross production" ?A_comp_y_to_nn
     !equations

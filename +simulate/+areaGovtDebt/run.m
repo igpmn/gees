@@ -1,8 +1,8 @@
 %% Simulate a permanent change in an area's govt debt 
 
-function [s, smc, d, modelAfter] = run(model, area, range, size, stamp)
+function [s, smc, d, modelAfter] = run(model, area, range, size, htmlFileName)
 
-htmlFileNameTemplate = "area-govt-debt-$(area)-$(stamp)";
+% htmlFileNameTemplate = "area-govt-debt-$(area)-$(stamp)";
 reportTitleTemplate = "Area $(area) government debt expansion simulation";
 legend = string(100*size) + "%";
 
@@ -54,6 +54,8 @@ s = simulate( ...
 );
 
 smc = databank.minusControl(model, s, d0, "range", range);
+steadyDb = databank.forModel(modelAfter, range);
+zeroDb = databank.minusControl(model, steadyDb, d0, "range", range);
 
 
 %
@@ -63,12 +65,12 @@ smc = databank.minusControl(model, s, d0, "range", range);
 reportTitle = reportTitleTemplate;
 reportTitle = replace(reportTitle, "$(area)", upper(area));
 
-htmlFileName = htmlFileNameTemplate;
-htmlFileName = replace(htmlFileName, "$(area)", upper(area));
-htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
-htmlFileName = fullfile(thisDir, htmlFileName);
+% htmlFileName = htmlFileNameTemplate;
+% htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+% htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+% htmlFileName = fullfile(thisDir, htmlFileName);
 
-report.basic(model, smc, range, reportTitle, legend, htmlFileName);
+report.basicWithSteady(model, smc, zeroDb, range, reportTitle, legend, htmlFileName);
 
 end%
 

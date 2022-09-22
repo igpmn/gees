@@ -21,12 +21,15 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
         "^txls1_to_nc"
         "xx"
         "mm"
+        "e"
+        "pc"
         "roc_pc"
         "r"
         "pk"
         "u"
         "k"
         "mq"
+        "dg_to_ngdp"
         "^nfa_to_ngdp"
     ];
 

@@ -8,3 +8,4 @@ docs-site/
 +dev/
 
 .obsidian/
+*.html

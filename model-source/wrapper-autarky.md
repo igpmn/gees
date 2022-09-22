@@ -21,6 +21,7 @@
     !parameters
 
         "Forward capital adjustment cost parameter" xi_k
+        "Forex market functioning" zeta_r
 
 
 ## Specify equations

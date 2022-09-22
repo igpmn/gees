@@ -1,6 +1,6 @@
 %% Simulate temporary inflation shock 
 
-function [s, smc, d, modelAfter] = areaInflationShock(model, area, range, size, htmlFileName)
+function [s, smc, d, modelAfter] = run(model, area, range, size, htmlFileName)
 
     %htmlFileNameTemplate = "area-inflation-shock-$(area)-$(stamp)";
     reportTitleTemplate = "Area $(area) inflation shock";

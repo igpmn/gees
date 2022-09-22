@@ -1,6 +1,6 @@
 %% Simulate a permanent change in an area's steady-state inflation a
 
-function [s, smc, d, modelAfter] = areaDisinflation(model, area, range, size, htmlFileName)
+function [s, smc, d, modelAfter] = run(model, area, range, size, htmlFileName)
 
 %htmlFileNameTemplate = "area-disinflation-$(area)-$(stamp)";
 reportTitleTemplate = "Area $(area) disinflation";
@@ -16,7 +16,7 @@ allPrefixes = utils.resolveArea(allAreas, "prefix");
 % Create initial steady state databank
 %
 
-d0 = steadydb(model, range);
+d0 = databank.forModel(model, range);
 
 
 %
@@ -59,12 +59,14 @@ steadyDb = databank.minusControl(model, steadyDb, d0, "range", range);
 reportTitle = reportTitleTemplate;
 reportTitle = replace(reportTitle, "$(area)", upper(area));
 
-%htmlFileName = htmlFileNameTemplate;
-htmlFileName = replace(htmlFileName, "$(area)", upper(area));
-% htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
-% htmlFileName = fullfile(thisDir, htmlFileName);
-
-report.basicWithSteady(model, smc, steadyDb, range, reportTitle, legend, htmlFileName);
+if strlength(htmlFileName)>0
+    %htmlFileName = htmlFileNameTemplate;
+    htmlFileName = replace(htmlFileName, "$(area)", upper(area));
+    % htmlFileName = replace(htmlFileName, "$(stamp)", stamp);
+    % htmlFileName = fullfile(thisDir, htmlFileName);
+    
+    report.basicWithSteady(model, smc, steadyDb, range, reportTitle, legend, htmlFileName);
+end
 
 end%
 

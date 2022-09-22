@@ -14,7 +14,7 @@ ma = model.autarky.create();
 ma4 = alter(ma, numAreas);
 
 ma4.ss_nr = [0.331, 0.515, 1.439, NaN];
-ma4.ss_nr(end) = 7.123 - nansum(ma4.ss_nr);
+ma4.ss_nr(end) = 7.123 - sum(ma4.ss_nr, "omitnan");
 
 ma4 = steady( ...
     ma4 ...
@@ -132,6 +132,12 @@ m4 = steady( ...
 
 checkSteady(m4);
 
+%% Calibrate forex market functioning
+
+m4.ea_zeta_r = 1;
+m4.cn_zeta_r = 1/3;
+m4.rw_zeta_r = 1/3;
+
 
 %% Calibrate labor market demography 
 
@@ -156,8 +162,8 @@ m4.rw_ss_dg_to_ngdp = 0.40;
 
 
 %% Inflation rates
-m4.us_ss_roc_pc = 1.025;
-m4.ea_ss_roc_pc = 1.01;
+m4.us_ss_roc_pc = 1.02;
+m4.ea_ss_roc_pc = 1.02;
 m4.cn_ss_roc_pc = 1.025;
 m4.rw_ss_roc_pc = 1.05;
 

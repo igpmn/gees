@@ -13,7 +13,6 @@
     "Global nominal GDP" gg_ngdp
     "Global real GDP index, Y/Y" gg_roc_gdp
     "Global per-capita real GDP index, Y/Y" gg_roc_gdp_to_nn
-
 ```
 
 ```matlab
@@ -41,7 +40,7 @@
 
     !for ?A=<areas(2:end)> !do
         "Interest parity"
-        ?A_r = <areas(1)>_r * (?A_exp_e / ?A_e * exp(?A_shk_e))^(1/?A_zeta_r) * (&?A_roc_e)^(1-1/?A_zeta_r);
+        ?A_rip = <areas(1)>_rip * (?A_exp_e / ?A_e * exp(?A_shk_e))^(1/?A_zeta_r) * (&?A_roc_e)^(1-1/?A_zeta_r);
 
         "Effective NFA rate"
         ?A_rnfa = <areas(1)>_r{-1} * ?A_e / ?A_e{-1};

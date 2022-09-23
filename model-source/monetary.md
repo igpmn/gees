@@ -11,7 +11,7 @@
     "Nominal short-term rate, LCY" r
     "Monetary policy reaction term" react
     "Unconstrained nominal short-term rate, LCY" unc_r
-
+    "Nominal short-term rate for interest parity, LCY" rip 
 
 
 !parameters(:monetary :steady)
@@ -26,6 +26,7 @@
     "Monetary policy reaction to CPI !! $\psi_\mathit{pc}$" psi_pc 
     "Monetary policy reaction to nominal exchange rate !! $\psi_e$" psi_e
     "Monetary policy reaction to real economic activity !! $\psi_\mathit{nh}$" psi_nh
+    "Pressure relief valve for interest rate lower bound !! $\theta_\mathir{rip}$" theta_rip
 
 
 !shocks(:monetary)
@@ -71,7 +72,10 @@
 
 
     "Zero floor constraint on policy rate"
-    r = floor*max(1, unc_r) + (1-floor)*unc_r;
+    r = floor*max(1, unc_r) + (1-floor)*unc_r ...
+    !! r = unc_r;
 
+    rip = r + theta_rip*(unc_r - r) ...
+    !! rip = r;
 ```
 

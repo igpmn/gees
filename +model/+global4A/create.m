@@ -161,11 +161,16 @@ m4.cn_ss_dg_to_ngdp = 0.50;
 m4.rw_ss_dg_to_ngdp = 0.40;
 
 
-%% Inflation rates
+%% Inflation and interest rates
 m4.us_ss_roc_pc = 1.02;
 m4.ea_ss_roc_pc = 1.02;
 m4.cn_ss_roc_pc = 1.025;
 m4.rw_ss_roc_pc = 1.05;
+
+m4.us_ss_zh_aut = 0.03;
+m4.ea_ss_zh_aut = 0.03;
+m4.cn_ss_zh_aut = 0.03;
+m4.rw_ss_zh_aut = 0.03;
 
 
 %% Calibrate distribution of commodity extraction 

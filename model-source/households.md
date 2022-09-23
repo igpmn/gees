@@ -63,12 +63,14 @@
     "Current income in reference consumption parameter !! $\chi_\mathit{curr}$" chi_curr
     "Type 1 investment adjustment cost parameter !! $\xi_\mathit{ih,1}$" xi_ih1
     "Type 2 investment adjustment cost parameter !! $\xi_\mathit{ih,2}$" xi_ih2
-    "Pressure relief valve for interest rate lower bound !! $\theta_3$" theta_3
+    "Pressure relief valve for interest rate lower bound !! $\theta_\mathir{rh}$" theta_rh
 
 
 !shocks(:households)
 
+    "Shock to intertemporal preferences" shk_beta
     "Shock to private consumption" shk_ch
+    "Shock to private investment" shk_ih
     "Shock to wage rate" shk_w
     "Shock to current income" shk_curr
     "Shock to uncertainty discount factor on capital" shk_zk
@@ -112,7 +114,7 @@
     ref_ch_to_ch = [ chi_curr*($curr$)/pc + chi_ch*ch{-1}*gg_ss_roc_a ] / ch;
 
     "Optimal choice of net position with local financial sector"
-    vh = beta*vh{+1}*rh + nn/(pc*ch)*[ nu_1*(pc*ch/netw - nu_0) - gg_nu ] ...
+    vh = beta*vh{+1}*rh + nn/(pc*ch)*[ nu_1*(pc*ch/netw - nu_0) - gg_nu ] * exp(shk_beta) ...
     !! 1 = beta*rh/gg_ss_roc_a/ss_roc_pc + nu_1*nch_to_netw_minus_nu_0 - gg_nu;
 
     "Auxiliary equation for steady-state calibration of nu_0"
@@ -121,7 +123,7 @@
     rdf = beta*vh{+1}*pc{+1}/(vh*pc);
 
     "Risk adjusted household rate"
-    rh = r + theta_3*(unc_r - r) + zh;
+    rh = r + theta_rh*(unc_r - r) + zh;
 
     "Current net worth of households"
     netw = kk + dg_to_ngdp*ngdp + nfa_to_ngdp*ngdp;
@@ -157,7 +159,7 @@
 %% Supply of production capital 
 
     "Optimal choice of investment in local production capital"
-    pk = pih*[ 1 + xi_ih1*($adj_ih1$) + xi_ih2*($adj_ih2$) ] ...
+    pk * exp(shk_ih) = pih*[ 1 + xi_ih1*($adj_ih1$) + xi_ih2*($adj_ih2$) ] ...
     !! pk = pih;
 
     "Accumulation of production capital"

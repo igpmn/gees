@@ -92,7 +92,8 @@ function p = baselineArea(p)
     % p.gg_rho_aqq = 0.7;
     % p.gg_ss_aq = 1;
 
-    p.theta_3 = 0;
+    p.theta_rh = 0;
+    p.theta_rip = 0;
 
     p.zeta_r = 1;
 

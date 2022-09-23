@@ -22,6 +22,7 @@
     "Portfolio of claims on production capital" kk
     "Household net worth" netw
     "Nominal wage rate" w
+    "Real labor income" rli
 
     "Price of production capital" pk
     "Price of production capital services" pu
@@ -132,6 +133,9 @@
     "Uncertainty discount factor on production cash flows"
     log(zy) = rho_zy*log(zy{-1}) + (1-rho_zy)*log(ss_zy) + shk_zy ...
     !! zy = ss_zy;
+
+    "Real labor income"
+    rli = w*nh*nf / pc; 
 
 
 %% Labor supply 

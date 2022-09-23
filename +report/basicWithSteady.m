@@ -25,6 +25,7 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
         "pc"
         "roc_pc"
         "r"
+        "rli"
         "pk"
         "u"
         "k"
@@ -40,9 +41,9 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
     thisDir = string(fileparts(mfilename("fullpath")));
 
     % Round all numbers to 8 decimals (for reporting only)
-    simulationDb = databank.apply(simulationDb, @(x) round(x, 8));
+    simulationDb = databank.apply(simulationDb, @(x) round(x, 4));
     if ~isempty(steadyDb)
-        steadyDb = databank.apply(steadyDb, @(x) round(x, 8));
+        steadyDb = databank.apply(steadyDb, @(x) round(x, 4));
     end
 
     % Dates and ranges for charts and tables

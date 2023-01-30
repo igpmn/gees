@@ -2,7 +2,7 @@
 title: Import, export, and BOP
 ---
 
-# :fontawesome-solid-plane:  Export, import, and BOP
+# :fontawesome-solid-plane:  Import, export, and BOP
 
 
 === ":fontawesome-solid-square-root-variable:  Math equations"

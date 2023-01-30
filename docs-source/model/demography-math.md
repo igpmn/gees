@@ -4,6 +4,7 @@
 --8<-- "model/math.md"
 
 ![[math]]
+{ .hide }
 
 Global population trend, $nn_t$, is a unit root process common to all areas. The
 level of the global population trend does not correspond to any particular demographic

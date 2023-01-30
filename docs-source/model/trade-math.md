@@ -4,10 +4,11 @@
 Production function
 
 $$
-mm_t = F(mm_t^1,\ \dots,\ mm_t^K)
+mm_t = F(mm_t^1,\ \dots,\ mm_t^A)
 $$
 
 Demand for imports, ignoring adjustment costs
+
 
 $$
 \frac{mm_t^k}{mm_t}\ \propto\ \left( \frac{\frac{e_t}{e_t^k} \ pxx_t^k}{pmm_t} \right)^{-1}

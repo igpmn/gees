@@ -10,17 +10,19 @@ title: Local supply side
 * Several pairwise stages of production
   
 * Input factors
+
     * Labor
     * Intermediate imports
     * Commodity inputs
     * Capital
 
 * Real flexibilities to flatten the marginal cost schedule
+
     * Variable utilization of capital
     * Roundabout production
 
 
-* [Production with time-varying elasticity of substitution](production-time-varying-elasticity)
+* [Production function with time-varying elasticity of substitution](production-time-varying-elasticity)
 
 * [Production with sticky final prices](production-sticky-prices)
 

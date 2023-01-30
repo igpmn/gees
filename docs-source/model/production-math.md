@@ -1,6 +1,7 @@
 
 ![[math.md]]
 { .math-definitions }
+
 --8<-- "math.md"
 
 
@@ -35,7 +36,7 @@ $$
 
 #### $T-4$: Combine imports from the rest of the world
 
-[Production function with input adjustment costs](production-time-varying-elasticity.md)
+[Production function with time-varying elasticity of substitution](production-time-varying-elasticity.md)
 
 $$
 mm_t = F_4\left( mm_t^1, \dots, mm_t^A \right)
@@ -54,7 +55,7 @@ where
 
 #### $T-3$: Combine non-commodity variable factors
 
-[Production function with input adjustment costs](production-time-varying-elasticity.md)
+[Production function with time-varying elasticity of substitution](production-time-varying-elasticity.md)
 
 $$
 \begin{gathered}
@@ -131,3 +132,4 @@ where
 * $cg_t$ is government consumption
 * $ih_t$ is private investment (by households)
 * $yx_t$ is the local component in the export production
+

@@ -2,13 +2,22 @@
 ## Non-commodity import 
 
 
+Combine imports from the rest of the world
 
+$$
+mm_t^h = \prod_{a \ne h} \ \left( \frac{mm_{a,t}^h}{\omega_a^h} \right)^{\omega_a^h} 
+$$
+
+Cost function
+
+$$
+\Gamma(mm_t^h) = \sum_{a \ne h} \ pmm_{a,t}^h \, mm_{a,t}^h
+\left[1 - \frac{\xi}{2}\, \left( \log \frac{mm_{a,t}^h}{mm_{a,t}} - \log \frac{mm_{a,t-1}^h}{mm_{a,t-1}} \right)^2\, \right]
+$$
 
 ## Non-commodity export production 
 
 --8<-- "model/math.md"
-![[model/math.md]]
-
 
 Non-commodity export production function
 

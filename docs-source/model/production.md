@@ -20,9 +20,9 @@ title: Local supply side
     * Roundabout production
 
 
-* [Production with time-varying elasticity of substitution](model/production-time-varying-elasticity.md)
+* [Production with time-varying elasticity of substitution](model/production-time-varying-elasticity)
 
-* [Production with sticky final prices](model/production-sticky-prices.md)
+* [Production with sticky final prices](model/production-sticky-prices)
 
 
 <br/>

@@ -1,4 +1,4 @@
-# GEES Export, import, and BOP module
+# GEES Import, export, and BOP module
 
 
 ## Declare quantities

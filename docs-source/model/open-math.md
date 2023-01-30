@@ -1,10 +1,16 @@
 
+## Non-commodity import 
+
+
+
+
 ## Non-commodity export production 
 
 --8<-- "model/math.md"
 ![[model/math.md]]
 
-Export production function
+
+Non-commodity export production function
 
 * Transformation of domestic output
 * Productivity improvements faster in exportable sectors

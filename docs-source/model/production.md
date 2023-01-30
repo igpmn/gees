@@ -19,7 +19,10 @@ title: Local supply side
     * Variable utilization of capital
     * Roundabout production
 
-* Sticky prices
+
+* [Production with time-varying elasticity of substitution](model/production-time-varying-elasticity.md)
+
+* [Production with sticky final prices](model/production-sticky-prices.md)
 
 
 <br/>

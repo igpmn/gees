@@ -22,7 +22,7 @@ title: Local supply side
 
 * [Production with time-varying elasticity of substitution](model/production-time-varying-elasticity)
 
-* [Production with sticky final prices](model/production-sticky-prices)
+* [Production with sticky final prices](production-sticky-prices)
 
 
 <br/>

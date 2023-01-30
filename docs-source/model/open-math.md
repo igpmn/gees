@@ -12,7 +12,7 @@ Cost function
 
 $$
 \Gamma(mm_t^h) = \sum_{a \ne h} \ pmm_{a,t}^h \, mm_{a,t}^h
-\left[1 - \frac{\xi}{2}\, \left( \log \frac{mm_{a,t}^h}{mm_{a,t}} - \log \frac{mm_{a,t-1}^h}{mm_{a,t-1}} \right)^2\, \right]
+\left[1 - \frac{\xi}{2}\, \left( \log \frac{mm_{a,t}^h}{mm_{t}^h} - \log \frac{mm_{a,t-1}^h}{mm_{t-1}^h} \right)^2\, \right]
 $$
 
 ## Non-commodity export production 
@@ -27,8 +27,8 @@ Non-commodity export production function
 
 $$
 xx_t = \mathit{ar}_t{}^{\gamma_{\mathit{xx}}} \, 
-  \left( \frac{\mathit{yxx}}{1-\alpha} \right)^{1-\alpha}
-  \left( \frac{\mathit{mxx}}{\alpha} \right)^{\alpha}
+  \left( \frac{\mathit{yxx_t}}{1-\alpha} \right)^{1-\alpha}
+  \left( \frac{\mathit{mxx_t}}{\alpha} \right)^{\alpha}
 $$
 
 Demand for input factors (domestic components and re-exports,
@@ -41,6 +41,8 @@ $$
 \end{gathered}
 $$
 
+where $\mathit{dmm}^\gg_t$ is an index of disruption to global trade.
+
 
 ## Commodity endowment
 
@@ -49,5 +51,19 @@ $$
 
 $$
 xq_t = \lambda \, q^\mathrm{gg}_t
+$$
+
+
+## Balance of payments
+
+$$
+\begin{gathered}
+nfa_t = nfa_{t-1} \ \cdots \\[15pt]
++\ (\mathit{rnfa}_t - 1) \, \mathit{nfa}_{t-1}
++ \mathit{ceq}_t \ \cdots \\[15pt] 
++\ \mathit{pxx}_t \, xx_t
+- pmm_t^{\mathrm{fob}} \, mm_t
++ pq_t^\gg (xq_t - mq_t)
+\end{gathered}
 $$
 

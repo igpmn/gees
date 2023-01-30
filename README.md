@@ -13,12 +13,12 @@ team of contributors.
 
 ## Model documentation
 
-[Documentation website for GEES](https://igpmn.github.io/GEES)
+[Documentation website for GEES](https://igpmn.github.io/gees)
 
 
 ## Workshop setup script for GEES workshop participants
 
-* Install [Git](git-scm.com) locally on your computer
+* Install [Git](https://git-scm.com) locally on your computer
 
 * In Matlab, run the following query in the command window
 

@@ -85,7 +85,7 @@ d = d0;
 d.us_shk_py(1) = 0.10;
 
 p6 = Plan.forModel(m2, range);
-p6 = anticipate(p6, false, ["us_shk_r"]);
+p6 = anticipate(p6, false, "us_shk_r");
 p6 = exogenize(p6, range(1:2), "us_r");
 p6 = endogenize(p6, range(1:2), "us_shk_r");
 

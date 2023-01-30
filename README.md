@@ -11,5 +11,15 @@ model. The framework is currently implemented in
 GEESr is being developed and maitained by a [Global Projection Model Network](https://www.igpmn.org)
 team of contributors.
 
+## Model documentation
+
 [Documentation website for GEES](https://global-projection-model-network.github.io/GEES)
+
+
+## Workshop setup script for GEES workshop participants
+
+* Install [Git](git-scm.com) locally on your computer
+
+* Download the [setup script](https://global-projection-model-network.github.io/GEES)
+
 

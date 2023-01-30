@@ -1,4 +1,4 @@
-# nonlinear simulations
+# Nonlinear simulations
 
 
 ## System of nonlinear equations with model-consistent expectations

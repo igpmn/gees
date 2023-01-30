@@ -3,7 +3,7 @@ cd(userpath)
 disp("    Setting up workshop repositories in " + pwd())
 
 geesDir = "igpmn-gees";
-irisDir = "iris-toolbox";
+irisDir = "iris-bleeding";
 timeStamp = string(datestr(now(), 30));
 
 saveDirectoryWhenNeeded(geesDir, timeStamp);

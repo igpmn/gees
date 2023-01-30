@@ -20,5 +20,30 @@ team of contributors.
 
 * Install [Git](git-scm.com) locally on your computer
 
-* Download the [setup script](https://github.com/igpmn/gees/blob/master/setupForWorkshop.m)
+* In Matlab, run the following query in the command window
+
+```
+>> userpath()
+```
+
+This gives you the path to the default working directory (a "user
+directory") Matlab assumes
+
+* Download the [setup script](https://github.com/igpmn/gees/blob/master/setupForWorkshop.m),
+and save it locally on your computer to the default user folder from the step before
+
+* Start Matlab, switch to the default user directory, and run the setup
+  script
+
+```
+>> cd(userpath())
+>> setupForWorkshop
+```
+
+* Switch to the GEES folder and start up the Iris Toolbox
+
+```
+>> cd igpmn-gees
+>> addpath ../iris-bleeding/; iris.startup
+```
 

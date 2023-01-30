@@ -13,13 +13,12 @@ team of contributors.
 
 ## Model documentation
 
-[Documentation website for GEES](https://global-projection-model-network.github.io/GEES)
+[Documentation website for GEES](https://igpmn.github.io/GEES)
 
 
 ## Workshop setup script for GEES workshop participants
 
 * Install [Git](git-scm.com) locally on your computer
 
-* Download the [setup script](https://global-projection-model-network.github.io/GEES)
-
+* Download the [setup script](https://github.com/igpmn/gees/blob/master/setupForWorkshop.m)
 

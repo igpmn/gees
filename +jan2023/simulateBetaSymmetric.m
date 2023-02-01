@@ -31,6 +31,20 @@
         , "writeTable", "+jan2023/beta-symmetric2A.xlsx" ...
     ) 
 
+
+    % Check monetary neutrality
+
+    m2 = m;
+    m2.ea_pc = 1.10;
+    m2 = steady(m2, "fixLevel", ["gg_a", "gg_nt", "us_pc", "ea_pc"]);
+
+    table( ...
+        [m, m2], ["steadyLevel", "steadyChange", "form", "description"] ...
+        , "writeTable", "+jan2023/neutrality-symmetric2A.xlsx" ...
+    );
+
+
+
     d = databank.forModel(m, 1:10);
     d1 = databank.forModel(m1, 1:10);
 

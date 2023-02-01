@@ -101,6 +101,7 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
     % Loop over time series 
     for n = reshape(globalSeries, 1, [])
         series = simulationDb.(n);
+        steadyLine = [];
         if ~isempty(steadyDb)
             steadyLine = steadyDb.(n);
         end
@@ -154,7 +155,7 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
             end
             temp = comment(simulationDb.(areas(1)+"_"+name));
             series = databank.toSeries(simulationDb, areas+"_"+name, Inf, column);
-            series = comment(series, temp);
+            series = comment(series, temp(column));
             local_seriesToChart(grid, "", series, [], startDate, endDate, upper(areas), thisFunc);
         end
         pager + grid;

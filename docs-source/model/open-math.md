@@ -54,16 +54,3 @@ xq_t = \lambda \, q^\mathrm{gg}_t
 $$
 
 
-## Balance of payments
-
-$$
-\begin{gathered}
-nfa_t = nfa_{t-1} \ \cdots \\[15pt]
-+\ (\mathit{rnfa}_t - 1) \, \mathit{nfa}_{t-1}
-+ \mathit{ceq}_t \ \cdots \\[15pt] 
-+\ \mathit{pxx}_t \, xx_t
-- pmm_t^{\mathrm{fob}} \, mm_t
-+ pq_t^\gg (xq_t - mq_t)
-\end{gathered}
-$$
-

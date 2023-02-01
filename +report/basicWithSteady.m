@@ -25,6 +25,7 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
         "pc"
         "roc_pc"
         "r"
+        "rh"
         "rli"
         "pk"
         "u"

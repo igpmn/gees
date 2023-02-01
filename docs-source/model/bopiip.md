@@ -77,4 +77,14 @@ Financial account | $\Delta \xnetf_t + \xnetb^\xtrans_t = \cdots$
 Current account: Primary income | $=\ \xrf_t \cdot \xnetf_{t-1} + \xnetb_t^\xpinc \ \cdots$
 Current account: Trade balance | $+\ \mathit{pxx}_t \cdot xx_t - pmm_t^{\mathrm{fob}} \, mm_t + pq_t \, (xq_t - mq_t)$
 
+#### Net primary income on equity
+
+$$
+\xnetb_t^{\xpinc, h} = \sum_{a\ne h} \phi_{a,t}^h \ \frac{e_t^h}{e_t^a} \ pu_t^a \ uk_t^a
+- \sum_{a\ne h} \phi_{h,t}^a \ pu_t^h \ uk_t^h
+$$
+
+* Rental price of capital services, $pu_t$
+
+* Capital services (capital times utilization), $uk_t$
 

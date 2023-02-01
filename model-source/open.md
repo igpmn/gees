@@ -18,9 +18,9 @@
     "Commodity exports" xq
     "Price of non-commodity exports" pxx
 
-    "Net foreign assets to GDP Ratio" nfa_to_ngdp
-    "Effective interest rate and valuation on NFA" rnfa
-    "Checksum for net foreign assets to GDP ratio" nfa_to_ngdp_checksum
+    "Net foreign fixed-income assets to GDP Ratio" nfa_to_ngdp
+    "Primary income rate on net foreign fixed-income assets" rnfa
+    "Checksum for net foreign fixed-income assets to GDP ratio" nfa_to_ngdp_checksum
     "Nominal exchange rate" e
     "Expectations of nominal exchange rate" exp_e
     "Nominal Exchange Rate, Y/Y" roc_e

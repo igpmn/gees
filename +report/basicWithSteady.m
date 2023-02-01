@@ -41,9 +41,9 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
     thisDir = string(fileparts(mfilename("fullpath")));
 
     % Round all numbers to 8 decimals (for reporting only)
-    simulationDb = databank.apply(simulationDb, @(x) round(x, 4));
+    simulationDb = databank.apply(simulationDb, @(x) round(x, 6));
     if ~isempty(steadyDb)
-        steadyDb = databank.apply(steadyDb, @(x) round(x, 4));
+        steadyDb = databank.apply(steadyDb, @(x) round(x, 6));
     end
 
     % Dates and ranges for charts and tables
@@ -214,7 +214,7 @@ function local_seriesToTable(table, area, series, legends, func)
     end
 
     if size(series, 2)==1
-        table + rephrase.Series(title(1), round(series, 5));
+        table + rephrase.Series(title(1), round(series, 6));
     elseif size(series, 2)==2
         table + rephrase.DiffSeries(title(1), series{:, 1}, series{:, 2});
     else

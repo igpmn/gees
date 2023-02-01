@@ -53,7 +53,6 @@ function [ma, ta] = create()
     ma.upsilon_1_py_to_pu = 1;
     ma.nh = 1;
 
-
     homotopy = [
         struct('gg_nt', 0.5), ...
         struct('gg_nt', ma.gg_nt), ...

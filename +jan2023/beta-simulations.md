@@ -13,7 +13,7 @@
 
 #### Comparative static simulation
 
-* Create a copy of the model object
+	* Create a copy of the model object
 * Assign a different parameter value (or values) to one (or more)
   parameters
 * Recalculate steady state

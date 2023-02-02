@@ -1,8 +1,4 @@
 # GEES Global trends module
-!ra
-log-variables !all-but
-
-
 
 
 ## Declare quantities

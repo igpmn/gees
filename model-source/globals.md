@@ -12,6 +12,7 @@ log-variables !all-but
 !variables(:global)
 
     "Global productivity trend component" gg_a
+    "Global productivity trend component, Y/Y" gg_roc_a
     "Global population trend component" gg_nt
     "Global uncertainty in capital" gg_zk
     "Global uncertainty in profits" gg_zy
@@ -66,11 +67,16 @@ log-variables !all-but
 
 !equations(:global)
 
+    "Global productivity trend, Y/Y"
+    log(gg_roc_a) = ...
+        + gg_rho_a * log(gg_roc_a{-1}) ...
+        + (1 - gg_rho_a)*(log(gg_ss_roc_a) + gg_shk_a) ...
+    !! gg_roc_a = gg_ss_roc_a;
+
+
     "Global productivity trend"
-    difflog(gg_a) = ...
-        + gg_rho_a*difflog(gg_a{-1}) ...
-        + (1-gg_rho_a)*(log(gg_ss_roc_a) + gg_shk_a) ...
-    !! gg_a = gg_a{-1}*gg_ss_roc_a;
+    gg_a = gg_a{-1} * gg_roc_a ...
+    !! gg_a = gg_a{-1} * gg_ss_roc_a;
 
 
     "Global population trend"

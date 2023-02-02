@@ -4,7 +4,7 @@ function p = baselineGlobal(p)
 
     p.gg_ss_roc_a = 1.02; 
     p.gg_ss_roc_nt = 1.01;
-    p.ss_roc_pc = 1.03;
+
     p.gg_ss_zk = 0.90;
     p.gg_ss_zy = 1;
     p.gg_ss_dmm = 1;

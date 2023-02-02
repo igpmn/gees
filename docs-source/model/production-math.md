@@ -12,7 +12,7 @@ Global productivity component
 $$
 \bDelta \blog a_t^{gg} =
 \rho_a \ \Delta \blog a_{t-1}^{gg} 
-+ (1-\rho_a) \blog \roc{a}^{gg}_\ss
++ (1-\rho_a) \left[ \blog \roc{a}^{gg}_\ss + \epsilon_{a,t} \right]
 $$
 
 Area-specific relative productivity component
@@ -20,7 +20,7 @@ Area-specific relative productivity component
 $$
 \blog ar_t = 
 \rho_{ar} \ \blog ar_{t-1} 
-+ (1-\rho_ar) \ \blog ar_\ss
++ (1-\rho_ar) \ \left[ \blog ar_\ss + \epsilon_{ar,t} \right]
 $$
 
 <br/>

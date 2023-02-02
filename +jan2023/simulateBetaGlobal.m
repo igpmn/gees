@@ -47,3 +47,23 @@
         m1, smc, [], -1:10, "Beta in 4A global", ["0.92", "0.90"], "+jan2023/beta-global4A" ...
     );
 
+%% China's trade balance
+
+    cn = struct();
+
+    s = databank.retrieveColumns(s, 1);
+    cn.nxx = s.cn_pxx * s.cn_xx;
+    cn.nmm = s.cn_fob_pmm * s.cn_mm;
+    cn.netxq = s.cn_netxq_to_ngdp * s.cn_ngdp;
+    cn.tb = cn.nxx + cn.netxq - cn.nmm;
+    
+    figure();
+    hold on;
+    bar([cn.nxx, -cn.nmm, cn.netxq], 'stacked');
+    plot(cn.tb, "lineWidth", 8, "color", "white");
+    plot(cn.tb, "color", "black");
+
+
+
+
+

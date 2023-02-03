@@ -20,7 +20,7 @@ Area-specific relative productivity component
 $$
 \blog ar_t = 
 \rho_{ar} \ \blog ar_{t-1} 
-+ (1-\rho_ar) \ \left[ \blog ar_\ss + \epsilon_{ar,t} \right]
++ (1-\rho_ar) \ \blog ar_\ss + \epsilon_{ar,t}
 $$
 
 <br/>

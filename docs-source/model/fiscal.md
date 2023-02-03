@@ -6,13 +6,13 @@ title: Fiscal policy
 
 --8<-- "model/math.md"
 
-The government manages the following fiscal policy quantities
+The government controls the following fiscal policy quantities
 
-* Government debt placed locally, $dg_t$
+* Government debt placed in local currency, $dg_t$
 
 * Government consumption, $cg_t$
 
-* Two types of lump-sum taxes, $txl1_t$ and $txl2_t$
+* Two types of lump-sum taxes, $tx1_t$ and $tx2_t$
 
 * Import tariffs, $txm_t$
 

@@ -20,7 +20,7 @@ $$
 \newcommand{\gg}{\mathrm{gg}}
 \newcommand{\tsum}{\textstyle{\sum}}
 \newcommand{\xnf}{\mathit{nf}}
-\newcommand{\ratio}[2]{\left[\textstyle{\frac{#1}{#2}}\right]}
+\newcommand{\ratio}[2]{\Bigl[\textstyle{\frac{#1}{#2}}\Bigr]}
 \newcommand{\unc}{\mathrm{unc}}
 \notag
 $$

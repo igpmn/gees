@@ -54,7 +54,7 @@ $$
 * $curr_t$ is current labor income net of  type 1 lump sum taxes (or transfers)
 
 $$
-curr_t \equiv w_t \, nh_t \, nl_t - txls1_t
+curr_t \equiv w_t \, nh_t \, nl_t - tx1_t
 $$
 
 * $netw_t$ is the nominal net worth given by the sum of the value of the
@@ -127,7 +127,7 @@ $$
 + \ \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
-+ \ w_t \, nh_t \, nl_t - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t
++ \ w_t \, nh_t \, nl_t - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - tx1_t - tx2_t
 \ \cdots \newl
 + \ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} - \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \end{gathered}
@@ -258,7 +258,7 @@ $$
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
 + \ ww_t \, nh_t \, nl_t 
-- pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t .
+- pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - tx1_t - tx2_t .
 \ \cdots \newl
 + \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} -\ \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \Bigr. \Bigr\} 

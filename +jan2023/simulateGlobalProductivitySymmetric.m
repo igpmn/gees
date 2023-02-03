@@ -12,7 +12,8 @@ m = solve(m);
 
 T = 30;
 
-% Permanent productivity improvements
+%% Permanent global productivity improvements
+
 d1 = databank.forModel(m, 1:T);
 d1.gg_shk_a(1) = log(1.10);
 
@@ -44,6 +45,15 @@ t = table( ...
 %    "ea_pmm", "ea_pxx"], :)
 
 
+d2 = databank.forModel(m, 1:T);
+
+s2 = simulate( ...
+    mea, d2, 1:T ...
+    , "method", "stacked" ...
+    , "prependInput", true ...
+);
+
+smc2 = databank.minusControl(m, s2, d2);
 
 
 %% Chart results
@@ -57,7 +67,15 @@ ch.Round = 8;
 
 ch + ["Productivity: (gg_a * ?_ar)", "Consumption: ?_ch", "Inflation: ?_roc_pc", "Short rate: ?_r"];
 ch + ["Capital: ?_k", "Investment: ?_ih", "Labor: ?_nh", "NFA to GDP: ^ 100*?_nfa_to_ngdp"];
+ch + ["Nominal exchange rate: ea_e", "Real exchange rate: ea_e * us_pc / ea_pc"];
+
 draw(ch, smc1);
+visual.hlegend("bottom", "US", "EA");
+visual.heading("Global productivity");
+
+draw(ch, smc2);
+visual.hlegend("bottom", "US", "EA");
+visual.heading("EA productivity");
 
 
 

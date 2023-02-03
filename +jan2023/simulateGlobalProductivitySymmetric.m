@@ -2,6 +2,7 @@
 
 close all
 clear
+%#ok<*CLARRSTR> 
 
 load +model/+symmetric2A/model.mat m2
 m = m2;
@@ -38,18 +39,19 @@ t = table( ...
     , "writeTable", "+jan2023/productivityEA.xlsx" ...
 );
 
-t(["ea_ar", "us_ar", "ea_ch", "us_ch", "ea_pc", "us_pc", "ea_e", "ea_nfa_to_ngdp", "us_nfa_to_ngdp" ...
-    "ea_pmm", "ea_pxx"], :)
+
+% t(["ea_ar", "us_ar", "ea_ch", "us_ch", "ea_pc", "us_pc", "ea_e", "ea_nfa_to_ngdp", "us_nfa_to_ngdp" ...
+%    "ea_pmm", "ea_pxx"], :)
 
 
-return
+
 
 %% Chart results
 
 ch = Chartpack();
 ch.Range = 0:10;
 ch.Transform = @(x) 100*(x-1);
-ch.PlotSettings = {"marker", "o"};
+ch.PlotSettings = {"marker", "o"}; 
 ch.Expansion = {"?", ["us", "ea"]};
 ch.Round = 8;
 

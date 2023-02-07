@@ -11,6 +11,7 @@ Folder | Description
 `+report` | Namespace for HTML report definitions
 `reference-materials` | Papers on topics related to the GEES model
 `docs-source` | Source files (Markdown) for the documentation website
-`+apr2022` | April 2022 workshop experiments
+`+jan2023` | January 2023 workshop experiments
 `+sep2022` | September 2022 workshop experiments
+`+apr2022` | April 2022 workshop experiments
 

@@ -32,6 +32,7 @@
     "Non-commodity imports to GDP ratio" nmm_to_ngdp
     "Non-commodity exports to GDP ratio" nxx_to_ngdp
     "Net commodity exports to GDP ratio" netxq_to_ngdp
+    "Net non-commodity exports to GDP ratio" netxx_to_ngdp
 
     "Country credit risk" zh
     "Autonomous component in country credit risk" zh_aut
@@ -47,6 +48,7 @@
     nmm_to_ngdp
     nxx_to_ngdp
     netxq_to_ngdp
+    netxx_to_ngdp
     zh_aut
 
 
@@ -178,6 +180,7 @@
     nmm_to_ngdp = fob_pmm*mm / ngdp;
     nxx_to_ngdp = pxx*xx / ngdp;
     netxq_to_ngdp = pq*(xq - mq) / ngdp;
+    netxx_to_ngdp = nxx_to_ngdp - nmm_to_ngdp;
 
 ```
 

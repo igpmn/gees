@@ -1,0 +1,72 @@
+
+close all
+clear
+
+
+g = Model.fromFile( ...
+    "model-source/globals.md" ...
+    , "growth", true ...
+);
+
+% access(g, "parameter-values")
+
+g = calibrate.baselineGlobal(g);
+
+% access(g, "parameter-values")
+
+g.gg_a = 1;
+g.gg_nt = 1;
+g = steady(g, "fixLevel", ["gg_a", "gg_nt"]);
+
+checkSteady(g);
+
+g = solve(g);
+
+table( ...
+    g ...
+    , ["steadyLevel", "steadyChange", "description"] ...
+)
+
+
+
+% Create a steady state database
+% for a simulation range 1:20
+
+d = databank.forModel(g, 1:20);
+
+
+% In the database, assign gg_shk_a
+% some value in period 1
+
+d.gg_shk_a(1) = 0.20;
+
+
+% Run the simulation on a simulation range 1:20
+
+s = simulate(g
+
+* Plot the level of gg_a with no shock,
+  and the level of gg_a with the shock
+
+* Plot the percent difference between
+  the level of gg_a with the shock,
+  and the level of gg_a with no shock
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

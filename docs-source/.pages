@@ -3,7 +3,6 @@ nav:
     - Setup: setup
     - Model structure: model
     - Model calibration: calibration
-    - Macro topics: topics
     - Utilities: utilities
     - Solution techniques: techniques
 

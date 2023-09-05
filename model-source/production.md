@@ -23,6 +23,7 @@
     "Price of commodity input into production" pq
 
     "Commodity input into production" mq
+    gamma_mq, gamma_y2
     "Variable labor input into production" nv
 
     "Nominal GDP" ngdp
@@ -80,6 +81,7 @@ the ratio as a log-variable
 
     "Monopoly power (markup) of local producers !! $\mu_\mathit{py}$" mu_py
     "Markup to cover overhead labor !! $\mu_{y3}$" mu_y3
+    a_y1
 
 
 !parameters(:production :dynamic)
@@ -89,6 +91,7 @@ the ratio as a log-variable
     "Stage T-2 input factor adjustment cost parameter !! $\xi_{y2}$" xi_y2
     "Stage T-1 input factor adjustment cost parameter !! $\xi_{y1}$" xi_y1
     "Price adjustment cost parameters !! $\xi_\mathit{py}$" xi_py
+    rho_gamma
 
 
 !shocks(:production)
@@ -110,10 +113,6 @@ the ratio as a log-variable
     adj_uk := (log(uk/y2)-log(uk{-1}/y2{-1}))-&rdf*(log(uk{+1}/y2{+1})-log(uk/y2));
     adj_y3 := (log(y3/y2)-log(y3{-1}/y2{-1}))-&rdf*(log(y3{+1}/y2{+1})-log(y3/y2));
 
-    % Stage T-1 input factor adjustment marginal cost
-    adj_y2 := (log(y3/y2)-log(y3{-1}/y2{-1}))-&rdf*(log(y3{+1}/y2{+1})-log(y3/y2));
-    adj_q := (log(mq/y2)-log(mq{-1}/y2{-1}))-&rdf*(log(mq{+1}/y2{+1})-log(mq/y2));
-
     % Final price adjustment marginal cost
     adj_py := log(roc_py/ref_roc_py) - beta*gg_zy*zy*log(roc_py{+1}/ref_roc_py{+1});
 
@@ -127,7 +126,7 @@ the ratio as a log-variable
 
 !equations(:production)
 
-%% Productivity 
+    %% -----Productivity-----
 
     "Area-specific relative productivity component"
     log(ar) = ...
@@ -137,7 +136,7 @@ the ratio as a log-variable
     !! ar = ss_ar;
 
 
-%% Stage T-3 production: Labor and intermediate non-commodity imports 
+    %% -----Stage T-3 production: Labor and intermediate non-commodity imports-----
 
     "Definition of variable labor input"
     nv = (nh - gamma_n0*&nh) * nf;
@@ -154,7 +153,7 @@ the ratio as a log-variable
     !! (1-gamma_m) * py3 * y3 = mu_y3 * w * nv;
 
 
-%% Stage T-2 production: Variable inputs and capital
+    %% -----Stage T-2 production: Variable inputs and capital-----
 
     y2 = (uk/gamma_uk)^gamma_uk * (y3/(1-gamma_uk))^(1-gamma_uk);
 
@@ -165,23 +164,29 @@ the ratio as a log-variable
     !! (1-gamma_uk) * py2 * y2 = py3 * y3;
 
 
-%% Stage T-1 Production: Add Commodity
+    %% -----Stage T-1 Production: Add Commodity-----
 
 
-    py1 = py2^(1 - gamma_q) * pq^gamma_q ...
-    !! y1 = (y2/(1-gamma_q))^(1-gamma_q) * (mq/gamma_q)^gamma_q;
-
-    ... (1-gamma_q) * py1 * y1 = py2 * y2 * [1 + xi_y1*($adj_y2$)] ...
-    (1-gamma_q) * &py1 * y1 = &py2 * y2 ...
-    !! (1-gamma_q) * py1 * y1 = py2 * y2 ...
+    %py1 = py2^(1 - gamma_q) * pq^gamma_q ...
+    py1 = gamma_y2*py2 + gamma_mq*pq ...
+    !! y1 = a_y1 * (y2/(1-gamma_q))^(1-gamma_q) * (mq/gamma_q)^gamma_q ...
     ;
 
-    ... gamma_q * py1 * y1 = pq * mq * [1 + xi_y1*($adj_q$)] ...
-    (gamma_q) * &py1 * y1 = &pq * mq ...
-    !! gamma_q * py1 * y1 = pq * mq ...
+    gamma_y2 * y1 = y2;
+
+    gamma_mq * y1 = mq;
+
+    gamma_y2 = ...
+        + rho_gamma * gamma_y2{-1} ...
+        + (1 - rho_gamma) * (1-gamma_q)*(&py1/&py2) ...
+    !! gamma_y2 = (1-gamma_q)*(py1/py2) ...
     ;
 
-
+    gamma_mq = ...
+        + rho_gamma * gamma_mq{-1} ...
+        + (1 - rho_gamma) * gamma_q*(&py1/&pq) ...
+    !! gamma_mq = gamma_q*(py1/pq) ...
+    ;
 
 %{
 
@@ -192,7 +197,7 @@ the ratio as a log-variable
 %}
 
 
-%% T-0: Final stage production: Flatter marginal cost
+    %% -----T-0: Final stage production: Flatter marginal cost-----
 
 %     y + yz = (y1/(1-gamma_yz))^(1-gamma_yz) * (yz/gamma_yz)^gamma_yz;
 %     (1-gamma_yz) * py0 * (y + yz) = py1 * y1;
@@ -203,7 +208,7 @@ the ratio as a log-variable
     yz = 1;
 
 
-%% Final price setting 
+    %% -----Final price setting-----
 
     mu_py*py0*exp(shk_py) = py*[1 + (mu_py-1)*xi_py*($adj_py$)] ...
     !! py = mu_py * py0;
@@ -214,19 +219,19 @@ the ratio as a log-variable
     pih = py;
 
 
-%% Distribution of final goods 
+    %% -----Distribution of final goods-----
 
     y = ch + cg + ih + yxx;
 
 
-%% Rates of change 
+    %% -----Rates of change-----
 
     !for cg, pc, py, y3, nv !do
         roc_? = ? / ?{-1};
     !end
 
 
-%% Definitions 
+    %% -----Definitions-----
 
     "Per-capita private consumption"
     ch_to_nn = ch / nn;

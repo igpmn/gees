@@ -31,6 +31,7 @@ function p = baselineArea(p)
     p.chi = 1;
     p.chi_curr = 0.10;
     p.chi_ch = 0.30;
+    p.xi_w = 15; 20;
 
     p.rho_zh_aut = 0.70;
     p.theta_1 = 0.10;
@@ -40,10 +41,13 @@ function p = baselineArea(p)
 
     p.gamma_n0 = 1/3;
     p.gamma_m = 0.15;
-    p.gamma_q = 0.05;
     p.gamma_uk = 0.30;
     p.gamma_yz = 0.60;
     p.gamma_xx = 0.50;
+
+    p.a_y1 = 1;
+    p.gamma_q = 0.10; % 0.05;
+    p.rho_gamma = 0.7;
 
     p.alpha = 0.4;
 
@@ -85,10 +89,8 @@ function p = baselineArea(p)
     p.ss_trm = 0;
     p.rho_trm = 0;
 
-    % Commodity sector
+    % Local commodity sector
     p.lambda = 1;
-    p.gg_iota_1 = 0.2;
-    p.gg_rho_qq = 0.8;
 
     % p.gg_rho_aqq = 0.7;
     % p.gg_ss_aq = 1;

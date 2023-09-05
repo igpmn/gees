@@ -100,13 +100,13 @@
 !equations(:open)
 
 
-%% Imports
+    %% -----Non-commodity imports-----
 
     "Distribution of non-commodity imports"
     mm = my + mxx;
 
 
-%% Commodity sector
+    %% -----Commodity sector-----
 
     "Commodity endowment"
     xq = lambda * gg_q;
@@ -115,7 +115,7 @@
     pq = gg_pq * e;
 
 
-%% Non-commodity export production 
+    %% -----Non-commodity export production-----
 
     "Non-commodity export production function"
     xx = ar^gamma_xx * (yxx/(1-alpha))^(1-alpha) * (mxx/alpha)^alpha;
@@ -127,11 +127,10 @@
     alpha * pxx * xx = (pmm * gg_dmm) * mxx;
 
 
-%% Balance of payments and exchange rate 
+    %% -----Balance of payments and exchange rate-----
 
     "Balance of payments transactions"
-    nfa_to_ngdp * ngdp - nfa_to_ngdp{-1} * ngdp{-1} ...
-        = ...
+    nfa_to_ngdp * ngdp - nfa_to_ngdp{-1} * ngdp{-1} = ...
         + bpfeq_to_ngdp * ngdp ...
         + (rnfa - 1) * nfa_to_ngdp{-1} * ngdp{-1} ...
         + bpceq_to_ngdp*ngdp ...
@@ -165,7 +164,7 @@
     roc_e = e / e{-1};
 
 
-%% International comparison 
+    %% -----International comparison-----
 
     "Price of non-commodity exports in reference currency"
     pxx_rcy = pxx / e;
@@ -174,7 +173,7 @@
     nxx_rcy = pxx_rcy * xx;
 
 
-%% Calibration ratios 
+    %% -----Calibration ratios-----
 
     "Total imports to GDP ratio"
     nmm_to_ngdp = fob_pmm*mm / ngdp;

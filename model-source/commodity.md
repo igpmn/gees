@@ -22,6 +22,7 @@
 
     "Excess demand elasticity of commodity prices !! $\iota_1^\gg$" gg_iota_1
     "A/R Long-run trend in commodity supply !! $\rho_\mathit{qq}^\gg$" gg_rho_qq
+    "Autonomous component in real price of commodities !! $\mathit{aut}^\gg_\mathit{pq}$" gg_aut_pq
 
 
 !shocks(:commodity)
@@ -53,8 +54,8 @@
 
 
     "Commodity supply curve"
-    gg_pq = gg_pxx * gg_qexc^gg_iota_1 * exp(gg_shk_pq) ...
-    !! gg_pq = gg_pxx;
+    gg_pq = gg_aut_pq * gg_pxx * gg_qexc^gg_iota_1 * exp(gg_shk_pq) ...
+    !! gg_pq = gg_aut_pq * gg_pxx;
 
 
     "Global real prices of commodities"

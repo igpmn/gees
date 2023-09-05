@@ -16,5 +16,12 @@ function p = baselineGlobal(p)
     p.gg_rho_zy = 0.90;
     p.gg_rho_dmm = 0.50;
 
+
+    % -----Global commodity sector----
+
+    p.gg_aut_pq = 1;
+    p.gg_iota_1 = 0.2;
+    p.gg_rho_qq = 0.8;
+
 end%
 

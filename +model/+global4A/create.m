@@ -2,258 +2,261 @@
 
 function [m4, t4] = create()
 
-thisDir = string(fileparts(mfilename("fullpath")));
-areas = ["us", "ea", "cn", "rw"];
-numAreas = numel(areas);
+    thisDir = string(fileparts(mfilename("fullpath")));
+    areas = ["us", "ea", "cn", "rw"];
+    numAreas = numel(areas);
 
 
-%% Calibrate population in autarky templates 
+    %% Calibrate population in autarky templates 
 
-ma = model.autarky.create();
+    ma = model.autarky.create();
 
-ma4 = alter(ma, numAreas);
+    ma4 = alter(ma, numAreas);
 
-ma4.ss_nr = [0.331, 0.515, 1.439, NaN];
-ma4.ss_nr(end) = 7.123 - sum(ma4.ss_nr, "omitnan");
+    ma4.ss_nr = [0.331, 0.515, 1.439, NaN];
+    ma4.ss_nr(end) = 7.123 - sum(ma4.ss_nr, "omitnan");
 
-ma4 = steady( ...
-    ma4 ...
-    , "fix", ["gg_nt", "gg_a", "pc"] ...
-    , "blocks", false ...
-);
+    ma4 = steady( ...
+        ma4 ...
+        , "fix", ["gg_nt", "gg_a", "pc"] ...
+        , "blocks", false ...
+    );
 
-checkSteady(ma4);
-
-
-%% Clone names in model files for each area 
-
-sourceFiles = [
-    "model-source/demography.md"
-    "model-source/households.md"
-    "model-source/production.md"
-    "model-source/monetary.md"
-    "model-source/fiscal.md"
-    "model-source/open.md"
-];
-
-template = ModelSource(sourceFiles);
-template = preparse(template, "assign", struct('areas', areas));
-
-globalNames = collectAllNames(template, @(x) startsWith(x, "gg_"));
-
-modelSources = ModelSource.empty(1, 0);
-for n = areas
-    modelSources(end+1) = ...
-        clone(template, [n + "_", ""], "namesToKeep", globalNames); %#ok<SAGROW>
-end
+    checkSteady(ma4);
 
 
-%% Add multi-area global equations and create model object 
+    %% Clone names in model files for each area 
 
-modelSources(end+1) = ModelSource("model-source/globals.md");
-modelSources(end+1) = ModelSource("model-source/wrapper-multiarea.md");
-modelSources(end+1) = ModelSource("model-source/commodity.md");
-modelSources(end+1) = ModelSource("model-source/trade.md");
-modelSources(end+1) = ModelSource("model-source/finance.md");
+    sourceFiles = [
+        "model-source/demography.md"
+        "model-source/households.md"
+        "model-source/production.md"
+        "model-source/monetary.md"
+        "model-source/fiscal.md"
+        "model-source/open.md"
+    ];
 
-m4 = Model.fromSource( ...
-    modelSources ...
-    , "growth", true ...
-    , "assign", struct('areas', areas) ...
-    , "comment", "Global four-area economy" ...
-    , "savePreparsed", fullfile(thisDir, "preparsed.md") ...
-);
+    template = ModelSource(sourceFiles);
+    template = preparse(template, "assign", struct('areas', areas));
 
-m4 = assignUserData(m4, "areas", areas);
+    globalNames = collectAllNames(template, @(x) startsWith(x, "gg_"));
 
-
-%% Reassign parameters from autarky 
-
-% Reassign autarky parameters to each area
-for i = 1 : numAreas
-    a = areas(i);
-    prefix = a + "_";
-    suffix = "";
-    m4 = assign(m4, ma4(i), @all, [prefix, suffix]);
-end
-
-% Reassign global parameters
-m4 = assign(m4, ma, globalNames);
-
-
-%% Calibrate multi-area parameters and steady-state values
-
-% Sum up global population and demand for commodities
-m4.gg_nn = 0;
-m4.gg_q = 0;
-for n = areas
-    m4.gg_nn = m4.gg_nn + real(m4.(n+"_nn"));
-    m4.gg_q = m4.gg_q + real(m4.(n+"_mq"));
-end
-m4.gg_nn = m4.gg_nn + 1i*m4.gg_ss_roc_nt;
-m4.gg_q = m4.gg_q + 1i*imag(ma.gg_q);
-m4.gg_qq = m4.gg_q;
-
-
-% Symmetric directions of trade
-gg_nn = real(m4.gg_nn);
-for n = areas
-    n_nn = real(m4.(n+"_nn"));
-    m4.(n+"_xi_mm") = 0.5;
-    m4.(n+"_lambda") = n_nn / gg_nn;
-    for x = setdiff(areas, n)
-        x_nn = real(m4.(x+"_nn"));
-        m4.(n+"_omega_"+x) = x_nn / (gg_nn - n_nn);
-        m4.(n+"_mm_sh_"+x) = x_nn / (gg_nn - n_nn);
-        m4.(n+"_ss_trm_"+x) = 0;
-        m4.(n+"_rho_trm_"+x) = 0;
-        m4.(n+"_trm_"+x) = 0;
+    modelSources = ModelSource.empty(1, 0);
+    for n = areas
+        modelSources(end+1) = ...
+            clone(template, [n + "_", ""], "namesToKeep", globalNames); %#ok<SAGROW>
     end
-end
 
-% Calibrate corporate equity exposures
-own = 0.90;
-for a = areas
-    for b = areas
-        n = a + "_phi_" + b;
-        if a==b
-            m4.(n) = own;
-        else
-            m4.(n) = (1 - own) / (numAreas-1);
+
+    %% Add multi-area global equations and create model object 
+
+    modelSources(end+1) = ModelSource("model-source/globals.md");
+    modelSources(end+1) = ModelSource("model-source/wrapper-multiarea.md");
+    modelSources(end+1) = ModelSource("model-source/commodity.md");
+    modelSources(end+1) = ModelSource("model-source/trade.md");
+    modelSources(end+1) = ModelSource("model-source/finance.md");
+
+    m4 = Model.fromSource( ...
+        modelSources ...
+        , "growth", true ...
+        , "assign", struct('areas', areas) ...
+        , "comment", "Global four-area economy" ...
+        , "savePreparsed", fullfile(thisDir, "preparsed.md") ...
+    );
+
+    m4 = assignUserData(m4, "areas", areas);
+
+
+    %% Reassign parameters from autarky 
+
+    % Reassign autarky parameters to each area
+    for i = 1 : numAreas
+        a = areas(i);
+        prefix = a + "_";
+        suffix = "";
+        m4 = assign(m4, ma4(i), @all, [prefix, suffix]);
+    end
+
+    % Reassign global parameters
+    m4 = assign(m4, ma, globalNames);
+
+
+    %% Calibrate multi-area parameters and steady-state values
+
+    % Sum up global population and demand for commodities
+    m4.gg_nn = 0;
+    m4.gg_q = 0;
+    for n = areas
+        m4.gg_nn = m4.gg_nn + real(m4.(n+"_nn"));
+        m4.gg_q = m4.gg_q + real(m4.(n+"_mq"));
+    end
+    m4.gg_nn = m4.gg_nn + 1i*m4.gg_ss_roc_nt;
+    m4.gg_q = m4.gg_q + 1i*imag(ma.gg_q);
+    m4.gg_qq = m4.gg_q;
+
+
+    % Symmetric directions of trade
+    gg_nn = real(m4.gg_nn);
+    for n = areas
+        n_nn = real(m4.(n+"_nn"));
+        m4.(n+"_xi_mm") = 0.5;
+        m4.(n+"_lambda") = n_nn / gg_nn;
+        for x = setdiff(areas, n)
+            x_nn = real(m4.(x+"_nn"));
+            m4.(n+"_omega_"+x) = x_nn / (gg_nn - n_nn);
+            m4.(n+"_mm_sh_"+x) = x_nn / (gg_nn - n_nn);
+            m4.(n+"_ss_trm_"+x) = 0;
+            m4.(n+"_rho_trm_"+x) = 0;
+            m4.(n+"_trm_"+x) = 0;
         end
     end
-end
 
-m4 = steady( ...
-    m4 ...
-    , "fix", ["gg_nt", "gg_a", areas+"_pc"] ...
-    , "blocks", false ...
-);
+    % Calibrate corporate equity exposures
+    own = 0.90;
+    for a = areas
+        for b = areas
+            n = a + "_phi_" + b;
+            if a==b
+                m4.(n) = own;
+            else
+                m4.(n) = (1 - own) / (numAreas-1);
+            end
+        end
+    end
 
-checkSteady(m4);
+    fix = ["gg_nt", "gg_a", areas+"_pc"];
+    m4 = assignUserData(m4, "fix", fix);
 
-%% Calibrate forex market functioning
+    m4 = steady( ...
+        m4 ...
+        , "fix", fix ...
+        , "blocks", false ...
+    );
 
-m4.ea_zeta_r = 1;
-m4.cn_zeta_r = 1/3;
-m4.rw_zeta_r = 1/3;
+    checkSteady(m4);
 
+    %% Calibrate forex market functioning
 
-%% Calibrate labor market demography 
-
-% Adapt WAP and labor market participation
-m4.us_ss_nw_to_nn = 0.65;
-m4.ea_ss_nw_to_nn = 0.64;
-m4.cn_ss_nw_to_nn = 0.70;
-m4.rw_ss_nw_to_nn = 0.64;
-
-
-m4.us_ss_nf_to_nw = 0.73;
-m4.ea_ss_nf_to_nw = 0.74;
-m4.cn_ss_nf_to_nw = 0.76;
-m4.rw_ss_nf_to_nw = 0.66; %0.93???
-
-
-%% Government debt
-m4.us_ss_dg_to_ngdp = 0.90;
-m4.ea_ss_dg_to_ngdp = 0.90;
-m4.cn_ss_dg_to_ngdp = 0.50;
-m4.rw_ss_dg_to_ngdp = 0.40;
+    m4.ea_zeta_r = 1;
+    m4.cn_zeta_r = 1/3;
+    m4.rw_zeta_r = 1/3;
 
 
-%% Inflation and interest rates
-m4.us_ss_roc_pc = 1.02;
-m4.ea_ss_roc_pc = 1.02;
-m4.cn_ss_roc_pc = 1.025;
-m4.rw_ss_roc_pc = 1.05;
+    %% Calibrate labor market demography 
 
-m4.us_ss_zh_aut = 0.03;
-m4.ea_ss_zh_aut = 0.03;
-m4.cn_ss_zh_aut = 0.03;
-m4.rw_ss_zh_aut = 0.03;
+    % Adapt WAP and labor market participation
+    m4.us_ss_nw_to_nn = 0.65;
+    m4.ea_ss_nw_to_nn = 0.64;
+    m4.cn_ss_nw_to_nn = 0.70;
+    m4.rw_ss_nw_to_nn = 0.64;
 
 
-%% Calibrate distribution of commodity extraction 
-
-m4.us_lambda = 0.20;
-m4.ea_lambda = 0.05;
-m4.cn_lambda = 0.30; %%%%%%%% FIXME
-m4.rw_lambda = 1 - m4.us_lambda - m4.ea_lambda - m4.cn_lambda;
-
-% {
-m4 = steady( ...
-    m4 ...
-    , "fixLevel", ["gg_nt", "gg_a", areas+"_pc"] ...
-    , "blocks", false ...
-);
-
-checkSteady(m4);
-% }
+    m4.us_ss_nf_to_nw = 0.73;
+    m4.ea_ss_nf_to_nw = 0.74;
+    m4.cn_ss_nf_to_nw = 0.76;
+    m4.rw_ss_nf_to_nw = 0.66; %0.93???
 
 
-%% Calibrate productivity differentials 
-
-m4.ea_comp_ch_to_nn = 0.73;
-m4.cn_comp_ch_to_nn = 0.40; %%%%% FIXME
-m4.rw_comp_ch_to_nn = 0.32;
-
-% m4 = steady( ...
-    % m4 ...
-    % , "fix", ["gg_nt", "gg_a", areas+"_pc"] ...
-    % , "exogenize", ["ea", "cn", "rw"]+"_comp_ch_to_nn" ...
-    % , "endogenize", ["ea", "cn", "rw"]+"_ss_ar" ...
-    % , "blocks", false ...
-% );
-% 
-% checkSteady(m4);
-
-m4.us_nmm_to_ngdp = 0.15;
-m4.ea_nmm_to_ngdp = 0.25;
-m4.cn_nmm_to_ngdp = 0.18;
-
-m4 = steady( ...
-    m4 ...
-    , "fix", ["gg_nt", "gg_a", areas+"_pc"] ...
-    , "exogenize", [["ea", "cn", "rw"]+"_comp_ch_to_nn", ["us", "ea", "cn"]+"_nmm_to_ngdp"] ...
-    , "endogenize", [["ea", "cn", "rw"]+"_ss_ar", ["us", "ea", "cn"]+"_gamma_m"] ...
-    , "blocks", false ...
-);
-
-checkSteady(m4);
-
-%{
-m4.us_eta = 0.5;
-m4.ea_eta = 0.5;
-m4.cn_eta = 0.5;
-m4.rw_eta = 0.5;
-
-m4 = steady( ...
-    m4 ...
-    , "fix", ["gg_nt", "gg_a", areas+"_pc"] ...
-    , "exogenize", [["ea", "cn", "rw"]+"_comp_ch_to_nn", ["us", "ea", "cn"]+"_nmm_to_ngdp"] ...
-    , "endogenize", [["ea", "cn", "rw"]+"_ss_ar", ["us", "ea", "cn"]+"_gamma_m"] ...
-    , "blocks", false ...
-);
-
-checkSteady(m4);
-%}
-
-%% Calculate first order solution
-
-m4 = solve(m4);
+    %% Government debt
+    m4.us_ss_dg_to_ngdp = 0.90;
+    m4.ea_ss_dg_to_ngdp = 0.90;
+    m4.cn_ss_dg_to_ngdp = 0.50;
+    m4.rw_ss_dg_to_ngdp = 0.40;
 
 
-%% Report steady state table 
+    %% Inflation and interest rates
+    m4.us_ss_roc_pc = 1.02;
+    m4.ea_ss_roc_pc = 1.02;
+    m4.cn_ss_roc_pc = 1.025;
+    m4.rw_ss_roc_pc = 1.05;
 
-t4 = table( ...
-    m4, ["steadyLevel", "steadyChange", "form", "description"] ...
-    , "writeTable", fullfile(thisDir, "steady.xlsx") ...
-);
+    m4.us_ss_zh_aut = 0.03;
+    m4.ea_ss_zh_aut = 0.03;
+    m4.cn_ss_zh_aut = 0.03;
+    m4.rw_ss_zh_aut = 0.03;
 
 
-%% Save model object to mat file 
+    %% Calibrate distribution of commodity extraction 
 
-save(fullfile(thisDir, "model.mat"), "m4", "t4");
+    m4.us_lambda = 0.20;
+    m4.ea_lambda = 0.05;
+    m4.cn_lambda = 0.30; %%%%%%%% FIXME
+    m4.rw_lambda = 1 - m4.us_lambda - m4.ea_lambda - m4.cn_lambda;
+
+    % {
+    m4 = steady( ...
+        m4 ...
+        , "fixLevel", ["gg_nt", "gg_a", areas+"_pc"] ...
+        , "blocks", false ...
+    );
+
+    checkSteady(m4);
+    % }
+
+
+    %% Calibrate productivity differentials 
+
+    m4.ea_comp_ch_to_nn = 0.73;
+    m4.cn_comp_ch_to_nn = 0.40; %%%%% FIXME
+    m4.rw_comp_ch_to_nn = 0.32;
+
+    % m4 = steady( ...
+        % m4 ...
+        % , "fix", ["gg_nt", "gg_a", areas+"_pc"] ...
+        % , "exogenize", ["ea", "cn", "rw"]+"_comp_ch_to_nn" ...
+        % , "endogenize", ["ea", "cn", "rw"]+"_ss_ar" ...
+        % , "blocks", false ...
+    % );
+    % 
+    % checkSteady(m4);
+
+    m4.us_nmm_to_ngdp = 0.15;
+    m4.ea_nmm_to_ngdp = 0.25;
+    m4.cn_nmm_to_ngdp = 0.18;
+
+    m4 = steady( ...
+        m4 ...
+        , "fix", fix ...
+        , "exogenize", [["ea", "cn", "rw"]+"_comp_ch_to_nn", ["us", "ea", "cn"]+"_nmm_to_ngdp"] ...
+        , "endogenize", [["ea", "cn", "rw"]+"_ss_ar", ["us", "ea", "cn"]+"_gamma_m"] ...
+        , "blocks", false ...
+    );
+
+    checkSteady(m4);
+
+    %{
+    m4.us_eta = 0.5;
+    m4.ea_eta = 0.5;
+    m4.cn_eta = 0.5;
+    m4.rw_eta = 0.5;
+
+    m4 = steady( ...
+        m4 ...
+        , "fix", fix ...
+        , "exogenize", [["ea", "cn", "rw"]+"_comp_ch_to_nn", ["us", "ea", "cn"]+"_nmm_to_ngdp"] ...
+        , "endogenize", [["ea", "cn", "rw"]+"_ss_ar", ["us", "ea", "cn"]+"_gamma_m"] ...
+        , "blocks", false ...
+    );
+
+    checkSteady(m4);
+    %}
+
+    %% Calculate first order solution
+
+    m4 = solve(m4);
+
+
+    %% Report steady state table 
+
+    t4 = table( ...
+        m4, ["steadyLevel", "steadyChange", "form", "description"] ...
+        , "writeTable", fullfile(thisDir, "steady.xlsx") ...
+    );
+
+
+    %% Save model object to mat file 
+
+    save(fullfile(thisDir, "model.mat"), "m4", "t4");
 
 end%
 

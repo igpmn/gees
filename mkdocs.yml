@@ -5,7 +5,7 @@ theme:
     name: material
     font: 
         code: "Ubuntu Mono"
-        text: "Open Sans"
+        text: "Work Sans"
     icon: 
         logo: fontawesome/solid/infinity
         repo: fontawesome/brands/github

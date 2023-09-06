@@ -15,6 +15,10 @@
 git config --global http.sslbackend schannel
 ```
 
+## Documentation
+
+`https://igpmn.github.io/gees`
+
 
 ## Review of the model structure
 

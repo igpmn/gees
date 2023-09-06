@@ -3,9 +3,17 @@
 
 ## Setting up computers
 
-* Git
+* Git: `git-scm.com`
 * Iris toolbox
-* GEES repository
+* GEES repository: `https://github.com/igpmn/gees.git`
+
+```
+>> !git clone https://github.com/igpmn/gees.git
+```
+
+```
+git config --global http.sslbackend schannel
+```
 
 
 ## Review of the model structure

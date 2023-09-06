@@ -4,6 +4,7 @@ function [m4, t4] = create()
 
     thisDir = string(fileparts(mfilename("fullpath")));
     areas = ["us", "ea", "cn", "rw"];
+    fullAreaNames = ["United States", "Euro Area", "China", "Rest of the World"];
     numAreas = numel(areas);
 
 
@@ -65,6 +66,7 @@ function [m4, t4] = create()
     );
 
     m4 = assignUserData(m4, "areas", areas);
+    m4 = assignUserData(m4, "fullAreaNames", fullAreaNames);
 
 
     %% Reassign parameters from autarky 

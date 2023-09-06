@@ -27,7 +27,7 @@
     "Price of production capital" pk
     "Price of production capital services" pu
     "Real consumer wage rate" w_to_pc
-    "Flexible nominal wage rate" ww
+    "Target nominal wage rate" ww
 
     "Nominal wage rate, Y/Y" roc_w
     "Household investment, Y/Y" roc_ih
@@ -55,7 +55,6 @@
 
 !parameters(:households :dynamic)
 
-    "A/R in real wage rate !! $\rho_w$" rho_w
     "A/R in uncertainty discount factor on capital !! $\rho_\mathit{zk}$" rho_zk
     "A/R in uncertainty discount factor on production cash flows !! $\rho_\mathit{zy}$" rho_zy
     "Point of reference in consuptions switch !! $\chi$" chi
@@ -64,7 +63,7 @@
     "Type 1 investment adjustment cost parameter !! $\xi_\mathit{ih,1}$" xi_ih1
     "Type 2 investment adjustment cost parameter !! $\xi_\mathit{ih,2}$" xi_ih2
     "Pressure relief valve for interest rate lower bound !! $\theta_\mathir{rh}$" theta_rh
-    xi_w
+    "Adjustment cost in wage setting" xi_w
 
 
 !shocks(:households)
@@ -149,21 +148,13 @@
     "Real consumer wage rate"
     w_to_pc = w / pc;
 
-    "Real wage rigidities"
-%     log(w_to_pc) = ...
-%         + rho_w * [log(w_to_pc{-1}) + log(&roc_w/&roc_pc)] ... 
-%         + (1-rho_w) * log(ww/pc) ...
-%         + shk_w ...
-%     log(roc_w) = ...
-%         + 0.5*log(roc_w{-1}) + (1-0.5)*log(roc_w{+1}) ...
-%         + xi_w * log(ww/w) ...
-%         + shk_w ...
-%     !! w = ww;
+    "Wage rigidities"
     log(ww) - log(w) = ...
         + xi_w*(log(roc_w) - log(roc_w{-1})) ...
         - beta/&roc_w*xi_w*(log(roc_w{+1}) - log(roc_w)) ...
         + shk_w ...
     !! w = ww;
+
 
 %% Supply of production capital 
 

@@ -54,7 +54,7 @@
 
 !parameters(:open :steady)
 
-    "Import intensity of non-commodity exports !! $\alpha$" alpha
+    "Import intensity of non-commodity exports !! $\gamma_\mathit{mxx}$" gamma_mxx
     "Acceleration in exportable productivity !! $\gamma_\mathit{xx}$" gamma_xx
     "Elasticity of household risk function wrt NFA !! $\theta_1$" theta_1
     "Curvature of household risk function wrt NFA !! $\theta_2$" theta_2
@@ -118,13 +118,13 @@
     %% -----Non-commodity export production-----
 
     "Non-commodity export production function"
-    xx = ar^gamma_xx * (yxx/(1-alpha))^(1-alpha) * (mxx/alpha)^alpha;
+    xx = ar^gamma_xx * (yxx/(1-gamma_mxx))^(1-gamma_mxx) * (mxx/gamma_mxx)^gamma_mxx;
 
     "Demand for local content in export production"
-    (1-alpha) * pxx * xx = py * yxx;
+    (1-gamma_mxx) * pxx * xx = py * yxx;
 
     "Demand for re-exports"
-    alpha * pxx * xx = (pmm * gg_dmm) * mxx;
+    gamma_mxx * pxx * xx = (pmm * gg_dmm) * mxx;
 
 
     %% -----Balance of payments and exchange rate-----

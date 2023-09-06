@@ -5,7 +5,7 @@ title: Financial linkages
 # :fontawesome-solid-dice: Financial linkages
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "model/finance-math.md"
 

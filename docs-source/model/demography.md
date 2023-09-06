@@ -26,7 +26,7 @@ per-worker labor supply (e.g. per-worker hours).
 
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "docs-source/model/demography-math.md"
 

@@ -24,7 +24,6 @@ function p = baselineArea(p)
     p.rho_nw = 0.9;
     p.rho_nf = 0.5;
 
-    p.rho_w = 0.50;
     p.rho_zk = 0.90;
     p.rho_zy = 0.90;
 
@@ -44,12 +43,12 @@ function p = baselineArea(p)
     p.gamma_uk = 0.30;
     p.gamma_yz = 0.60;
     p.gamma_xx = 0.50;
+    p.gamma_mq = 0.10; % 0.05;
 
     p.a_y1 = 1;
-    p.gamma_q = 0.10; % 0.05;
-    p.rho_gamma = 0.7;
+    p.rho_alpha = 0.7;
 
-    p.alpha = 0.4;
+    p.gamma_mxx = 0.4;
 
     p.upsilon_0 = 1;
     p.upsilon_1 = 1/0.2;

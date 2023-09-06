@@ -5,7 +5,7 @@ title: Export and import
 # :fontawesome-solid-plane:  Import, export, and BOP
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
 
     --8<-- "model/open-math.md"

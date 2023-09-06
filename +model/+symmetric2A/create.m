@@ -11,6 +11,7 @@ ma = model.autarky.create();
 
 
 areas = ["us", "ea"];
+fullAreaNames = ["United States", "Euro Area"];
 numAreas = numel(areas);
 
 
@@ -53,6 +54,7 @@ m2 = Model( ...
 );
 
 m2 = assignUserData(m2, "areas", areas);
+m2 = assignUserData(m2, "fullAreaNames", fullAreaNames);
 
 
 %% Reassign parameters from autarky

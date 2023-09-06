@@ -1,7 +1,7 @@
 
 ## Household preferences
 
-The household preferences are described by a time-separable utility
+The representative household preferences are described by a time-separable utility
 function over an infinite life horizon, $t=0,\dots,\infty$. The period
 utility function consists of a consumption utility component, $\bU^{ch}_t$,
 a work disutility component, $\bU^{nh}_t$, and a current wealth (net worth)
@@ -105,7 +105,7 @@ of capital claims, and the total amount of current receipts and outlays:
 * current receipts from capital rentals net of capital utilization costs, 
 $\sum\nolimits_a s_{a,t} \,ex_{a,t}\,  pu_{t}^a \, k_{t}^a - \Xi_{u,t}$,
 
-* current receipts from labor income, $w_t \, nh_t \, nl_t$, 
+* current receipts from labor income, $w_t \, nh_t \, nf_t$, 
 
 * current receipts from selling newly installed capital, $pk_t\,i_t$, 
 
@@ -127,7 +127,9 @@ $$
 + \ \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
-+ \ w_t \, nh_t \, nl_t - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - tx1_t - tx2_t
++ \ w_t^\mathrm{tar} \, nh_t \, nf_t + \left( w_t - w_t^\mathrm{tar} \right) \, \extern{nh_t} \, \extern{nf_t}
+\ \cdots \newl
+- \ pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - tx1_t - tx2_t
 \ \cdots \newl
 + \ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} - \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \end{gathered}
@@ -139,34 +141,42 @@ $vh_t$ (shadow value of nominal household wealth)
 
 ---
 
-## Real wage rigidities
+## Labor market
 
-The labor market exhibits real wage rigidities. These rigidities do not
-derive from explicit microfoundations in our model; they are introduced as
-an ad-hoc correction to the law of motion for the real wage rate in the
-following way. The household makes its choices as though the wage rate was
-fully flexible; we denote this hypothetical level of the nominal wage rate
-by $ww_t$, and use this hypothetical wage in the household Lagrangian, in
-place of the actual wage rate. Once the hypothetical flexible optimum wage
-rate is determined, the actual wage rate follows an autoregressive process
-with asymptotic convergence to the flexible optimum
+* The representative household delegates wage negotiation to a trade union
+  agent
 
-$$
-\blog \frac{w_t}{pc_t} 
-= \rho_{w} \ \blog \frac{\kappa_w\, w_{t-1}}{pc_{t-1}}
-+ \left(1-\rho_w\right) \ \blog \frac{ww_t}{pc_t}
-+ \epsilon_{w,t}
-$$
+* Each period, the household tells the trade union its target level for
+  nominal wage, $w^\mathrm{tar}$, 
 
-where the past real wage is indexed by a steady-state adjustment constant,
-$\kappa_w$, given by the gross rate of change in the steady-state real wage
-rate
+* The union solves to following optimizing problem including a wage inflation adjustment cost:
+
 
 $$
-\kappa_w \equiv \roc{w}_\ss \ \roc{pc}_\ss{}^{-1}
+\min\nolimits_{\{w_t\}}
+\mathrm E_t \, \sum_{t=0}^\infty
+\beta^t\,\Lambda_t \, \left[
+(\log w_t - \log w_t^\mathrm{tar} )^2
++ \tfrac{\xi_w}{2} \, (\log \roc{w}{}_t - \log \roc{w}{}_t^{\ref} )^2
+\right]
 $$
 
-and $\rho_w\in[0,\,1)$ is an autoregression parameter.
+where 
+
+* $\xi_w$ is an adjustment cost parameter
+
+* $\roc{w}{}_t^{\ref} \equiv \roc{\extern{w}}_t$ is a reference rate of wage inflation representing
+  the backward indexation present in wage negotiation
+
+The resulting first-order condition (a wage setting equation) is given by
+
+$$
+\log w_t - \log w_t^\mathrm{tar} = 
+\xi_w ( \log \roc{w}_t - \log {\roc{w}}{}^\ref_t )
+- \xi_w \, \mathrm E_t \left[ \beta \tfrac{\Lambda_{t+1}\,w_t}{\Lambda_{t}\,w_{t+1}}
+( \log \roc{w}_{t+1} - \log \roc{w}{}^\ref_t ) \right]
+$$
+
 
 ---
 

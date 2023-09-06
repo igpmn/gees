@@ -74,7 +74,7 @@ plot(0:20, 100*([smc.aa_py, smc.aa_pxx, smc.aa_pmm]-1), "marker", "s");
 legend("AA Local prices", "AA Export prices", "AA Import (reexport) prices");
 title(["AA Pass-through to export price", "Percent level deviations from steady state"]);
 
-m2.aa_alpha
+m2.gamma_mxx
 
 figure();
 plot(0:20, pct([smc.aa_py, smc.aa_pxx, smc.aa_pmm]), "marker", "s");

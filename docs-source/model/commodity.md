@@ -16,7 +16,7 @@ exporter or importer.
 
 <br />
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "model/commodity-math.md"
 

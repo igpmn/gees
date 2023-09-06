@@ -24,7 +24,7 @@ Household behavior (utility function) modified to induce
 * Fiscal crowding-out in the long run
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "model/fiscal-math.md"
 

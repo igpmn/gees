@@ -34,7 +34,7 @@ $$
 
 ## Production stages
 
-#### $T-4$: Combine imports from the rest of the world
+#### Stage $T-4$: Combine imports from the rest of the world
 
 [Production function with time-varying elasticity of substitution](production-time-varying-elasticity.md)
 
@@ -53,7 +53,7 @@ where
 * $mx_t$ is the intermediate import inputs into export production (re-exports)
 
 
-#### $T-3$: Combine non-commodity variable factors
+#### Stage $T-3$: Combine non-commodity variable factors
 
 [Production function with time-varying elasticity of substitution](production-time-varying-elasticity.md)
 
@@ -70,7 +70,7 @@ where
   overhead labor needed to maintain production regardless of the output
   actually produced
 
-T-2: Combine variable factors with capital
+#### Stage $T-2$: Combine variable factors with business capital
 
 $$
 \begin{gathered}
@@ -79,14 +79,28 @@ uk_t = u_t \, k_t
 \end{gathered}
 $$
 
-#### $T-1$: Add dependence on commodity inputs
+
+#### Stage $T-1$: Add dependence on commodity inputs
+
+1. Unit elasticity case (Cobb-Douglas technology)
 
 $$
-y_{1,t} = F_1\bigl( y_{2,t},\ mq_t \bigr)
+y_{1,t} = a_{y1} \cdot \kappa_{y1} \cdot
+y_{2,t}{}^{1-\gamma_{mq}} \cdot
+mq_t{}^{\gamma_{mq}}
 $$
 
 
-#### $T-0$: Sticky prices
+2. No elasticity technology (Leontief technology)
+
+$$
+y_{1,t} = \min \left\{
+\frac{y_{2,t}}{\alpha_{y1}},\ \frac{mq_t}{\alpha_{mq}}
+\right\}
+$$
+
+
+#### Stage $T-0$: Sticky prices
 
 [Sticky price setting](production-sticky-prices.md)
 
@@ -106,6 +120,7 @@ $$
 \cdots -\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi_{py,t}
 \end{multline}
 $$
+
 
 ## Final goods
 

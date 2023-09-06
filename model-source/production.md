@@ -23,7 +23,7 @@
     "Price of commodity input into production" pq
 
     "Commodity input into production" mq
-    gamma_mq, gamma_y2
+    alpha_mq, alpha_y2
     "Variable labor input into production" nv
 
     "Nominal GDP" ngdp
@@ -76,7 +76,7 @@ the ratio as a log-variable
     "Share of overhead labor !! $\gamma_\mathit{n0}$" gamma_n0
     "Share of intermediate imports in stage T-3 production !! $\gamma_m$" gamma_m
     "Share of capital services in stage T-2 production !! $\gamma_\mathit{uk}$" gamma_uk
-    "Share of commodity inputs in stage T-1 production !! $\gamma_q$" gamma_q
+    "Share of commodity inputs in stage T-1 production !! $\gamma_mq$" gamma_mq
     "Share of roundabout intermediates in stage T-0 production !! $\gamma_\mathit{yz}$" gamma_yz
 
     "Monopoly power (markup) of local producers !! $\mu_\mathit{py}$" mu_py
@@ -91,7 +91,7 @@ the ratio as a log-variable
     "Stage T-2 input factor adjustment cost parameter !! $\xi_{y2}$" xi_y2
     "Stage T-1 input factor adjustment cost parameter !! $\xi_{y1}$" xi_y1
     "Price adjustment cost parameters !! $\xi_\mathit{py}$" xi_py
-    rho_gamma
+    rho_alpha
 
 
 !shocks(:production)
@@ -167,34 +167,30 @@ the ratio as a log-variable
     %% -----Stage T-1 Production: Add Commodity-----
 
 
-    %py1 = py2^(1 - gamma_q) * pq^gamma_q ...
-    py1 = gamma_y2*py2 + gamma_mq*pq ...
-    !! y1 = a_y1 * (y2/(1-gamma_q))^(1-gamma_q) * (mq/gamma_q)^gamma_q ...
+    %py1 = py2^(1 - gamma_mq) * pq^gamma_mq ...
+    py1 = alpha_y2*py2 + alpha_mq*pq ...
+    !! y1 = a_y1 * (y2/(1-gamma_mq))^(1-gamma_mq) * (mq/gamma_mq)^gamma_mq ...
     ;
 
-    gamma_y2 * y1 = y2;
+    "Demand for Y2 inputs"
+    alpha_y2 * y1 = y2;
 
-    gamma_mq * y1 = mq;
+    "Demand for commodity inputs"
+    alpha_mq * y1 = mq;
 
-    gamma_y2 = ...
-        + rho_gamma * gamma_y2{-1} ...
-        + (1 - rho_gamma) * (1-gamma_q)*(&py1/&py2) ...
-    !! gamma_y2 = (1-gamma_q)*(py1/py2) ...
+    "Input share parameter for Y2"
+    alpha_y2 = ...
+        + rho_alpha * alpha_y2{-1} ...
+        + (1 - rho_alpha) * (1-gamma_mq)*(&py1/&py2) ...
+    !! alpha_y2 = (1-gamma_mq)*(py1/py2) ...
     ;
 
-    gamma_mq = ...
-        + rho_gamma * gamma_mq{-1} ...
-        + (1 - rho_gamma) * gamma_q*(&py1/&pq) ...
-    !! gamma_mq = gamma_q*(py1/pq) ...
+    "Input share parameter for commodity"
+    alpha_mq = ...
+        + rho_alpha * alpha_mq{-1} ...
+        + (1 - rho_alpha) * gamma_mq*(&py1/&pq) ...
+    !! alpha_mq = gamma_mq*(py1/pq) ...
     ;
-
-%{
-
-    y2 = (1 - gamma_q) * y1;
-    mq = gamma_q * y1;
-    py1 = (1 - gamma_q)*py2 + gamma_q*pq;
-
-%}
 
 
     %% -----T-0: Final stage production: Flatter marginal cost-----

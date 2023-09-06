@@ -15,7 +15,7 @@ the type of the model:
 # Autarky economy wrapper
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "docs-source/model/wrapper-autarky.md"
 
@@ -26,7 +26,7 @@ the type of the model:
 
 # Multi-area economy wrapper
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "docs-source/model/wrapper-multiarea.md"
 

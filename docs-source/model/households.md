@@ -39,7 +39,7 @@ budget constaint. The household derives utility from consumption,
 disutility from work, and utility from its wealth (net worth).
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "docs-source/model/households-math.md"
 

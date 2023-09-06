@@ -1,7 +1,7 @@
 
 # Model structure
 
-## What are we developing?
+## What is GEES?
 
 * A flexible, modular framework rather than a single, set-in-stone model
 
@@ -18,24 +18,17 @@
 
 
 
-## Current stage
-
-* Work in progress, under continuous development
-
-
-
 ## Key modules
 
-[:fontawesome-solid-user-group: Demography](demograph.md){ .md-button }
-[:fontawesome-solid-house: Households](households.md){ .md-button }
-[:fontawesome-solid-industry: Production](production.md){ .md-button }
-
-[:fontawesome-solid-comment-dollar: Monetary policy](monetary.md){ .md-button }
-[:fontawesome-solid-landmark: Fiscal policy](monetary.md){ .md-button }
-
-[:fontawesome-solid-plane: Export, import, and BOP](open.md){ .md-button }
-[:fontawesome-solid-gas-pump: Commodities](exports.md){ .md-button }
-
-[:fontawesome-solid-arrow-right-arrow-left: Trade linkages](exports.md){ .md-button }
-[:fontawesome-solid-dice: Financial linkages](exports.md){ .md-button }
+Module | Brief description
+---|---
+[:fontawesome-solid-user-group: Demography](demography.md)| Population and labor force
+[:fontawesome-solid-house: Households](households.md)| Household decisions
+[:fontawesome-solid-industry: Local production](production.md)| Supply side for local markets
+[:fontawesome-solid-comment-dollar: Monetary policy](monetary.md)| Monetary policy reaction function
+[:fontawesome-solid-landmark: Fiscal policy](fiscal.md)| Fiscal budget, outlays, and receipts
+[:fontawesome-solid-plane: Export, import, and BOP](open.md)| Export produciton, import aggregation, and BOP
+[:fontawesome-solid-gas-pump: Commodities](commodity.md)| Global commodity supply
+[:fontawesome-solid-arrow-right-arrow-left: Trade linkages](trade.md)| Bilateral international linkages in goods and services
+[:fontawesome-solid-dice: Financial linkages](finance.md)| Bilateral international linkages in equity finance
 

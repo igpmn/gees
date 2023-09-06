@@ -17,7 +17,7 @@ policy rate is then derived as a maximum of its unconstrained level
 and the floor.
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "docs-source/model/monetary-math.md"
 

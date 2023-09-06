@@ -4,16 +4,13 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
 
     thisDir = string(fileparts(mfilename("fullpath")));
 
-    if dater.getFrequency(simulationRange(1))==0
-        s = databank.redate(s, simulationRange(1), yy(1));
-    end
-
     % Round all numbers to 8 decimals (for reporting only)
     s = databank.apply(s, @(x) round(x, 8));
 
     % Dates and ranges for charts and tables
+    firstSimulationDate = simulationRange(1);
     numPeriods = numel(simulationRange);
-    startDate = yy(0);
+    startDate = firstSimulationDate - 1;
     endDate = startDate + numPeriods - 1;
     tableDates = startDate : startDate+min(10, numPeriods);
 
@@ -22,13 +19,14 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
 
     % List of areas from model object
     areas = accessUserData(m, "areas");
+    fullAreaNames = accessUserData(m, "fullAreaNames");
 
     % Transformation function
     func = @(x) 100*(x - 1);
     altFunc = @(x) 100*x;
 
 
-%% Start report object 
+%% Start report object
 
     report = rephrase.Report(reportTitle);
 
@@ -50,7 +48,12 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
     );
 
 
-%% Chart global variables 
+%% Create pager
+
+    pager = rephrase.Pager("");
+
+
+%% Chart global variables
 
     globalSeries = [
         "gg_a"
@@ -66,19 +69,19 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
     heading = "Global";
     numRows = [];
     numColumns = 3;
-    grid = rephrase.Grid(heading, numRows, numColumns, "ShowTitle", true);
-
-    % Add dividing heading to table
+    section = rephrase.Section(heading);
+    grid = rephrase.Grid("", numRows, numColumns, "ShowTitle", true);
     table + rephrase.Heading(heading);
 
-    % Loop over time series 
+    % Loop over time series
     for n = reshape(globalSeries, 1, [])
         series = s.(n);
-        grid = local_seriesToChart(grid, "", series, startDate, endDate, legends, func);
+        [grid, chart] = local_seriesToChart(grid, "", series, startDate, endDate, legends, func);
         table = local_seriesToTable(table, "", series, legends, func);
     end
 
-    report + grid;
+    section + grid;
+    pager + section;
 
 
 %% Chart each area
@@ -103,13 +106,14 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
 
 
     % Loop over areas
-    for a = reshape(areas, 1, [])
+    for a = [areas; fullAreaNames]
 
-        heading = "Area " + upper(a);
-        grid = rephrase.Grid(heading, numRows, numColumns, "ShowTitle", true);
+        heading = a(2) + " [" + upper(a(1)) + "]";
+        section = rephrase.Section(heading);
+        grid = rephrase.Grid("", numRows, numColumns, "ShowTitle", true);
         table + rephrase.Heading(heading);
 
-        % Loop over time series 
+        % Loop over time series
         for n = reshape(areaSeries, 1, [])
             thisFunc = func;
             name = n;
@@ -117,18 +121,19 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
                 name = extractAfter(name, 1);
                 thisFunc = altFunc;
             end
-            name = utils.resolveArea(a, "prefix") + name;
-            series = s.(name);
-            grid = local_seriesToChart(grid, upper(a), series, startDate, endDate, legends, thisFunc);
+            series = s.(a(1) + "_" + name);
+            grid = local_seriesToChart(grid, upper(a(1)), series, startDate, endDate, legends, thisFunc);
             table = local_seriesToTable(table, "", series, legends, thisFunc);
         end
 
-        report + grid;
+        section + grid;
+        pager + section;
 
     end
 
-    % Add table to report 
+    % Add table to report
 
+    report + pager;
     report + table;
 
 
@@ -146,7 +151,7 @@ end%
 % Local functions
 %
 
-function grid = local_seriesToChart(grid, area, series, startDate, endDate, legends, func)
+function [grid, chart] = local_seriesToChart(grid, area, series, startDate, endDate, legends, func)
 
     % Create title from the time series comment
     title = comment(series);
@@ -161,9 +166,11 @@ function grid = local_seriesToChart(grid, area, series, startDate, endDate, lege
     end
 
     % Create chart and add it to grid
-    grid + rephrase.Chart.fromSeries( ...
-        {title, startDate, endDate, "DateFormat", "YY"}, {legends, series} ...
+    chart = rephrase.Chart.fromSeries( ...
+        {title, startDate, endDate, "DateFormat", "YYYY"}, {legends, series} ...
     );
+
+    grid = grid + chart;
 end%
 
 

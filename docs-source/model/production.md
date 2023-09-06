@@ -34,7 +34,7 @@ title: Local supply side
 <br/>
 
 
-=== ":fontawesome-solid-square-root-variable:  Math equations"
+=== ":fontawesome-solid-square-root-variable:  Algebra"
 
     --8<-- "model/production-math.md"
 

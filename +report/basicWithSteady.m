@@ -10,6 +10,7 @@ function basicWithSteady(model, simulationDb, steadyDb, range, reportTitle, lege
         "gg_roc_gdp_to_nn"
         "gg_pq_to_pxx"
         "gg_qq"
+        "gg_q"
     ];
 
     areaSeries = [

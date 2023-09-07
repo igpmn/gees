@@ -1,5 +1,5 @@
 
-%% Simulate a permanent change in govt debt globally 
+%% Simulate a permanent change in govt debt through govt expenditures 
 
 close all
 clear

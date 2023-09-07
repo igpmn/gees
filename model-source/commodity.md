@@ -13,6 +13,7 @@
     "Global excess demand in commodity market" gg_qexc
     "Global price of commodities" gg_pq
     "Global real price of commodities" gg_pq_to_pxx
+    "Autonomous markup in real price of commodities !! $\mathit{aut}^\gg_\mathit{pq}$" gg_aut_pq
 
 
 !log-variables !all-but
@@ -22,13 +23,14 @@
 
     "Excess demand elasticity of commodity prices !! $\iota_1^\gg$" gg_iota_1
     "A/R Long-run trend in commodity supply !! $\rho_\mathit{qq}^\gg$" gg_rho_qq
-    "Autonomous component in real price of commodities !! $\mathit{aut}^\gg_\mathit{pq}$" gg_aut_pq
+    gg_rho_aut_pq, gg_ss_aut_pq
 
 
 !shocks(:commodity)
 
     "Shock to long-run level in commodity supply" gg_shk_qq
     "Shock to price of commodities" gg_shk_pq
+    gg_shk_aut_pq
 
 ```
 
@@ -56,6 +58,14 @@
     "Commodity supply curve"
     gg_pq = gg_aut_pq * gg_pxx * gg_qexc^gg_iota_1 * exp(gg_shk_pq) ...
     !! gg_pq = gg_aut_pq * gg_pxx;
+
+
+    "Autonomous markup in real commodity price"
+    log(gg_aut_pq) = ...
+        + gg_rho_aut_pq * log(gg_aut_pq{-1}) ...
+        + (1 - gg_rho_aut_pq) * log(gg_ss_aut_pq) ...
+        + gg_shk_aut_pq ...
+    !! gg_aut_pq = gg_ss_aut_pq;
 
 
     "Global real prices of commodities"

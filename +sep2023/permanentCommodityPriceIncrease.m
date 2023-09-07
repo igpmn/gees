@@ -1,6 +1,7 @@
 
 %% Permanent increase in real commodity price
 
+
 close all
 clear
 
@@ -45,12 +46,34 @@ table( ...
 
 d1 = d;
 s1 = simulate( ...
-    m1, d, simulationRange ...
+    m1, d1, simulationRange ...
     , "prependInput", true ...
     , "method", "stacked" ...
 );
 
 smc1 = databank.minusControl(m, s1, d);
+
+
+%
+% Make the production technology transition faster
+%
+
+m2 = m1;
+m2.us_rho_alpha = 0;
+m2.ea_rho_alpha = 0;
+m2.cn_rho_alpha = 0;
+m2.rw_rho_alpha = 0;
+checkSteady(m2);
+m2 = solve(m2);
+
+d2 = d;
+s2 = simulate( ...
+    m2, d2, simulationRange ...
+    , "prependInput", true ...
+    , "method", "stacked" ...
+);
+
+smc2 = databank.minusControl(m, s2, d);
 
 
 %
@@ -61,5 +84,7 @@ reportTitle = "Permanent commodity price increase";
 legend = ["Permanent anticipated"];
 fileName = "+sep2023/html/permanent-commodity-price-shock.html";
 
-report.basic(m1, smc1, simulationRange, reportTitle, legend, fileName);
+smc = databank.merge("horzcat", smc1, smc2);
+
+report.basic(m1, smc, simulationRange, reportTitle, legend, fileName);
 

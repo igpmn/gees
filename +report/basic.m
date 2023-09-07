@@ -100,6 +100,8 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
         "pk"
         "u"
         "k"
+        "nh"
+        "nf"
         "mq"
         "^nfa_to_ngdp"
     ];

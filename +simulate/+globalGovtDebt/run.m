@@ -25,7 +25,7 @@ d0 = steadydb(model, range);
 modelAfter = model;
 for a = allPrefixes
     modelAfter.(a+"ss_dg_to_ngdp") = modelAfter.(a+"ss_dg_to_ngdp") + size;
-    modelAfter.(a+"tau_cg") = 5;
+    modelAfter.(a+"tau_cg") = 3;
     modelAfter.(a+"tau_txls1") = 0;
 end
 

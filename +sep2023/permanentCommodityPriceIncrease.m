@@ -24,7 +24,8 @@ d = databank.forModel(m, simulationRange);
 %
 
 m1 = m;
-m1.gg_aut_pq = 1.50;
+m1.gg_ss_aut_pq = 1.50;
+m1.gg_rho_aut_pq = 0;
 
 fix = accessUserData(m1, "fix");
 m1 = steady(m1, "fix", fix);
@@ -76,15 +77,39 @@ s2 = simulate( ...
 smc2 = databank.minusControl(m, s2, d);
 
 
+
+%
+% Make people believe the commodity price increase is temporary
+%
+
+
+p3 = Plan.forModel(m, simulationRange, "anticipate", false);
+p3 = exogenize(p3, simulationRange, "gg_aut_pq");
+p3 = endogenize(p3, simulationRange, "gg_shk_aut_pq");
+
+d3 = d;
+d3.gg_aut_pq(simulationRange) = 1.5;
+
+s3 = simulate( ...
+    m, d3, simulationRange ...
+    , "prependInput", true ...
+    , "method", "stacked" ...
+    , "plan", p3 ...
+);
+
+smc3 = databank.minusControl(m, s3, d);
+
+
+
 %
 % Generate HTML report
 %
 
 reportTitle = "Permanent commodity price increase";
-legend = ["Permanent anticipated"];
+legend = ["Anticipated permanent", "Fast technology", "Anticipated temporary"];
 fileName = "+sep2023/html/permanent-commodity-price-shock.html";
 
-smc = databank.merge("horzcat", smc1, smc2);
+smc = databank.merge("horzcat", smc1, smc2, smc3);
 
 report.basic(m1, smc, simulationRange, reportTitle, legend, fileName);
 

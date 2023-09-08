@@ -80,9 +80,12 @@ function p = baselineArea(p)
     % Fiscal policy
     p.ss_ncg_to_ngdp = 0.20;
     p.ss_dg_to_ngdp = 0.40;
+
     p.rho_cg = 0.5;
     p.rho_txls1 = 0.5;
+    
     p.tau_txls1 = 2.5;
+    
     p.tau_cg = 0;
     p.rho_txls2 = 0.5;
     p.ss_trm = 0;

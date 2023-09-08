@@ -104,6 +104,7 @@ function basic(m, s, simulationRange, reportTitle, legends, fileName)
         "nf"
         "mq"
         "^nfa_to_ngdp"
+        "^dg_to_ngdp"
     ];
 
 

@@ -94,7 +94,7 @@ smc1 = databank.minusControl(m, s1, d);
 %
 
 reportTitle = "Permanent fiscal expansion";
-legend = ["Global 20%"];
+legend = ["No current income/wealth", "Baseline"];
 fileName = "+sep2023/html/permanent-fiscal-expansion.html";
 
 report.basic(m, smc1, 1:20, reportTitle, legend, fileName);

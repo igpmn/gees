@@ -21,7 +21,7 @@ checkSteady(m);
 %
 
 m1 = m;
-m1.gg_zk = m1.gg_zk * 0.8;
+m1.gg_ss_zk = m1.gg_ss_zk * 0.8;
 
 fix = accessUserData(m, "fix");
 m1 = steady(m1, "fixLevel", fix);

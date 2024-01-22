@@ -51,7 +51,7 @@ $$
   equals $nn_t \, ch_\ss{}^{-1}$ in steady state, a feature of
   modeling convenience,
 
-* $curr_t$ is current labor income net of  type 1 lump sum taxes (or transfers)
+* $curr_t$ is current labor income net of Type 1 lump sum taxes (or transfers)
 
 $$
 curr_t \equiv w_t \, nh_t \, nl_t - tx1_t

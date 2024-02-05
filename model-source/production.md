@@ -263,7 +263,6 @@ the ratio as a log-variable
     nih_to_ngdp = pih * ih / ngdp;
     nkh_to_ngdp = pk * k / ngdp;
     curr_to_ngdp = ($curr$) / ngdp;
-    gdp = gdp{-1} * roc_gdp;
 
 
 !log-variables !all-but

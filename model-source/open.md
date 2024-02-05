@@ -184,7 +184,7 @@
 ```
 
 
-## Postprocessing equations outside model 
+## Postprocessing equations outside model
 
 
 ```matlab

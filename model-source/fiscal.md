@@ -56,7 +56,6 @@
 
     rg = r;
 
-    
     "Dynamic fiscal budget constraint"
     dg_to_ngdp*ngdp = ...
         + rg{-1}*dg_to_ngdp{-1}*ngdp{-1} ...

@@ -4,7 +4,7 @@ function p = baselineArea(p)
 
     p.ss_ar = 1;
     p.ss_nr = 1;
-    p.ss_roc_pc = 1.03;    
+    p.ss_roc_pc = 1.03;
 
     p.ss_nw_to_nn = 0.65;
     p.ss_nf_to_nw = 0.70;
@@ -13,8 +13,11 @@ function p = baselineArea(p)
     p.ss_zk = 0.90;
     p.ss_zy = 1;
     p.delta = 0.15;
-    p.eta = 0;
+    p.eta_short = 0;
+    p.eta_long = 0;
     p.eta0 = 1;
+    p.rho_nh = 0.7;
+    p.ref_nh = NaN;
 
     p.nu_0 = 0;
     p.nu_1 = 0.07;

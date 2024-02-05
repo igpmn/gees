@@ -13,6 +13,7 @@
     "Private consumption reference level" ref_ch_to_ch
     "Real discount factor" rdf
     "Per-worker labor supply" nh
+    "Auxiliary calibration variable" ss_nh_to_ref_nh
     "Private investment" ih
     "Uncertainty in capital" zk
     "Uncertainty in profits" zy
@@ -23,6 +24,7 @@
     "Household net worth" netw
     "Nominal wage rate" w
     "Real labor income" rli
+    "Inflation expectations" E_roc_pc
 
     "Price of production capital" pk
     "Price of production capital services" pu
@@ -37,6 +39,7 @@
 !log-variables !all-but
 
     ref_ch_to_ch
+    ss_nh_to_ref_nh
 
 
 !parameters(:households :steady)
@@ -45,8 +48,10 @@
     "S/S Uncertainty discount factor on production cash flows !! $\mathit{zy}_\mathrm{ss}$" ss_zy
     "Household discount factor !! $\beta$" beta
     "Depreciation of production capital !! $\delta$" delta
-    "Inverse elasticity of labor supply !! $\eta$" eta
+    "Inverse short-run elasticity of labor supply !! $\eta$" eta_short
+    "Inverse long-run elasticity of labor supply !! $\eta$" eta_long
     "Utility location parameter of labor supply !! $\eta_0$" eta0
+    "Reference level of long-run per-worker labor supply !! $\mathit{nh}_\mathrm{ref}$" ref_nh
     "Intercept in current wealth utility !! $\nu_0$" nu_0
     "Slope of current wealth utility !! $\nu_1$" nu_1
     "Level parameter in cost of utilization of production capital !! $\upsilon_0$" upsilon_0
@@ -64,6 +69,7 @@
     "Type 2 investment adjustment cost parameter !! $\xi_\mathit{ih,2}$" xi_ih2
     "Pressure relief valve for interest rate lower bound !! $\theta_\mathir{rh}$" theta_rh
     "Adjustment cost in wage setting" xi_w
+    "A/R in long-run labor supply" rho_nh
 
 
 !shocks(:households)
@@ -104,13 +110,13 @@
 
 !equations(:households)
 
-%% Household consumption-saving choice 
+%% Household consumption-saving choice
 
     "Optimal choice of household consumption"
     vh*pc*(ch - chi*ref_ch_to_ch*ch)*exp(-shk_ch) = nn*(1 - chi*&ref_ch_to_ch) ...
     !! vh*pc*ch = nn;
 
-    "Point of reference in household consumption" 
+    "Point of reference in household consumption"
     ref_ch_to_ch = [ chi_curr*($curr$)/pc + chi_ch*ch{-1}*gg_ss_roc_a ] / ch;
 
     "Optimal choice of net position with local financial sector"
@@ -137,13 +143,20 @@
     !! zy = ss_zy;
 
     "Real labor income"
-    rli = w*nh*nf / pc; 
+    rli = w*nh*nf / pc;
 
 
-%% Labor supply 
+%% Labor supply
 
-    "Optimal choice of per-worker hours worked"
-    vh * ww = eta0 * nh^eta;
+    "Short-run and long-run labor supply"
+    vh * ww = eta0 * (nh/&nh)^eta_short * (ss_nh_to_ref_nh)^eta_long ...
+    !! vh * ww = eta0 *  (ss_nh_to_ref_nh)^eta_long;
+
+    "Auxiliary calibration equation for long-run labor supply"
+    ss_nh_to_ref_nh = ...
+        + rho_nh * ss_nh_to_ref_nh{-1} ...
+        + (1 - rho_nh) * &ss_nh_to_ref_nh ...
+    !! ss_nh_to_ref_nh = &nh / ref_nh;
 
     "Real consumer wage rate"
     w_to_pc = w / pc;
@@ -156,10 +169,10 @@
     !! w = ww;
 
 %     log(w_to_pc) = ...
-%         + 0.5 * [log(w_to_pc{-1}) + log(&roc_w/&roc_pc)] ... 
+%         + 0.5 * [log(w_to_pc{-1}) + log(&roc_w/&roc_pc)] ...
 %         + (1-0.5) * log(ww/pc) ...
 
-%% Supply of production capital 
+%% Supply of production capital
 
     "Optimal choice of investment in local production capital"
     pk * exp(shk_ih) = pih*[ 1 + xi_ih1*($adj_ih1$) + xi_ih2*($adj_ih2$) ] ...
@@ -186,6 +199,22 @@
     !for w, ih, k !do
         roc_? = ? / ?{-1};
     !end
+
+%% One-period-ahead expectations
+
+    E_roc_pc = roc_pc{+1};
+
+
+## Postprocessing equations outside model
+
+
+```matlab
+
+!postprocessor(:households)
+
+    ne = nh * nf;
+    rrh = rh / E_roc_pc;
+
 
 ```
 

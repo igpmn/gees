@@ -76,3 +76,17 @@
 
 ```
 
+
+## Postprocessing equations outside model
+
+
+```matlab
+
+!postprocessor(:demography)
+
+    nw_to_nn = nw / nn;
+    nf_to_nw = nf / nw;
+
+
+```
+

@@ -36,7 +36,7 @@ ch | China
 rw | Rest of world
 gg | Common global trends
 
-In most of the text, we do not explicitly include thee reference area in
+In most of the text, we do not explicitly include the reference area in
 the names of variables for the ease of notation. Absent an explicit area
 reference, the variable or parameter belongs simply to the respective local
 area. 

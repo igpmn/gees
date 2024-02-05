@@ -2,7 +2,6 @@
 ## Global commodity extraction
 
 --8<-- "model/math.md"
-![[model/math.md]]
 
 The total amount of commodities extracted globally, $q_t^\gg$, follows a
 long-run supply trend, $qq_t^\gg$, and responds to demand fluctuations; the

@@ -4,8 +4,6 @@
 
 ## Unconstrained monetary policy reaction function
 
-![[math]]
-
 The reaction function is given by
 
 $$

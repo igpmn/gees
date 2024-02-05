@@ -68,14 +68,6 @@ $$
 
 * Change in equity assets owing to valuation $\xnetb_t^\xval$
 
-## Balance of payments (flows of transactions)
-
-
-Description | Formula
----|---
-Financial account | $\Delta \xnetf_t + \xnetb^\xtrans_t = \cdots$
-Current account: Primary income | $=\ \xrf_t \cdot \xnetf_{t-1} + \xnetb_t^\xpinc \ \cdots$
-Current account: Trade balance | $+\ \mathit{pxx}_t \cdot xx_t - pmm_t^{\mathrm{fob}} \, mm_t + pq_t \, (xq_t - mq_t)$
 
 #### Net primary income on equity
 
@@ -87,4 +79,16 @@ $$
 * Rental price of capital services, $pu_t$
 
 * Capital services (capital times utilization), $uk_t$
+
+
+## Balance of payments (flows of transactions)
+
+
+Description | Formula
+---|---
+Financial account | $\Delta \xnetf_t + \xnetb^\xtrans_t = \cdots$
+Current account: Primary income | $=\ \xrf_t \cdot \xnetf_{t-1} + \xnetb_t^\xpinc \ \cdots$
+Current account: Trade balance | $+\ \mathit{pxx}_t \cdot xx_t - pmm_t^{\mathrm{fob}} \, mm_t + pq_t \, (xq_t - mq_t)$
+
+
 

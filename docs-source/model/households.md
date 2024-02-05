@@ -11,7 +11,7 @@ title: Households
 
 Each area's household sector is modeled as a single representative
 household with an exogenous time-varying number of household members,
-$nn_t$. The household enteres a net position in debt instruments (e.g.
+$nn_t$. The household enters a net position in debt instruments (e.g.
 loans, deposits, fixed-income securities, etc.) with the local financial
 sector, $bh_t$, and holds a portfolio of claims on production capital in
 all areas (including the local area), $\tsum_a s_{a,t} \, ex_{a,t}\, pk^a_t

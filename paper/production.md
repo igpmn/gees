@@ -142,7 +142,7 @@ T-3: Combine non-commodity variable factors
 $$
 \begin{gathered}
 y_{3,t} = F_3\bigl( mm_t, nv_t\bigr) \newl
-nv_t \equiv \left( nh_t - \gamma_{nv} nh_\ss \right) \, nl_t
+nv_t \equiv \left( nh_t - \gamma_{nv} nh_\ss \right) \, \xnf_t
 \end{gathered}
 $$
 
@@ -247,7 +247,7 @@ $$
 \Pi_{y,t}
 \equiv py_t \, y_{0,t}
 - pmm_t \, my_t 
-- w_t \, nh_t \, nl_t
+- w_t \, nh_t \, \xnf_t
 - pu_t \, u_t\, k_t 
 \\
 -\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi{py,t}

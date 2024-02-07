@@ -79,7 +79,7 @@ $$
 
 
 $$
-\newcommand{\Unetw}{\nu_1 \blog \left( \frac{netw_t}{pc_t\, \extern{ch}_t} - \nu_0  \frac{netw_t}{pc_t\, \extern{ch}_t}\right) }
+\newcommand{\Unetw}{\nu_1 \left( \blog \frac{netw_t}{pc_t\, \extern{ch}_t} - \nu_0  \frac{netw_t}{pc_t\, \extern{ch}_t}\right) }
 \bU^{netw}_t \equiv \Unetw
 $$
 

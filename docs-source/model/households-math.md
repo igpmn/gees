@@ -25,7 +25,10 @@ $$
 
 
 $$
-\newcommand{\Unh}{\frac{1}{1+\eta}\ nh_t{}^{1+\eta}}
+\newcommand{\Unh}{
+\eta_0 \; \tfrac{1}{1+\eta}
+\; \frac{nh_t}{nh_{\mathrm{ss}}^{1+\eta_{\mathrm{short}}
+\; \frac{nh_\mathrm{ss}}{nh_{\mathrm{ref}}^{1+\eta_{\mathrm{long}}}}
 \bU^{nh}_t \equiv \Unh
 $$
 

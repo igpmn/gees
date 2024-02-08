@@ -12,7 +12,7 @@ $i_t$ | `xxx` | Investment in private production capital
 $k_t$ | `xxx` | Private production capital
 $netw_t$ | `xxx` | Nominal net worth of households
 $nh_t$ | `xxx` | Per-worker labor supply (e.g. per-worker hours worked)
-$nl_t$ | `xxx` | Labor force
+$\xnf_t$ | `xxx` | Labor force
 $pc_t$ | `xxx` | Price of consumption goods
 $pi_t$ | `xxx` | Price of investment goods
 $pu_t$ | `xxx` | Rental price (user cost) of capital services
@@ -21,7 +21,7 @@ $s_{a,t}$ | `xxx` | Share of claims on private production capital in area $a$
 $txls1_t$ | `xxx` | Type 1 net lump-sum taxes+/transfers–
 $txls2_t$ | `xxx` | Type 2 net lump-sum taxes+/transfers–
 $w_t$ | `xxx` | Nominal wage rate
-$ww_t$ | `xxx` | Hypothetical nominal wage rate absent labor market ridigities
+$w^{flex}_t$ | `xxx` | Hypothetical nominal wage rate absent labor market ridigities
 $e_t$ | `e` | Nominal exchange rate against the global reference area's currency
 $ex_{a,t}$ | `xxx` | Nominal cross rate between local currency and area $a$'s currency
 $rh_t$ | `rh` | Gross rate of interest on financial claims on the household sector

@@ -44,6 +44,7 @@ m = solve(m);
 
 d = databank.forModel(m, simulationRange);
 
+m1 = m;
 % Assign new parameter in both parameter variants
 for a = areas
     m1.(a+"_ss_dg_to_ngdp") = m1.(a+"_ss_dg_to_ngdp") + 0.20;

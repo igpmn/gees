@@ -99,7 +99,7 @@ $$
 * $curr_t$ is current labor income net of  type 2 lump sum taxes (or transfers)
 
 $$
-curr_t \equiv w_t \, nh_t \, nl_t - txls1_t
+curr_t \equiv w_t \, nh_t \, \xnf_t - txls1_t
 $$
 
 * $netw_t$ is the nominal net worth given by the sum of the value of the production capital portfolio, the net financial position of the household to the local financial sector, $bh_t$ (a positive balance means net claims of the financial sector on the household), and the net worth of the local   financial sector (whose ultimate owner the household is), $bb_t$, 
@@ -145,7 +145,7 @@ of capital claims, and the total amount of current receipts and outlays:
 * current receipts from capital rentals net of capital utilization costs, 
   $\sum\nolimits_a s_{a,t} \,ex_{a,t}\, pu_{t}^a \, k_{t}^a - \Xi_{u,t}$,
 
-* current receipts from labor income, $w_t \, nh_t \, nl_t$, 
+* current receipts from labor income, $w_t \, nh_t \, \xnf_t$, 
 
 * current receipts from selling newly installed capital, $pk_t\,i_t$, 
 
@@ -167,7 +167,7 @@ $$
 + \ \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
-+ \ w_t \, nh_t \, nl_t - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t
++ \ w_t \, nh_t \, \xnf_t - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t
 \ \cdots \newl
 + \ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} - \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \end{gathered}
@@ -183,13 +183,13 @@ $vh_t$ (shadow value of nominal household wealth)
 The labor market exhibits real wage rigidities. These rigidities do not
 derive from explicit microfoundations in our model; they are introduced as
 an ad-hoc correction to the law of motion for the real wage rate in the
-following way. The household makes its choices as though the wage rate was fully flexible; we denote this hypothetical level of the nominal wage rate by $ww_t$, and use this hypothetical wage in the household Lagrangian, in
+following way. The household makes its choices as though the wage rate was fully flexible; we denote this hypothetical level of the nominal wage rate by $w^{flex}_t$, and use this hypothetical wage in the household Lagrangian, in
 place of the actual wage rate. Once the hypothetical flexible optimum wage rate is determined, the actual wage rate follows an autoregressive process with asymptotic convergence to the flexible optimum
 
 $$
 \blog \frac{w_t}{pc_t} 
 = \rho_{w} \ \blog \frac{\kappa_w\, w_{t-1}}{pc_{t-1}}
-+ \left(1-\rho_w\right) \ \blog \frac{ww_t}{pc_t}
++ \left(1-\rho_w\right) \ \blog \frac{w^{flex}_t}{pc_t}
 + \epsilon_{w,t}
 $$
 
@@ -259,7 +259,7 @@ $$
 The Lagrangian for the constrained optimization problem facing
 the representative household consists of the lifetime utility function and a
 sequence of dynamic budget constraints for each time from now until
-infinity, $t=0, \dots, \infty$. Note that we use $ww_t$ in place of $w_t$ in the Lagrangian.
+infinity, $t=0, \dots, \infty$. Note that we use $w^{flex}_t$ in place of $w_t$ in the Lagrangian.
 $$
 \begin{gathered}
 \bmax_{\{ch_t, bh_t, s_{a,t}, i_{t}, nh_t, u_t \}} 
@@ -281,7 +281,7 @@ $$
 + \ \left({\beta_{k}}_{t-1}{}\right)^t \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
-+ \ ww_t \, nh_t \, nl_t 
++ \ w^{flex}_t \, nh_t \, \xnf_t 
 - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - txls1_t - txls2_t .
 \ \cdots \newl
 + \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} -\ \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
@@ -304,14 +304,14 @@ are described by the following first-order conditions.
 * Consumption, $ch_t$
 
 $$
-vh_t \, ph_t = \kappa_{ch}\, \frac{1}{ch_t - \extern{ch}^\ref_t} \, nn_t
+vh_t \, pc_t = \kappa_{ch}\, \frac{1}{ch_t - \extern{ch}^\ref_t} \, nn_t
 $$
 
 * Per-worker hours worked depending on the hypothetical flexible wage rate,
-  $ww_t$
+  $w^{flex}_t$
 
 $$
-vh_t \, ww_t = nh_t{}^\eta
+vh_t \, w^{flex}_t = nh_t{}^\eta
 $$
 
 * Net position with the financial sector, $bh_t$ (an intertemporal no-arbitrage condition)

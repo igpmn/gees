@@ -177,6 +177,10 @@
     "Optimal choice of investment in local production capital"
     pk * exp(shk_ih) = pih*[ 1 + xi_ih1*($adj_ih1$) + xi_ih2*($adj_ih2$) ] ...
     !! pk = pih;
+    %     % Investment adjustment marginal cost
+    % ref_ih := (&ih/&k*&roc_k)*k{-1};
+    % adj_ih1 := log(ih) - log($ref_ih$);
+    % adj_ih2 := log(ih/ih{-1}/&roc_ih) - beta*log(ih{+1}/ih/&roc_ih);
 
     "Accumulation of production capital"
     k = (1-delta)*k{-1} + ih;

@@ -5,7 +5,7 @@
 Combine imports from the rest of the world
 
 $$
-mm_t^h = \prod_{a \ne h} \ \left( \frac{mm_{a,t}^h}{\omega_a^h} \right)^{\omega_a^h} 
+mm_t^h = \prod_{a \ne h} \ \left( \frac{mm_{a,t}^h}{\omega_a^h} \right)^{\omega_a^h}, \quad \sum_{a \ne h} \omega_a^h = 1
 $$
 
 Cost function

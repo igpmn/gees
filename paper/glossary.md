@@ -50,7 +50,7 @@
 | $w_t$                 | `w`              | Nominal wage rate                                            |
 | ${\beta_{y}}_t$       | `zy`             | Uncertainty discount factor on production cash flows                                      |
 | ${\beta_{k}}_t$       | `zk`             | Uncertainty discount factor on capital                       |
-| $ww_t$                | `ww`             | Hypothetical nominal wage rate absent labor market rigidities |
+| $w^{flex}_t$                | `ww`             | Hypothetical nominal wage rate absent labor market rigidities |
 | $e_t$                 | `e`              | Nominal exchange rate against the global reference area's currency |
 | $ex_{a,t}$            |                  | Nominal cross rate between local currency and area $a$'s currency |
 | $rh_t$                | `rh`             | Gross rate of interest on financial claims on the household sector |

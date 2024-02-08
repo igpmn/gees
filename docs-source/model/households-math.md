@@ -57,7 +57,7 @@ $$
 * $curr_t$ is current labor income net of Type 1 lump sum taxes (or transfers)
 
 $$
-curr_t \equiv w_t \, nh_t \, nl_t - tx1_t
+curr_t \equiv w_t \, nh_t \, \xnf_t - tx1_t
 $$
 
 * $netw_t$ is the nominal net worth given by the sum of the value of the
@@ -87,10 +87,7 @@ stock-flow relationship between the household assets and liabilities
 (stocks) on the one hand, and current receipts and current outlays (flows)
 on the other hand. The household assets and liabilities consist of 
 
-* a net position with the local financial sector, $-bh_t$ (a positive
-  balance means net lending by the household from the financial sector, a
-  negative balance means net lending by the financial sector from the
-  household),
+* a net position with the local financial sector, $-bh_t$ (a positive balance means net claims of the financial sector on the household),
 
 * claims on production capital (local and ccross-border capital),
   $\sum\nolimits_a s_{a,t} \, ex_{a,t}\, pk_{t}^a \, k_{t}^a$, and 
@@ -112,7 +109,7 @@ $\sum\nolimits_a s_{a,t} \,ex_{a,t}\,  pu_{t}^a \, k_{t}^a - \Xi_{u,t}$,
 
 * current receipts from selling newly installed capital, $pk_t\,i_t$, 
 
-* profits from loccal producers, $\Pi_{y,t}$, exporters, $\Pi_{x,t}$, and the
+* profits from loccal producers, $\Pi_{y,t}$, exporters, $\Pi_{x,t}$, labor unions, $\Pi_{l,t}$, and the
 financial sector, $\Pi_{b,t}$,
 
 * current outlays on consumption goods, $-pc_t \, ch_t$,
@@ -130,11 +127,11 @@ $$
 + \ \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
-+ \ w_t^\mathrm{tar} \, nh_t \, nf_t + \left( w_t - w_t^\mathrm{tar} \right) \, \extern{nh_t} \, \extern{nf_t}
++ \ w^\mathrm{flex} \, nh_t \, nf_t + \left( w_t - w^\mathrm{flex} \right) \, \extern{nh_t} \, \extern{nf_t}
 \ \cdots \newl
 - \ pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - tx1_t - tx2_t
 \ \cdots \newl
-+ \ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} - \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
++ \ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} + \bPi_{l,t} - \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \end{gathered}
 $$
 
@@ -150,7 +147,7 @@ $vh_t$ (shadow value of nominal household wealth)
   agent
 
 * Each period, the household tells the trade union its target level for
-  nominal wage, $w^\mathrm{tar}$, 
+  nominal wage, $w^\mathrm{flex}$, 
 
 * The union solves to following optimizing problem including a wage inflation adjustment cost:
 
@@ -158,8 +155,8 @@ $vh_t$ (shadow value of nominal household wealth)
 $$
 \min\nolimits_{\{w_t\}}
 \mathrm E_t \, \sum_{t=0}^\infty
-\beta^t\,\Lambda_t \, \left[
-(\log w_t - \log w_t^\mathrm{tar} )^2
+\beta^t\,vh_t \, \left[
+(\log w_t - \log w^\mathrm{flex} )^2
 + \tfrac{\xi_w}{2} \, (\log \roc{w}{}_t - \log \roc{w}{}_t^{\ref} )^2
 \right]
 $$
@@ -168,15 +165,15 @@ where
 
 * $\xi_w$ is an adjustment cost parameter
 
-* $\roc{w}{}_t^{\ref} \equiv \roc{\extern{w}}_t$ is a reference rate of wage inflation representing
+* $\roc{w}{}_t^{\ref} \equiv \roc{\extern{w}}_{t-1}$ is a reference rate of wage inflation representing
   the backward indexation present in wage negotiation
 
 The resulting first-order condition (a wage setting equation) is given by
 
 $$
-\log w_t - \log w_t^\mathrm{tar} = 
+\log w_t - \log w^\mathrm{flex} = 
 \xi_w ( \log \roc{w}_t - \log {\roc{w}}{}^\ref_t )
-- \xi_w \, \mathrm E_t \left[ \beta \tfrac{\Lambda_{t+1}\,w_t}{\Lambda_{t}\,w_{t+1}}
+- \xi_w \, \mathrm E_t \left[ \beta \tfrac{vh_{t+1}\,w_t}{vh_{t}\,w_{t+1}}
 ( \log \roc{w}_{t+1} - \log \roc{w}{}^\ref_t ) \right]
 $$
 
@@ -241,12 +238,12 @@ $$
 
 ---
 
-## Lagragian 
+## Lagrangian 
 
-The Lagrangian for the contrained optimization problem facing
+The Lagrangian for the constrained optimization problem facing
 the representative household consists of the lifetime utility function and a
 sequence of dynamic budget constraints for each time from now until
-infinity, $t=0, \dots, \infty$. Note that we use $ww_t$ in place of $w_t$ in
+infinity, $t=0, \dots, \infty$. Note that we use $w^{flex}_t$ in place of $w_t$ in
 the Lagrangian.
 
 $$
@@ -270,10 +267,10 @@ $$
 + \ \left(\betak_{t-1}{}\right)^t \tsum\nolimits_a s_{a,t}\, ex_{a,t} \, pu_{t}^a \, u^a_t k^a_{t}
  - \left(rh_{t-1} - 1\right) bh_{t-1}
 \ \cdots \newl
-+ \ ww_t \, nh_t \, nl_t 
++ \ w^{flex}_t \, nh_t \, \xnf_t 
 - pc_t \, ch_t + \left(pk_t - pi_t\right) i_t - tx1_t - tx2_t .
 \ \cdots \newl
-+ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} -\ \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
++ \bPi_{y,t} + \bPi_{x,t} + \bPi_{b,t} + \bPi_{l,t} -\ \Xi_{i,t} - \Xi_{k,t} - \Xi_{u,t} + \extern{\Xi}_{h,t}
 \Bigr. \Bigr\} 
 \end{multline}
 $$
@@ -293,14 +290,14 @@ are described by the following first-order conditions.
 * Consumption, $ch_t$
 
 $$
-vh_t \, ph_t = \kappa_{ch}\, \frac{1}{ch_t - \extern{ch}^\ref_t} \, nn_t
+vh_t \, pc_t = \kappa_{ch}\, \frac{1}{ch_t - \extern{ch}^\ref_t} \, nn_t
 $$
 
 * Per-worker hours worked depending on the hypothetical flexible wage rate,
-  $ww_t$
+  $w^{flex}_t$
 
 $$
-vh_t \, ww_t = nh_t{}^\eta
+vh_t \, w^{flex}_t = nh_t{}^\eta
 $$
 
 * Net position with the financial sector, $bh_t$ (an intertemporal no-arbitrage condition)

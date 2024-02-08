@@ -22,9 +22,9 @@ title: Local supply side
     * Roundabout production
 
 
-* [Production function with time-varying elasticity of substitution](production-time-varying-elasticity)
+* [Production function with time-varying elasticity of substitution](production-time-varying-elasticity.md)
 
-* [Production with sticky final prices](production-sticky-prices)
+* [Production with sticky final prices](production-sticky-prices.md)
 
 
 <br/>
@@ -38,12 +38,7 @@ title: Local supply side
 
     --8<-- "model/production-math.md"
 
-    ![[model/production-math]]
-
 
 === ":fontawesome-solid-file-code:  Model source code"
 
     --8<-- "model-source/production.md"
-
-    ![[model-source/production.md]]
-

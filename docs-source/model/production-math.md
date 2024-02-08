@@ -60,7 +60,7 @@ where
 $$
 \begin{gathered}
 y_{3,t} = F_3\bigl( mm_t, nv_t\bigr) \newl
-nv_t \equiv \left( nh_t - \gamma_{nv} nh_\ss \right) \, nl_t
+nv_t \equiv \left( nh_t - \gamma_{nv} nh_\ss \right) \, nf_t
 \end{gathered}
 $$
 
@@ -82,7 +82,15 @@ $$
 
 #### Stage $T-1$: Add dependence on commodity inputs
 
-1. Unit elasticity case (Cobb-Douglas technology)
+* Short-term: No elasticity of substitution (Leontief)
+
+$$
+y_{1,t} = \min \left\{
+\frac{y_{2,t}}{\alpha_{y1}},\ \frac{mq_t}{\alpha_{mq}}
+\right\}
+$$
+
+* Long-term: Unit elasticity of substitution (Cobb-Douglas)
 
 $$
 y_{1,t} = a_{y1} \cdot \kappa_{y1} \cdot
@@ -91,13 +99,7 @@ mq_t{}^{\gamma_{mq}}
 $$
 
 
-2. No elasticity technology (Leontief technology)
 
-$$
-y_{1,t} = \min \left\{
-\frac{y_{2,t}}{\alpha_{y1}},\ \frac{mq_t}{\alpha_{mq}}
-\right\}
-$$
 
 
 #### Stage $T-0$: Sticky prices
@@ -114,7 +116,7 @@ $$
 \Pi_{y,t}
 \equiv py_t \, y_{0,t}
 - pmm_t \, my_t 
-- w_t \, nh_t \, nl_t
+- w_t \, nh_t \, \xnf_t
 - pu_t \, u_t\, k_t 
 - pq_t \, mq_t \ \cdots \\[10pt]
 \cdots -\ \Xi_{y4,t} - \Xi_{y3,t} - \Xi_{y2,t} - \Xi_{y1,t} - \Xi_{py,t}
@@ -127,11 +129,11 @@ $$
 The final goods produced domestically are demanded as one of the following
 types of goods
 
-* Private consumption, $ch_t$
+* Private consumption (by households), $ch_t$
 
 * Government consumption, $cg_t$
 
-* Private investment, $ih_t$
+* Private investment (by households), $ih_t$
 
 * Inputs into export production, $yx_t$
 
@@ -140,11 +142,4 @@ The market clearing conditions is therefore given by
 $$
 y_t = ch_t + cg_t + ih_t + yx_t
 $$
-
-where
-
-* $ch_t$ is private consumption (by households)
-* $cg_t$ is government consumption
-* $ih_t$ is private investment (by households)
-* $yx_t$ is the local component in the export production
 

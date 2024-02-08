@@ -1,6 +1,5 @@
 
 --8<-- "model/math.md"
-![[model/math.md]]
 
 ## Symmetric two-area economy wrapper
 
@@ -20,7 +19,7 @@
   interest rates equal real interest rates)
 
 * With zero inflation differentials and equal long-rung productivity growth
-  (driven by the global productivi
+  (driven by the global productivity growth)
 
 * Initially, we turn off the net worth effect by setting $\nu_1=0$
 

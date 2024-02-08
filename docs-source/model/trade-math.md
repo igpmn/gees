@@ -42,6 +42,6 @@ Price | Where placed in the model
 ---|---
 $pmm_t^{\mathrm{fob}, k}$ |  Balance of payments
 $pmm_t^{k}$ | Input price facing local agents
-$pmm_t^{\mathrm{fob}, k}-pmm_t^k$ |  Government revenues
+$pmm_t^k - pmm_t^{\mathrm{fob}, k}$ |  Government revenues
 
 
